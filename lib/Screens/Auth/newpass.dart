@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/forget.dart';
+import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
 import 'package:nutriapp/Screens/home.dart';
-import 'forget.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class NewPassScreen extends StatefulWidget {
+  const NewPassScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<NewPassScreen> createState() => _NewPassScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _NewPassScreenState extends State<NewPassScreen> {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -54,10 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      obscureText: true,
                       decoration: InputDecoration(
-                        hintText: 'Phone number',
+                        hintText: 'New Passsword',
+                        prefixIconColor: AppColors.primaryColor,
                         prefixIcon: Icon(
-                          CupertinoIcons.phone_fill,
+                          CupertinoIcons.padlock_solid,
                           color: AppColors.primaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -85,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
-                        hintText: 'Passsword',
+                        hintText: 'Confirm Passsword',
                         prefixIconColor: AppColors.primaryColor,
                         prefixIcon: Icon(
                           CupertinoIcons.padlock_solid,
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 300,
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,
@@ -121,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (route) => false);
+                                builder: (context) => const LoginScreen()), (route) => false
+                        );
                       },
                       child: Text(
-                        'Login',
+                        'Submit',
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 16,
@@ -137,58 +138,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(8))),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: TextButton(
-                      onPressed: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ForgetPasswordScreen()));
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.loginHintColor,
-                            fontSize: 16),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
-            SizedBox(
-              height: SizeConfig.screenHeight * .2,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Not a member? \t',
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterScreen()));
-                    },
-                    child: Text('Sign up',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.primaryColor)),
-                  )
-                ],
-              ),
-            )
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Main/notifications.dart';
 import 'package:nutriapp/Services/greetings.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +125,7 @@ class _HomeState extends State<Home> {
                     ),
                     Row(
                       children: [
-                        IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.bell,color: AppColors.primaryColor,)),
+                        IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const NotificationScreen()));}, icon: Icon(CupertinoIcons.bell,color: AppColors.primaryColor,)),
                         IconButton(onPressed: (){}, icon: SvgPicture.asset(AssetsLoader.drawer,width: 25,color: AppColors.primaryColor,)),
                       ],
                     )

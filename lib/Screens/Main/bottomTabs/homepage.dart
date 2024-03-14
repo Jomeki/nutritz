@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Main/evaluation_welcome.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 
 import '../../../Themes/colors.dart';
@@ -63,7 +64,9 @@ class _HomePageState extends State<HomePage> {
                       width: SizeConfig.screenWidth * .4,
                       height: 40,
                       child: FilledButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const EvaluationWelcomeScreen()), (route) => false);
+                        },
                         child: Text(
                           'Start Evaluation',
                           style: TextStyle(
