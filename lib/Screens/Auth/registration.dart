@@ -14,6 +14,24 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  String dropdownvalue = "Choose Gender";
+  var Gender = ['Male', 'Female'];
+  TextEditingController dateController = TextEditingController();
+
+
+  Future<void> selectDate() async {
+    DateTime? picker = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2030));
+
+    if(picker != null){
+      setState(() {
+        dateController.text = picker.toString().split(" ")[0];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +42,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         backgroundColor: Colors.white,
         centerTitle: true,
         title: Text(
-        'Nutritz',
-        style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 36,
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.w700),
-      ),
+          'Nutritz',
+          style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 36,
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.w700),
+        ),
       ),
       body: SizedBox(
         width: SizeConfig.screenWidth,
@@ -38,10 +56,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // SizedBox(
-            //   height: SizeConfig.screenHeight * .1,
-            // ),
-            Text('Personal Details', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
+
+            Text('Personal Details',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Inter')),
             Form(
               key: _formKey,
               child: Column(
@@ -165,20 +186,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                   ),
-
-                  // TODO Implement dropdown on gender options
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: TextFormField(
-                      obscureText: true,
+                        vertical: 8.0, horizontal: 16.0),
+                    child: DropdownButtonFormField(
                       decoration: InputDecoration(
                         hintText: 'Gender',
                         prefixIconColor: AppColors.primaryColor,
-                        prefixIcon: Icon(
-                          CupertinoIcons.person_2_alt,
-                          color: AppColors.primaryColor,
-                        ),
+                        prefixIcon: Icon(CupertinoIcons.person_2_alt),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
@@ -196,14 +211,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderSide: BorderSide(
                                 width: 1, color: AppColors.loginBorderColor)),
                       ),
+                      items: Gender.map(
+                          (e){
+                            return DropdownMenuItem(value: e,child: Text(e),);
+                          }
+                      ).toList(),
+                      onChanged: (String? newvalue) {
+                        setState(() {
+                          dropdownvalue = newvalue!;
+                        });
+                      },
+
                     ),
                   ),
-                  // TODO Implement date picker on date input option
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
-                      obscureText: true,
+                      readOnly: true,
+                      onTap: () {
+                        selectDate();
+                      },
+                      controller: dateController,
                       decoration: InputDecoration(
                         hintText: 'Date of Birth',
                         prefixIconColor: AppColors.primaryColor,
@@ -259,9 +288,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   height: SizeConfig.screenHeight * .2,
-            // ),
           ],
         ),
       ),

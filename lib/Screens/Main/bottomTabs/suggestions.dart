@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Resources/assets.dart';
-
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 
@@ -105,6 +104,8 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                     SizedBox(
                       height: 10,
                     ),
+
+                    //TODO Fix spacing of the suggested foods and your plan containers and make the whole page scrollable
                     Container(
                       width: 170,
                       height: 120,
