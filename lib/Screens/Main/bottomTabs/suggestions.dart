@@ -34,7 +34,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 )),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
