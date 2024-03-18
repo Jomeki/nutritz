@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/suggestions.dart';
 import 'package:nutriapp/Screens/Main/evaluation_welcome.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 
@@ -32,7 +33,9 @@ class _HomePageState extends State<HomePage> {
                       image: AssetImage(AssetsLoader.salad),
                       fit: BoxFit.fill,
                       opacity: 0.5)),
-              child: Column(
+              child:
+              //TODO Make this column disappear after user has completed evaluation series
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -191,13 +194,23 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                 ),
-                Text(
-                  'View all plans',
-                  style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.primaryColor),
+                //TODO When clicked to go to the diet suggestion the page does not appear with the app header
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DietSuggestions()),
+                            (route) => false);
+                  },
+                  child: Text(
+                    'View all plans',
+                    style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.primaryColor),
+                  ),
                 ),
               ],
             ),

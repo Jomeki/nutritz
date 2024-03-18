@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/forget.dart';
+import 'package:nutriapp/Screens/Auth/health_goal.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
 import 'package:nutriapp/Screens/home.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class HealthInfoScreen extends StatefulWidget {
+  const HealthInfoScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<HealthInfoScreen> createState() => _HealthInfoScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _HealthInfoScreenState extends State<HealthInfoScreen> {
   final _formKey = GlobalKey<FormState>();
-
+  String dropdownvalue = "Choose blood group";
+  var blood = [
+    'O','A','B','AB'
+  ];
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -43,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: SizeConfig.screenHeight * .1,
             ),
+            Text('Health information', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
             Form(
               key: _formKey,
               child: Column(
@@ -52,11 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
+                    //TODO Implement a mini dropdown list in input for choosing measurement metrics which will be centimeters and Feet/inches
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'Phone number',
+                        hintText: 'Height',
                         prefixIcon: Icon(
-                          CupertinoIcons.phone_fill,
+                          Icons.height,
                           color: AppColors.primaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -81,13 +87,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
+                    //TODO Implement a mini dropdown list in input for choosing measurement metrics which will be pounds and kilograms
                     child: TextFormField(
-                      obscureText: true,
                       decoration: InputDecoration(
-                        hintText: 'Passsword',
+                        hintText: 'Weight',
                         prefixIconColor: AppColors.primaryColor,
                         prefixIcon: Icon(
-                          CupertinoIcons.padlock_solid,
+                          Icons.balance,
                           color: AppColors.primaryColor,
                         ),
                         border: OutlineInputBorder(
@@ -107,6 +113,44 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderSide: BorderSide(
                                 width: 1, color: AppColors.loginBorderColor)),
                       ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Blood Group',
+                        prefixIconColor: AppColors.primaryColor,
+                        prefixIcon: Icon(CupertinoIcons.person_2_alt),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor)),
+                        disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor)),
+                      ),
+                      items: blood.map(
+                              (e){
+                            return DropdownMenuItem(value: e,child: Text(e),);
+                          }
+                      ).toList(),
+                      onChanged: (String? newvalue) {
+                        setState(() {
+                          dropdownvalue = newvalue!;
+                        });
+                      },
+
                     ),
                   ),
                   SizedBox(
@@ -117,14 +161,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (route) => false);
+                        Navigator.push(context,MaterialPageRoute(
+                                builder: (context) =>  HealthGoalScreen()));
                       },
                       child: Text(
-                        'Login',
+                        'Next',
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 16,
@@ -136,58 +177,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(8))),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: TextButton(
-                      onPressed: (){
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ForgetPasswordScreen()));
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.loginHintColor,
-                            fontSize: 16),
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
             SizedBox(
               height: SizeConfig.screenHeight * .2,
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Not a member? \t',
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black)),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterScreen()));
-                    },
-                    child: Text('Sign up',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.primaryColor)),
-                  )
-                ],
-              ),
-            )
           ],
         ),
       ),
