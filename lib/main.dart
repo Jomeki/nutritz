@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Intro/onboarding.dart';
-import 'package:nutriapp/Screens/home.dart';
 import 'package:provider/provider.dart';
 import 'Providers/appState.dart';
 

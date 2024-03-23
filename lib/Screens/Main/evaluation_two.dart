@@ -49,7 +49,7 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-                    child: Text('What are your current sleeping hours?',
+                    child: Text('What are your current sleeping hours?',textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 25.0,

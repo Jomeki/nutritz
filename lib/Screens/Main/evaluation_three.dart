@@ -49,7 +49,7 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-                    child: Text('Do you have any food allergies?',
+                    child: Text('Do you have any food allergies?',textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 25.0,

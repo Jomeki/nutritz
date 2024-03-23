@@ -47,7 +47,7 @@ class _EvaluationWelcomeScreenState extends State<EvaluationWelcomeScreen> {
             // TODO Center description text about evaluation
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-              child: Text('This evaluation will help fine tune the suggestions provided to you',style: TextStyle(color: AppColors.loginHintColor),),
+              child: Text('This evaluation will help fine tune the suggestions provided to you',style: TextStyle(color: AppColors.loginHintColor),textAlign: TextAlign.center,),
             ),
             Form(
               key: _formKey,

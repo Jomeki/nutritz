@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Themes/colors.dart';
-import 'package:provider/provider.dart';
 
 class ChatInputField extends StatefulWidget {
   const ChatInputField({

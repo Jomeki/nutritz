@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../Resources/assets.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 
@@ -13,6 +11,10 @@ class ProgressPage extends StatefulWidget {
 }
 
 class _ProgressPageState extends State<ProgressPage> {
+
+  var Timelines =["Daily","Weekly","Monthly"];
+  String dropdownvalue = "Time";
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -24,7 +26,7 @@ class _ProgressPageState extends State<ProgressPage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
                     children: [
@@ -235,44 +237,59 @@ class _ProgressPageState extends State<ProgressPage> {
             ),
             Padding(padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),child: Container(
               width: SizeConfig.screenWidth,
-              height: 180,
+              //TODO Increase size of this box to 230 after making the whole page scrollable
+              height: 210,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: AppColors.primaryColor,width: 1)
               ),
+              //TODO Graph of number of achievements against date
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment:MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 8, top: 4),
+                        padding: const EdgeInsets.only(right: 8, top: 8),
                         child: SizedBox(
-                          width: SizeConfig.screenWidth * .3,
-                          height: 40,
-                          child: FilledButton(
-                            onPressed: () {},
-                            style: FilledButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                                backgroundColor: AppColors.primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Text(
-                                    'Weekly',
-                                    style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontSize: 12,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                Icon(CupertinoIcons.chevron_down,size: 20.0,)
-                              ],
+                          width: SizeConfig.screenWidth * .35,
+                          height: 60,
+                          child: DropdownButtonFormField(
+                            iconEnabledColor: Colors.white,
+                            dropdownColor: AppColors.primaryColor,
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              hintText: 'Timeframe',
+                              hintStyle: TextStyle(color: Colors.white,),
+                              filled: true,
+                              fillColor: AppColors.primaryColor,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                      width: 1,color: AppColors.primaryColor)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                      width: 1,color: AppColors.primaryColor)),
+                              disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                      width: 1,color: AppColors.primaryColor)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                      width: 1, color: AppColors.primaryColor)),
                             ),
+                            items: Timelines.map((e){
+                                  return DropdownMenuItem(value: e,child: Text(e),);
+                                }
+                            ).toList(),
+                            onChanged: (String? newvalue) {
+                              setState(() {
+                                dropdownvalue = newvalue!;
+                              });
+                            },
+
                           ),
                         ),
                       ),
@@ -299,6 +316,7 @@ class _ProgressPageState extends State<ProgressPage> {
                         color: Colors.black),
                   )),
             ),
+            //TODO A table showing subscribed plans and completion status goes here
             SizedBox(height: 32.0,),
             Align(
               alignment: Alignment.center,

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:nutriapp/Screens/Auth/forget.dart';
 import 'package:nutriapp/Screens/Auth/login.dart';
-import 'package:nutriapp/Screens/Auth/registration.dart';
-import 'package:nutriapp/Screens/home.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 

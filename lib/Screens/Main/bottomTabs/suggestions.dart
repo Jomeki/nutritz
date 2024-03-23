@@ -35,7 +35,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
@@ -243,6 +243,8 @@ class _DietSuggestionsState extends State<DietSuggestions> {
               ],
             ),
           ),
+
+          //TODO list 5 elements at a time and enable user to scroll horizontally in this section
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Align(
@@ -312,6 +314,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                           ),
                         ),
                       ))),
+          //TODO list 5 elements at a time and enable user to scroll vertically in this section
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Align(

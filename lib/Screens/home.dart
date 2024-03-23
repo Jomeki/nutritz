@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Resources/assets.dart';
 import 'package:nutriapp/Screens/Main/notifications.dart';
 import 'package:nutriapp/Services/greetings.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
-
 import '../Providers/appState.dart';
 import '../Services/ScreenSizes.dart';
 import '../Widgets/drawerHeader.dart';
 import '../Widgets/drawerbody.dart';
-import '../Widgets/sideBar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

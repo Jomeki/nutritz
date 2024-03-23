@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
-import 'package:nutriapp/Screens/Auth/health_goal.dart';
 import 'package:nutriapp/Screens/Auth/health_info.dart';
-import 'package:nutriapp/Screens/home.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
