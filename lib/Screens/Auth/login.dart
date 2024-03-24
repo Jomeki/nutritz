@@ -138,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: TextButton(
-                      onPressed: (){
+                    child: GestureDetector(
+                      onTap: (){
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -171,8 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.black)),
-                  TextButton(
-                    onPressed: () {
+                  GestureDetector(
+                    onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(

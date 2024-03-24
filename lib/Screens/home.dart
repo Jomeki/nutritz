@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/nutriibot.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/progress.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/suggestions.dart';
 import 'package:nutriapp/Screens/Main/notifications.dart';
 import 'package:nutriapp/Services/greetings.dart';
 import 'package:nutriapp/Themes/colors.dart';
@@ -28,6 +32,85 @@ class _HomeState extends State<Home> {
     SizeConfig().init(context);
     final appState = Provider.of<AppState>(context);
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: AppColors.primaryColor,
+        child: ListView(
+        children: [
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: Icon(IconlyLight.home),
+            title: Text("Home"),
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Home()),
+                      (route) => false);
+            },
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: Icon(CupertinoIcons.arrow_up),
+            title: Text("Progress"),
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProgressPage()),
+                      (route) => false);
+            },
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: SvgPicture.asset(AssetsLoader.food,color: Colors.white,width: 25,),
+            title: Text("Diet suggestions"),
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DietSuggestions()),
+                      (route) => false);
+            },
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: SvgPicture.asset(AssetsLoader.chat,width: 25,color: Colors.white,),
+            title: Text("NutriBot"),
+            onTap: (){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Nutribot()),
+                      (route) => false);
+            },
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: Icon(Icons.radio_button_on),
+            title: Text("Switch to swahili"),
+            onTap: (){},
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: Icon(Icons.person),
+            title: Text("Profile"),
+            onTap: (){},
+          ),
+          ListTile(
+            iconColor: Colors.white,
+            textColor: Colors.white,
+            leading: Icon(Icons.logout),
+            title: Text("Logout"),
+            onTap: (){},
+          ),
+        ],
+      ),),
       // backgroundColor: Colors.white.withOpacity(0.95),
       // drawerEnableOpenDragGesture: false,
       // drawer: SideBarDrawer(),
@@ -123,7 +206,11 @@ class _HomeState extends State<Home> {
                     Row(
                       children: [
                         IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const NotificationScreen()));}, icon: Icon(CupertinoIcons.bell,color: AppColors.primaryColor,)),
-                        IconButton(onPressed: (){}, icon: SvgPicture.asset(AssetsLoader.drawer,width: 25,color: AppColors.primaryColor,)),
+                        Builder(
+                          builder: (context) {
+                            return IconButton(onPressed: (){ Scaffold.of(context).openDrawer();}, icon: SvgPicture.asset(AssetsLoader.drawer,width: 25,color: AppColors.primaryColor,));
+                          }
+                        ),
                       ],
                     )
                   ],

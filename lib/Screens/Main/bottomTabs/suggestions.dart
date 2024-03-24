@@ -77,7 +77,48 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                     width: SizeConfig.screenWidth * .3,
                                     height: 32,
                                     child: FilledButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showCupertinoModalPopup(context: context, builder: (BuildContext context){
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
+                                            child: SizedBox(
+                                              height:SizeConfig.screenHeight,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(8.0),
+                                                      color: Colors.white
+                                                  ),
+                                                  height: 350,
+                                                  width: 380,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(24.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                child: Text('FATS FOOD \nSUGGESTION SUMMARY')),
+                                                            GestureDetector(onTap: () { Navigator.pop(context); },
+                                                                child: Icon(Icons.close,color: Colors.red,)),
+                                                          ],
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        ),
+                                                        SizedBox(height: 20.0,),
+                                                        Column(
+                                                          children: [
+                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                child: Text('Details about the monthly goals report goes here')),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                      },
                                       child: Text(
                                         'View Details',
                                         style: TextStyle(
@@ -144,7 +185,48 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                     width: SizeConfig.screenWidth * .3,
                                     height: 32,
                                     child: FilledButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showCupertinoModalPopup(context: context, builder: (BuildContext context){
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
+                                            child: SizedBox(
+                                              height:SizeConfig.screenHeight,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(8.0),
+                                                      color: Colors.white
+                                                  ),
+                                                  height: 350,
+                                                  width: 380,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(24.0),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                child: Text('CARB FOOD \nSUGGESTION SUMMARY')),
+                                                            GestureDetector(onTap: () { Navigator.pop(context); },
+                                                                child: Icon(Icons.close,color: Colors.red,)),
+                                                          ],
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        ),
+                                                        SizedBox(height: 20.0,),
+                                                        Column(
+                                                          children: [
+                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                child: Text('Details about the monthly goals report goes here')),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                      },
                                       child: Text(
                                         'View Details',
                                         style: TextStyle(
@@ -216,7 +298,48 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                 width: SizeConfig.screenWidth * .3,
                                 height: 32,
                                 child: FilledButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showCupertinoModalPopup(context: context, builder: (BuildContext context){
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
+                                        child: SizedBox(
+                                          height:SizeConfig.screenHeight,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  color: Colors.white
+                                              ),
+                                              height: 350,
+                                              width: 380,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(24.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                            child: Text('PROTEIN FOOD \nSUGGESTION SUMMARY')),
+                                                        GestureDetector(onTap: () { Navigator.pop(context); },
+                                                            child: Icon(Icons.close,color: Colors.red,)),
+                                                      ],
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    ),
+                                                    SizedBox(height: 20.0,),
+                                                    Column(
+                                                      children: [
+                                                        DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                            child: Text('Details about the monthly goals report goes here')),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                          ),
+                                        ),
+                                      );
+                                    });
+                                  },
                                   child: Text(
                                     'View Details',
                                     style: TextStyle(
@@ -283,30 +406,74 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Bananas',
-                                        style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(right: 8.0),
-                                        child: Text(
-                                          'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      showCupertinoModalPopup(context: context, builder: (BuildContext context){
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
+                                          child: SizedBox(
+                                            height:SizeConfig.screenHeight,
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(8.0),
+                                                    color: Colors.white
+                                                ),
+                                                height: 350,
+                                                width: 380,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(24.0),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                              child: Text('Bananas')),
+                                                          GestureDetector(onTap: () { Navigator.pop(context); },
+                                                              child: Icon(Icons.close,color: Colors.red,)),
+                                                        ],
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      ),
+                                                      SizedBox(height: 20.0,),
+                                                      Column(
+                                                        children: [
+                                                          DefaultTextStyle(style: TextStyle(fontSize: 15.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w400 ),
+                                                              child: Text('A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.')),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Bananas',
                                           style: TextStyle(
                                               fontFamily: 'Inter',
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w400),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 5,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w700),
                                         ),
-                                      ),
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.only(right: 8.0),
+                                          child: Text(
+                                            'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
+                                            style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w400),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
@@ -396,7 +563,98 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                         width: SizeConfig.screenWidth * .4,
                                         height: 35,
                                         child: FilledButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            showCupertinoModalPopup(context: context, builder: (BuildContext context){
+                                              return Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
+                                                child: SizedBox(
+                                                  height:SizeConfig.screenHeight,
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          color: Colors.white
+                                                      ),
+                                                      height: 350,
+                                                      width: 380,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(24.0),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 20.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                    child: Text('LOW CARBS FOOD PLAN \nDETAILS')),
+                                                                TextButton(onPressed: () { Navigator.pop(context); },
+                                                                    child: Icon(Icons.close,color: Colors.red,)),
+                                                              ],
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            ),
+                                                            SizedBox(height: 20.0,),
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                    child: Text('Overview')),
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 15.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w400 ),
+                                                                    child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 20.0,),
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                    child: Text('What you will do')),
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 15.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w400 ),
+                                                                    child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 20.0,),
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
+                                                                    child: Text('Guidelines')),
+                                                                DefaultTextStyle(style: TextStyle(fontSize: 15.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w400 ),
+                                                                    child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
+                                                              ],
+                                                            ),
+                                                            SizedBox(height: 20.0,),
+                                                            SizedBox(
+                                                              width: SizeConfig.screenWidth * .5,
+                                                              height: 50,
+                                                              child: FilledButton(
+                                                                onPressed: () {
+                                                                },
+                                                                child: Row(
+                                                                  children: [
+                                                                    Icon(Icons.event_note_outlined,),
+                                                                    SizedBox(width: 10.0,),
+                                                                    Text(
+                                                                      'Add to my plan',
+                                                                      style: TextStyle(
+                                                                          fontFamily: 'Inter',
+                                                                          fontSize: 16,
+                                                                          color: Colors.white),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                style: FilledButton.styleFrom(
+                                                                    backgroundColor: AppColors.primaryColor,
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.circular(8))),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                          },
                                           child: Text(
                                             'View plan details',
                                             style: TextStyle(
