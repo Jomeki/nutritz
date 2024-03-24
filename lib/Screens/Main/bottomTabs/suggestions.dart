@@ -20,7 +20,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 16,),
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(

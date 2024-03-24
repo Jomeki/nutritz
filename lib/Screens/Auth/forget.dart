@@ -76,7 +76,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                   ),
-                  // TODO Center description text
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
                     child: Text('Please enter the phone number you registered with on our platform',style: TextStyle(color: AppColors.loginHintColor),textAlign: TextAlign.center,),

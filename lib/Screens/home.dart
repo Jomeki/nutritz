@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Main/bottomTabs/nutriibot.dart';
 import 'package:nutriapp/Screens/Main/bottomTabs/progress.dart';
 import 'package:nutriapp/Screens/Main/bottomTabs/suggestions.dart';
@@ -107,7 +108,9 @@ class _HomeState extends State<Home> {
             textColor: Colors.white,
             leading: Icon(Icons.logout),
             title: Text("Logout"),
-            onTap: (){},
+            onTap: (){
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const LoginScreen()), (route) => false);
+            },
           ),
         ],
       ),),

@@ -44,7 +44,6 @@ class _EvaluationWelcomeScreenState extends State<EvaluationWelcomeScreen> {
             Text('Welcome to Nutritz', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
             Text('Evaluation', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
 
-            // TODO Center description text about evaluation
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
               child: Text('This evaluation will help fine tune the suggestions provided to you',style: TextStyle(color: AppColors.loginHintColor),textAlign: TextAlign.center,),
