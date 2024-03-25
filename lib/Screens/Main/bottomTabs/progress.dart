@@ -59,46 +59,94 @@ class _ProgressPageState extends State<ProgressPage> {
                                         height: 32,
                                         child: FilledButton(
                                           onPressed: () {
-                                            showCupertinoModalPopup(context: context, builder: (BuildContext context){
-                                              return Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
-                                                child: SizedBox(
-                                                  height:SizeConfig.screenHeight,
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(8.0),
-                                                          color: Colors.white
-                                                      ),
-                                                      height: 350,
-                                                      width: 380,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(24.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Row(
+                                            showCupertinoModalPopup(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 32.0),
+                                                    child: SizedBox(
+                                                      height: SizeConfig
+                                                          .screenHeight,
+                                                      child: Container(
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              color:
+                                                                  Colors.white),
+                                                          height: 350,
+                                                          width: 380,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(24.0),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
-                                                                DefaultTextStyle(style: TextStyle(fontSize: 20.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                    child: Text('DAILY GOALS SUMMARY')),
-                                                                GestureDetector(onTap: () { Navigator.pop(context); },
-                                                                    child: Icon(Icons.close,color: Colors.red,)),
+                                                                Row(
+                                                                  children: [
+                                                                    DefaultTextStyle(
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                20.0,
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            fontWeight: FontWeight
+                                                                                .w900),
+                                                                        child: Text(
+                                                                            'DAILY GOALS SUMMARY')),
+                                                                    GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .close,
+                                                                          color:
+                                                                              Colors.red,
+                                                                        )),
+                                                                  ],
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 20.0,
+                                                                ),
+                                                                Column(
+                                                                  children: [
+                                                                    DefaultTextStyle(
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            color: AppColors
+                                                                                .loginHintColor,
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            fontWeight: FontWeight
+                                                                                .w900),
+                                                                        child: Text(
+                                                                            'Details about the daily goals report goes here')),
+                                                                  ],
+                                                                ),
                                                               ],
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             ),
-                                                            SizedBox(height: 20.0,),
-                                                            Column(
-                                                              children: [
-                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                    child: Text('Details about the daily goals report goes here')),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )
-                                                  ),
-                                                ),
-                                              );
-                                            });
+                                                          )),
+                                                    ),
+                                                  );
+                                                });
                                           },
                                           child: Text(
                                             'More info',
@@ -113,7 +161,8 @@ class _ProgressPageState extends State<ProgressPage> {
                                               backgroundColor: Colors.black,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(24))),
+                                                      BorderRadius.circular(
+                                                          24))),
                                         ),
                                       ),
                                     ),
@@ -131,8 +180,9 @@ class _ProgressPageState extends State<ProgressPage> {
                                         value: 0.6,
                                         strokeWidth: 8,
                                         backgroundColor: Colors.white,
-                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                            Colors.blueGrey),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.blueGrey),
                                         semanticsLabel: 'Complete',
                                         semanticsValue: '60',
                                       ),
@@ -186,46 +236,94 @@ class _ProgressPageState extends State<ProgressPage> {
                                         height: 32,
                                         child: FilledButton(
                                           onPressed: () {
-                                            showCupertinoModalPopup(context: context, builder: (BuildContext context){
-                                              return Padding(
-                                                padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
-                                                child: SizedBox(
-                                                  height:SizeConfig.screenHeight,
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(8.0),
-                                                          color: Colors.white
-                                                      ),
-                                                      height: 350,
-                                                      width: 380,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.all(24.0),
-                                                        child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            Row(
+                                            showCupertinoModalPopup(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 32.0),
+                                                    child: SizedBox(
+                                                      height: SizeConfig
+                                                          .screenHeight,
+                                                      child: Container(
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              color:
+                                                                  Colors.white),
+                                                          height: 350,
+                                                          width: 380,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(24.0),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
-                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                    child: Text('WEEKLY GOALS SUMMARY')),
-                                                                GestureDetector(onTap: () { Navigator.pop(context); },
-                                                                    child: Icon(Icons.close,color: Colors.red,)),
+                                                                Row(
+                                                                  children: [
+                                                                    DefaultTextStyle(
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            fontWeight: FontWeight
+                                                                                .w900),
+                                                                        child: Text(
+                                                                            'WEEKLY GOALS SUMMARY')),
+                                                                    GestureDetector(
+                                                                        onTap:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .close,
+                                                                          color:
+                                                                              Colors.red,
+                                                                        )),
+                                                                  ],
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 20.0,
+                                                                ),
+                                                                Column(
+                                                                  children: [
+                                                                    DefaultTextStyle(
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            color: AppColors
+                                                                                .loginHintColor,
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            fontWeight: FontWeight
+                                                                                .w900),
+                                                                        child: Text(
+                                                                            'Details about the weekly goals report goes here')),
+                                                                  ],
+                                                                ),
                                                               ],
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             ),
-                                                            SizedBox(height: 20.0,),
-                                                            Column(
-                                                              children: [
-                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                    child: Text('Details about the weekly goals report goes here')),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )
-                                                  ),
-                                                ),
-                                              );
-                                            });
+                                                          )),
+                                                    ),
+                                                  );
+                                                });
                                           },
                                           child: Text(
                                             'More info',
@@ -240,7 +338,8 @@ class _ProgressPageState extends State<ProgressPage> {
                                               backgroundColor: Colors.black,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(24))),
+                                                      BorderRadius.circular(
+                                                          24))),
                                         ),
                                       ),
                                     ),
@@ -258,8 +357,9 @@ class _ProgressPageState extends State<ProgressPage> {
                                         value: 0.6,
                                         strokeWidth: 8,
                                         backgroundColor: Colors.white,
-                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                            Colors.blueGrey),
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.blueGrey),
                                         semanticsLabel: 'Complete',
                                         semanticsValue: '60',
                                       ),
@@ -314,46 +414,92 @@ class _ProgressPageState extends State<ProgressPage> {
                                     height: 32,
                                     child: FilledButton(
                                       onPressed: () {
-                                        showCupertinoModalPopup(context: context, builder: (BuildContext context){
-                                          return Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 32.0),
-                                            child: SizedBox(
-                                              height:SizeConfig.screenHeight,
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(8.0),
-                                                      color: Colors.white
-                                                  ),
-                                                  height: 350,
-                                                  width: 380,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(24.0),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Row(
+                                        showCupertinoModalPopup(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 32.0),
+                                                child: SizedBox(
+                                                  height:
+                                                      SizeConfig.screenHeight,
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          color: Colors.white),
+                                                      height: 350,
+                                                      width: 380,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(24.0),
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
-                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: Colors.black,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                child: Text('MONTHLY GOALS SUMMARY')),
-                                                            GestureDetector(onTap: () { Navigator.pop(context); },
-                                                                child: Icon(Icons.close,color: Colors.red,)),
+                                                            Row(
+                                                              children: [
+                                                                DefaultTextStyle(
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18.0,
+                                                                        color: Colors
+                                                                            .black,
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w900),
+                                                                    child: Text(
+                                                                        'MONTHLY GOALS SUMMARY')),
+                                                                GestureDetector(
+                                                                    onTap: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .close,
+                                                                      color: Colors
+                                                                          .red,
+                                                                    )),
+                                                              ],
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                            ),
+                                                            SizedBox(
+                                                              height: 20.0,
+                                                            ),
+                                                            Column(
+                                                              children: [
+                                                                DefaultTextStyle(
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            18.0,
+                                                                        color: AppColors
+                                                                            .loginHintColor,
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w900),
+                                                                    child: Text(
+                                                                        'Details about the monthly goals report goes here')),
+                                                              ],
+                                                            ),
                                                           ],
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         ),
-                                                        SizedBox(height: 20.0,),
-                                                        Column(
-                                                          children: [
-                                                            DefaultTextStyle(style: TextStyle(fontSize: 18.0,color: AppColors.loginHintColor,fontFamily:'Inter',fontWeight: FontWeight.w900 ),
-                                                                child: Text('Details about the monthly goals report goes here')),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                              ),
-                                            ),
-                                          );
-                                        });
+                                                      )),
+                                                ),
+                                              );
+                                            });
                                       },
                                       child: Text(
                                         'More info',
