@@ -342,7 +342,7 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                               SizedBox(height: 20.0,),
                                                               SizedBox(
-                                                                width: SizeConfig.screenWidth * .5,
+                                                                width: SizeConfig.screenWidth * .55,
                                                                 height: 50,
                                                                 child: FilledButton(
                                                                   onPressed: () {
