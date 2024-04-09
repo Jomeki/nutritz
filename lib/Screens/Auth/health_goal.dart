@@ -15,6 +15,16 @@ class HealthGoalScreen extends StatefulWidget {
 class _HealthGoalScreenState extends State<HealthGoalScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isChanged = true;
+
+  int selectedIndex = -1;
+  List<String> options = [
+    'Loose weight',
+    'Eat Healthy',
+    'Manage Stress',
+    'Disease Prevention',
+    'Others'
+  ];
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -55,111 +65,31 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  //TODO Fix checking mechanism for all checkboxes
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Loose weight"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Eat Healthy"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Manage Stress"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Disease Prevention"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Others"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .4,
+                    child: ListView.builder(
+                      itemCount: options.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16),
+                          child: CheckboxListTile(
+                            title: Text(options[index]),
+                            value: selectedIndex ==
+                                index, // Check if current option is selected
+                            onChanged: (bool? value) => setState(
+                                () => selectedIndex = value! ? index : -1),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            activeColor: AppColors.primaryColor,
+                            checkColor: Colors.white,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 90.0,

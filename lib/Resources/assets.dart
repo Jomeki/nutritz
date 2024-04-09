@@ -15,11 +15,13 @@ class AssetsLoader{
 
 
 
+
   //Images
   static String profileImg = 'assets/images/profile.png';
   static String salad = 'assets/images/salad.png';
   static String banana = 'assets/images/banana.jpg';
   static String chatbot = 'assets/images/chatbot.png';
+  static String success = 'assets/images/success.png';
 
 
 }

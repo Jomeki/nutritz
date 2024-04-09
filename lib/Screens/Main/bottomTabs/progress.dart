@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
+import '../../../Widgets/graphs/line_chart_card.dart';
 
 class ProgressPage extends StatefulWidget {
   const ProgressPage({super.key});
@@ -13,6 +15,8 @@ class ProgressPage extends StatefulWidget {
 class _ProgressPageState extends State<ProgressPage> {
   var Timelines = ["Daily", "Weekly", "Monthly"];
   String dropdownvalue = "Time";
+
+  bool progress = true;
 
   @override
   Widget build(BuildContext context) {
@@ -559,13 +563,10 @@ class _ProgressPageState extends State<ProgressPage> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: Container(
                   width: SizeConfig.screenWidth,
-                  //TODO Increase size of this box to 230 after making the whole page scrollable
-                  height: 210,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      border:
-                          Border.all(color: AppColors.primaryColor, width: 1)),
-                  //TODO Graph of number of achievements against date
+                      border: Border.all(
+                          color: AppColors.primaryColor, width: 1)),
                   child: Column(
                     children: [
                       Row(
@@ -625,20 +626,24 @@ class _ProgressPageState extends State<ProgressPage> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'You have no progress currently',
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.loginHintColor),
-                        ),
-                      )
+                      // SizedBox(
+                      //   height: 30,
+                      // ),
+                      if (progress) ...[
+                        LineChartCard()
+                      ] else ...[
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'You have no progress currently',
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.loginHintColor),
+                          ),
+                        )
+                      ]
                     ],
                   ),
                 ),

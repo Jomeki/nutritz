@@ -36,164 +36,202 @@ class _OtpScreenState extends State<OtpScreen> {
         height: SizeConfig.screenHeight,
         child: Column(
           children: [
-            SizedBox(height: 160.0,),
-            Text('OTP Verification', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: SizedBox(
-                        width: 70.0,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.loginBorderColor,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+            SizedBox(
+              height: 160.0,
+            ),
+            Text('OTP Verification',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Inter')),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8),
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppColors.loginBorderColor,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: SizedBox(
-                        width: 70.0,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.loginBorderColor,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8),
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppColors.loginBorderColor,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: SizedBox(
-                        width: 70.0,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.loginBorderColor,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8),
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppColors.loginBorderColor,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: SizedBox(
-                        width: 70.0,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.loginBorderColor,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 8),
+                            child: TextFormField(
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: AppColors.loginBorderColor,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        width: 1,
+                                        color: AppColors.loginBorderColor)),
+                              ),
+                            ),
                           ),
                         ),
+                      ],
+                    ),
+                    Text(
+                      'We have sent an OTP to the phone number you provided,',
+                      textAlign: TextAlign.center,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('If you have not received OTP'),
+                        Text(
+                          ' Resend in 3s',
+                          style: TextStyle(color: AppColors.primaryColor),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 300,
+                    ),
+                    SizedBox(
+                      width: SizeConfig.screenWidth * .5,
+                      height: 50,
+                      child: FilledButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HealthInfoScreen(),
+                              ));
+                        },
+                        child: Text(
+                          'Submit',
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                        style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8))),
                       ),
                     ),
-                  ],),
-                  Text('We have sent an OTP to the phone number you provided,'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('If you have not received OTP'),
-                      Text(' Resend in 3s',style: TextStyle(color: AppColors.primaryColor),)
-                    ],
-                  ),
-                  SizedBox(
-                    height: 300,
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * .5,
-                    height: 50,
-                    child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HealthInfoScreen(),));
-                      },
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                      style: FilledButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

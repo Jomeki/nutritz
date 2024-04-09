@@ -5,6 +5,8 @@ import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
+import '../../Resources/assets.dart';
+
 class NewPassScreen extends StatefulWidget {
   const NewPassScreen({super.key});
 
@@ -139,7 +141,12 @@ class _NewPassScreenState extends State<NewPassScreen> {
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                //TODO Add the 3d icon asset of the orange check
+                                                Image.asset(
+                                                  AssetsLoader.success,
+                                                  width: 120,
+                                                  height: 120,
+                                                  scale: 2,
+                                                ),
                                                 DefaultTextStyle(
                                                     style: TextStyle(
                                                         fontFamily: 'Inter',

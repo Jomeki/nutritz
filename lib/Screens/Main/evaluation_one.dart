@@ -15,6 +15,8 @@ class EvaluationQuestionOne extends StatefulWidget {
 class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
   final _formKey = GlobalKey<FormState>();
   bool isChanged = true;
+
+  String selectedOption = "";
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -59,12 +61,8 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: CheckboxListTile(
-                        value: isChanged,
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
+                        value: selectedOption == 'Yes',
+                        onChanged: (bool? value) => setState(() => selectedOption = value! ? 'Yes' : ''),
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
                               width: 1, color: AppColors.loginBorderColor),
@@ -80,17 +78,13 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: CheckboxListTile(
-                        value: isChanged,
+                        value: selectedOption == 'No',
+                        onChanged: (bool? value) => setState(() => selectedOption = value! ? 'No' : ''),
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
                               width: 1, color: AppColors.loginBorderColor),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
                         activeColor: AppColors.primaryColor,
                         checkColor: Colors.white,
                         title: Text("No"),

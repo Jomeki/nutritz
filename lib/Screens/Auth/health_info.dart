@@ -15,9 +15,13 @@ class HealthInfoScreen extends StatefulWidget {
 class _HealthInfoScreenState extends State<HealthInfoScreen> {
   final _formKey = GlobalKey<FormState>();
   String dropdownvalue = "Choose blood group";
-  var blood = [
-    'O','A','B','AB'
-  ];
+  var blood = ['O', 'A', 'B', 'AB'];
+
+  String selectedMeasurement = 'cm';
+  String selectedWeight = 'kg';
+
+  List<String> measurement = ['cm', 'ft'];
+  List<String> weight = ['kg', 'pnd'];
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -44,7 +48,12 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
             SizedBox(
               height: SizeConfig.screenHeight * .1,
             ),
-            Text('Health information', style: TextStyle(color: Colors.black,fontSize: 25.0,fontWeight: FontWeight.w700,fontFamily: 'Inter')),
+            Text('Health information',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Inter')),
             Form(
               key: _formKey,
               child: Column(
@@ -54,10 +63,41 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
-                    //TODO Implement a mini dropdown list in input for choosing measurement metrics which will be centimeters and Feet/inches
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Height',
+                        suffixIcon: SizedBox(
+                          width: 70,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: PopupMenuButton(
+                              initialValue: selectedMeasurement,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(selectedMeasurement),
+                                  Icon(Icons.arrow_drop_down)
+                                ],
+                              ),
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                    child: Text(measurement[0]),
+                                    onTap: () {
+                                      setState(() {
+                                        selectedMeasurement = measurement[0];
+                                      });
+                                    }),
+                                PopupMenuItem(
+                                    child: Text(measurement[1]),
+                                    onTap: () {
+                                      setState(() {
+                                        selectedMeasurement = measurement[1];
+                                      });
+                                    }),
+                              ],
+                            ),
+                          ),
+                        ),
                         prefixIcon: Icon(
                           Icons.height,
                           color: AppColors.primaryColor,
@@ -84,10 +124,42 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
-                    //TODO Implement a mini dropdown list in input for choosing measurement metrics which will be pounds and kilograms
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'Weight',
+                        suffixIcon: SizedBox(
+                          width: 70,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: PopupMenuButton(
+                              initialValue: selectedWeight,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(selectedWeight),
+                                  Icon(Icons.arrow_drop_down)
+                                ],
+                              ),
+                              itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  child: Text(weight[0]),
+                                  onTap: () {
+                                    setState(() {
+                                      selectedWeight = weight[0];
+                                    });
+                                  },
+                                ),
+                                PopupMenuItem(
+                                    child: Text(weight[1]),
+                                    onTap: () {
+                                      setState(() {
+                                        selectedWeight = weight[1];
+                                      });
+                                    }),
+                              ],
+                            ),
+                          ),
+                        ),
                         prefixIconColor: AppColors.primaryColor,
                         prefixIcon: Icon(
                           Icons.balance,
@@ -137,17 +209,17 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                             borderSide: BorderSide(
                                 width: 1, color: AppColors.loginBorderColor)),
                       ),
-                      items: blood.map(
-                              (e){
-                            return DropdownMenuItem(value: e,child: Text(e),);
-                          }
-                      ).toList(),
+                      items: blood.map((e) {
+                        return DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        );
+                      }).toList(),
                       onChanged: (String? newvalue) {
                         setState(() {
                           dropdownvalue = newvalue!;
                         });
                       },
-
                     ),
                   ),
                   SizedBox(
@@ -158,8 +230,10 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.push(context,MaterialPageRoute(
-                                builder: (context) =>  HealthGoalScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HealthGoalScreen()));
                       },
                       child: Text(
                         'Next',

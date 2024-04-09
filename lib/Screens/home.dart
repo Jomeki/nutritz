@@ -36,84 +36,86 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         backgroundColor: AppColors.primaryColor,
         child: ListView(
-        children: [
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: Icon(IconlyLight.home),
-            title: Text("Home"),
-            onTap: (){
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Home()),
-                      (route) => false);
-            },
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: Icon(CupertinoIcons.arrow_up),
-            title: Text("Progress"),
-            onTap: (){
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProgressPage()),
-                      (route) => false);
-            },
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: SvgPicture.asset(AssetsLoader.food,color: Colors.white,width: 25,),
-            title: Text("Diet suggestions"),
-            onTap: (){
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DietSuggestions()),
-                      (route) => false);
-            },
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: SvgPicture.asset(AssetsLoader.chat,width: 25,color: Colors.white,),
-            title: Text("NutriBot"),
-            onTap: (){
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Nutribot()),
-                      (route) => false);
-            },
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: Icon(Icons.radio_button_on),
-            title: Text("Switch to swahili"),
-            onTap: (){},
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: Icon(Icons.person),
-            title: Text("Profile"),
-            onTap: (){},
-          ),
-          ListTile(
-            iconColor: Colors.white,
-            textColor: Colors.white,
-            leading: Icon(Icons.logout),
-            title: Text("Logout"),
-            onTap: (){
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const LoginScreen()), (route) => false);
-            },
-          ),
-        ],
-      ),),
+          children: [
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: Icon(IconlyLight.home),
+              title: Text("Home"),
+              onTap: () {
+                Navigator.pop(context);
+                appState.setBottomNavIndex(0);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: Icon(CupertinoIcons.arrow_up),
+              title: Text("Progress"),
+              onTap: () {
+                Navigator.pop(context);
+                appState.setBottomNavIndex(1);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: SvgPicture.asset(
+                AssetsLoader.food,
+                color: Colors.white,
+                width: 25,
+              ),
+              title: Text("Diet suggestions"),
+              onTap: () {
+                Navigator.pop(context);
+                appState.setBottomNavIndex(2);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: SvgPicture.asset(
+                AssetsLoader.chat,
+                width: 25,
+                color: Colors.white,
+              ),
+              title: Text("NutriBot"),
+              onTap: () {
+                Navigator.pop(context);
+                appState.setBottomNavIndex(3);
+              },
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: Icon(Icons.radio_button_on),
+              title: Text("Switch to swahili"),
+              onTap: () {},
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: Icon(Icons.person),
+              title: Text("Profile"),
+              onTap: () {},
+            ),
+            ListTile(
+              iconColor: Colors.white,
+              textColor: Colors.white,
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
+              onTap: () {
+                appState.setBottomNavIndex(0);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()),
+                    (route) => false);
+              },
+            ),
+          ],
+        ),
+      ),
       // backgroundColor: Colors.white.withOpacity(0.95),
       // drawerEnableOpenDragGesture: false,
       // drawer: SideBarDrawer(),
@@ -162,7 +164,7 @@ class _HomeState extends State<Home> {
       // ),
       appBar: PreferredSize(
           preferredSize:
-              Size(SizeConfig.screenWidth, SizeConfig.screenHeight * .13),
+              Size(SizeConfig.screenWidth, SizeConfig.screenHeight * .12),
           child: SafeArea(
             child: Column(
               children: [
@@ -208,19 +210,39 @@ class _HomeState extends State<Home> {
                     ),
                     Row(
                       children: [
-                        IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> const NotificationScreen()));}, icon: Icon(CupertinoIcons.bell,color: AppColors.primaryColor,)),
-                        Builder(
-                          builder: (context) {
-                            return IconButton(onPressed: (){ Scaffold.of(context).openDrawer();}, icon: SvgPicture.asset(AssetsLoader.drawer,width: 25,color: AppColors.primaryColor,));
-                          }
-                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NotificationScreen()));
+                            },
+                            icon: Icon(
+                              CupertinoIcons.bell,
+                              color: AppColors.primaryColor,
+                            )),
+                        Builder(builder: (context) {
+                          return IconButton(
+                              onPressed: () {
+                                Scaffold.of(context).openDrawer();
+                              },
+                              icon: SvgPicture.asset(
+                                AssetsLoader.drawer,
+                                width: 25,
+                                color: AppColors.primaryColor,
+                              ));
+                        }),
                       ],
                     )
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16),
-                  child: Divider(color: AppColors.dividerColor,),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                  child: Divider(
+                    color: AppColors.dividerColor,
+                  ),
                 )
               ],
             ),

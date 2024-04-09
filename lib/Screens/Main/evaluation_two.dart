@@ -15,6 +15,9 @@ class EvaluationQuestionTwo extends StatefulWidget {
 class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
   final _formKey = GlobalKey<FormState>();
   bool isChanged = true;
+  int selectedIndex = -1;
+  List<String> options = ['>8 Hours', '7-8 Hours', '5-6 Hours', '4-3 Hours', '<3 Hours'];
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -56,110 +59,29 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
                             fontWeight: FontWeight.w700,
                             fontFamily: 'Inter')),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text(">8 Hours"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("7-8 Hours"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("5-6 Hours"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("4-3 Hours"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: isChanged,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        onChanged: (bool? newval) {
-                          setState(() {
-                            isChanged = newval!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("<3 Hours"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*.4,
+                    child: ListView.builder(
+                      itemCount: options.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 16),
+                          child: CheckboxListTile(
+                            title: Text(options[index]),
+                            value: selectedIndex == index, // Check if current option is selected
+                            onChanged: (bool? value) => setState(() => selectedIndex = value! ? index : -1),
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            activeColor: AppColors.primaryColor,
+                            checkColor: Colors.white,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 80.0,
