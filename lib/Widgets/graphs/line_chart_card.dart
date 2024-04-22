@@ -1,8 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
+import 'package:nutriapp/Themes/colors.dart';
 import 'custom_card.dart';
-
 
 class LineChartCard extends StatelessWidget {
   LineChartCard({super.key});
@@ -90,7 +89,7 @@ class LineChartCard extends StatelessWidget {
             height: 20,
           ),
           AspectRatio(
-            aspectRatio:9 / 4 ,
+            aspectRatio: 9 / 4,
             child: LineChart(
               LineChartData(
                 lineTouchData: LineTouchData(
@@ -106,14 +105,13 @@ class LineChartCard extends StatelessWidget {
                       getTitlesWidget: (double value, TitleMeta meta) {
                         return bottomTitle[value.toInt()] != null
                             ? SideTitleWidget(
-                          axisSide: meta.axisSide,
-                          space: 10,
-                          child: Text(
-                              bottomTitle[value.toInt()].toString(),
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey[700])),
-                        )
+                                axisSide: meta.axisSide,
+                                space: 10,
+                                child: Text(
+                                    bottomTitle[value.toInt()].toString(),
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.grey[700])),
+                              )
                             : const SizedBox();
                       },
                     ),
@@ -129,9 +127,8 @@ class LineChartCard extends StatelessWidget {
                       getTitlesWidget: (double value, TitleMeta meta) {
                         return leftTitle[value.toInt()] != null
                             ? Text(leftTitle[value.toInt()].toString(),
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.grey[700]))
+                                style: TextStyle(
+                                    fontSize: 9, color: Colors.grey[700]))
                             : const SizedBox();
                       },
                       showTitles: true,
@@ -145,7 +142,7 @@ class LineChartCard extends StatelessWidget {
                   LineChartBarData(
                       isCurved: true,
                       curveSmoothness: 0,
-                      color: Colors.red.shade900,
+                      color: AppColors.primaryColor,
                       barWidth: 2.5,
                       isStrokeCapRound: true,
                       belowBarData: BarAreaData(

@@ -17,6 +17,7 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
   bool isChanged = true;
 
   String selectedOption = "";
+  bool option = false;
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -58,41 +59,58 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                             fontFamily: 'Inter')),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: selectedOption == 'Yes',
-                        onChanged: (bool? value) => setState(() => selectedOption = value! ? 'Yes' : ''),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("Yes"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: RadioListTile(
+                      value: option,
+                      groupValue: !(option),
+                      title: Text("Yes"),
+                      subtitle: Text("I drink alchohol on a regular basis"),
+                      shape: RoundedRectangleBorder(side:BorderSide(width: 1,color: AppColors.loginBorderColor),
+                      borderRadius: BorderRadius.circular(8)),
+                      selectedTileColor: AppColors.primaryColor,
+                      onChanged: (bool? groupValue) {
+                        setState(() {
+                          option = !(option);
+                        });
+                      },
+                    )
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: CheckboxListTile(
-                        value: selectedOption == 'No',
-                        onChanged: (bool? value) => setState(() => selectedOption = value! ? 'No' : ''),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        activeColor: AppColors.primaryColor,
-                        checkColor: Colors.white,
-                        title: Text("No"),
-                        side: BorderSide(
-                            width: 1, color: AppColors.primaryColor)),
+                    padding: const EdgeInsets.all(16.0),
+                    child: RadioListTile(
+                      value: !(option),
+                      groupValue:option,
+                      title: Text("No"),
+                      subtitle: Text("I don't drink alchohol"),
+                      shape: RoundedRectangleBorder(side:BorderSide(width: 1,color: AppColors.loginBorderColor),
+                      borderRadius: BorderRadius.circular(8)),
+                      selectedTileColor: AppColors.primaryColor,
+                      onChanged: (bool? groupValue) {
+                        setState(() {
+                          option = !(option);
+                        });
+                      },
+                    )
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(
+                  //       vertical: 8.0, horizontal: 16),
+                  //   child: CheckboxListTile(
+                  //       value: selectedOption == 'No',
+                  //       onChanged: (bool? value) => setState(() => selectedOption = value! ? 'No' : ''),
+                  //       shape: RoundedRectangleBorder(
+                  //         side: BorderSide(
+                  //             width: 1, color: AppColors.loginBorderColor),
+                  //         borderRadius: BorderRadius.circular(8),
+                  //       ),
+                  //       activeColor: AppColors.primaryColor,
+                  //       checkColor: Colors.white,
+                  //       title: Text("No"),
+                  //       side: BorderSide(
+                  //           width: 1, color: AppColors.primaryColor)),
+                  // ),
                   SizedBox(
-                    height: 90.0,
+                    height: 20.0,
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,

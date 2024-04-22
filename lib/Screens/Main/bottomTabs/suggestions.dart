@@ -668,7 +668,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
             child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Your plans',
+                  'Suggested plans',
                   style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 20,
