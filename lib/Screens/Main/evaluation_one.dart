@@ -15,6 +15,7 @@ class EvaluationQuestionOne extends StatefulWidget {
 class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
   final _formKey = GlobalKey<FormState>();
   bool isChanged = true;
+  int _selectedValue = 0;
 
   String selectedOption = "";
   bool option = false;
@@ -50,7 +51,8 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
                     child: Text('Do you drink alchohol?',
                         style: TextStyle(
                             color: Colors.black,
@@ -59,39 +61,45 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                             fontFamily: 'Inter')),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: RadioListTile(
-                      value: option,
-                      groupValue: !(option),
-                      title: Text("Yes"),
-                      subtitle: Text("I drink alchohol on a regular basis"),
-                      shape: RoundedRectangleBorder(side:BorderSide(width: 1,color: AppColors.loginBorderColor),
-                      borderRadius: BorderRadius.circular(8)),
-                      selectedTileColor: AppColors.primaryColor,
-                      onChanged: (bool? groupValue) {
-                        setState(() {
-                          option = !(option);
-                        });
-                      },
-                    )
-                  ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: RadioListTile(
+                        value: 1,
+                        groupValue:
+                        _selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedValue =
+                            value!;
+                          });
+                        },
+                        title: Text("Yes"),
+                        subtitle: Text("I drink alchohol on a regular basis"),
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor),
+                            borderRadius: BorderRadius.circular(8)),
+                        selectedTileColor: AppColors.primaryColor,
+                      )),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: RadioListTile(
-                      value: !(option),
-                      groupValue:option,
-                      title: Text("No"),
-                      subtitle: Text("I don't drink alchohol"),
-                      shape: RoundedRectangleBorder(side:BorderSide(width: 1,color: AppColors.loginBorderColor),
-                      borderRadius: BorderRadius.circular(8)),
-                      selectedTileColor: AppColors.primaryColor,
-                      onChanged: (bool? groupValue) {
-                        setState(() {
-                          option = !(option);
-                        });
-                      },
-                    )
-                  ),
+                      padding: const EdgeInsets.all(16.0),
+                      child: RadioListTile(
+                        value: 2,
+                        groupValue:
+                        _selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedValue =
+                            value!;
+                          });
+                        },
+                        title: Text("No"),
+                        subtitle: Text("I don't drink alchohol"),
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                width: 1, color: AppColors.loginBorderColor),
+                            borderRadius: BorderRadius.circular(8)),
+                        selectedTileColor: AppColors.primaryColor,
+                      )),
                   // Padding(
                   //   padding: const EdgeInsets.symmetric(
                   //       vertical: 8.0, horizontal: 16),
@@ -117,7 +125,10 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EvaluationQuestionTwo()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EvaluationQuestionTwo()));
                       },
                       child: Text(
                         'Next',
