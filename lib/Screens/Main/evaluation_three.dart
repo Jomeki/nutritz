@@ -77,6 +77,33 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                             borderRadius: BorderRadius.circular(8)),
                         selectedTileColor: AppColors.primaryColor,
                       )),
+                  if (_selectedValue == 1)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16),
+                      child: TextFormField(
+                        maxLines: 4,
+                        decoration: InputDecoration(
+                          hintText: 'Allergies',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                        ),
+                      ),
+                    ),
                   Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: RadioListTile(
