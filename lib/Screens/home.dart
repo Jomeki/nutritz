@@ -8,6 +8,7 @@ import 'package:nutriapp/Screens/Main/bottomTabs/nutriibot.dart';
 import 'package:nutriapp/Screens/Main/bottomTabs/progress.dart';
 import 'package:nutriapp/Screens/Main/bottomTabs/suggestions.dart';
 import 'package:nutriapp/Screens/Main/notifications.dart';
+import 'package:nutriapp/Screens/profile.dart';
 import 'package:nutriapp/Services/greetings.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,19 @@ class _HomeState extends State<Home> {
         backgroundColor: AppColors.primaryColor,
         child: ListView(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  'Nutritz',
+                  style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 36,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                ),
+              ),
+            ),
             ListTile(
               iconColor: Colors.white,
               textColor: Colors.white,
@@ -97,7 +111,9 @@ class _HomeState extends State<Home> {
               textColor: Colors.white,
               leading: Icon(Icons.person),
               title: Text("Profile"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+              },
             ),
             ListTile(
               iconColor: Colors.white,

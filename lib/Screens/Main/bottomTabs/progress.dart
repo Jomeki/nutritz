@@ -180,16 +180,25 @@ class _ProgressPageState extends State<ProgressPage> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: CircularProgressIndicator(
-                                        value: 0.6,
-                                        strokeWidth: 8,
-                                        backgroundColor: Colors.white,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.blueGrey),
-                                        semanticsLabel: 'Complete',
-                                        semanticsValue: '60',
-                                      ),
+                                      child: Stack(
+                                        children: [
+                                          SizedBox(
+                                            child: CircularProgressIndicator(
+                                              value: 0.6,
+                                              strokeWidth: 8,
+                                              backgroundColor: Colors.white,
+                                              valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.blueGrey),
+                                              semanticsLabel: 'Complete',
+                                              semanticsValue: '60',
+                                            ),
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                          Positioned(child: Text("60%",style: TextStyle(fontSize: 18),),top: 13,left: 9,)
+                                        ],
+                                      )
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -357,15 +366,24 @@ class _ProgressPageState extends State<ProgressPage> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
-                                      child: CircularProgressIndicator(
-                                        value: 0.6,
-                                        strokeWidth: 8,
-                                        backgroundColor: Colors.white,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.blueGrey),
-                                        semanticsLabel: 'Complete',
-                                        semanticsValue: '60',
+                                      child: Stack(
+                                        children: [
+                                          SizedBox(
+                                            child: CircularProgressIndicator(
+                                              value: 0.6,
+                                              strokeWidth: 8,
+                                              backgroundColor: Colors.white,
+                                              valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.blueGrey),
+                                              semanticsLabel: 'Complete',
+                                              semanticsValue: '60',
+                                            ),
+                                            height: 50,
+                                            width: 50,
+                                          ),
+                                          Positioned(child: Text("60%",style: TextStyle(fontSize: 18),),top: 13,left: 9,)
+                                        ],
                                       ),
                                     ),
                                     Padding(
@@ -531,15 +549,25 @@ class _ProgressPageState extends State<ProgressPage> {
                               SizedBox(
                                 height: 90,
                                 width: 90,
-                                child: CircularProgressIndicator(
-                                  value: 0.6,
-                                  strokeWidth: 10,
-                                  backgroundColor: Colors.white,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.blueGrey),
-                                  semanticsLabel: 'Complete',
-                                  semanticsValue: '60',
-                                ),
+                                child: Stack(
+                                  alignment:Alignment.center,
+                                  children: [
+                                    SizedBox(
+                                      child: CircularProgressIndicator(
+                                        value: 0.6,
+                                        strokeWidth: 10,
+                                        backgroundColor: Colors.white,
+                                        valueColor: AlwaysStoppedAnimation<Color>(
+                                            Colors.blueGrey),
+                                        semanticsLabel: 'Complete',
+                                        semanticsValue: '60',
+                                      ),
+                                      width: 300,
+                                      height: 300,
+                                    ),
+                                    Positioned(child: Text("60%",style: TextStyle(fontSize: 30),),top: 25,left: 20,)
+                                  ],
+                                )
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8),

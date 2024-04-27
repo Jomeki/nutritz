@@ -246,7 +246,6 @@ class SidebarBody extends StatelessWidget {
           //     height: 28,
           //   ),
           // ]
-
         ],
       ),
     );

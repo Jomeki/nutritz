@@ -49,6 +49,12 @@ class _NewPassScreenState extends State<NewPassScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text("New Password",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
@@ -118,6 +124,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
+                        //TODO: Go to login page after successful password change
                         showCupertinoModalPopup(
                             context: context,
                             builder: (BuildContext context) {

@@ -100,23 +100,6 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                             borderRadius: BorderRadius.circular(8)),
                         selectedTileColor: AppColors.primaryColor,
                       )),
-                  // Padding(
-                  //   padding: const EdgeInsets.symmetric(
-                  //       vertical: 8.0, horizontal: 16),
-                  //   child: CheckboxListTile(
-                  //       value: selectedOption == 'No',
-                  //       onChanged: (bool? value) => setState(() => selectedOption = value! ? 'No' : ''),
-                  //       shape: RoundedRectangleBorder(
-                  //         side: BorderSide(
-                  //             width: 1, color: AppColors.loginBorderColor),
-                  //         borderRadius: BorderRadius.circular(8),
-                  //       ),
-                  //       activeColor: AppColors.primaryColor,
-                  //       checkColor: Colors.white,
-                  //       title: Text("No"),
-                  //       side: BorderSide(
-                  //           width: 1, color: AppColors.primaryColor)),
-                  // ),
                   SizedBox(
                     height: 20.0,
                   ),

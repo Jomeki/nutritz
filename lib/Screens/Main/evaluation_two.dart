@@ -16,7 +16,7 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
   final _formKey = GlobalKey<FormState>();
   bool isChanged = true;
   int selectedIndex = -1;
-  List<String> options = ['>8 Hours', '7-8 Hours', '5-6 Hours', '4-3 Hours', '<3 Hours'];
+  List<String> options = ['Greater than 8 Hours', '7-8 Hours', '5-6 Hours', '4-3 Hours', 'Less than 3 Hours'];
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
                             fontFamily: 'Inter')),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*.4,
+                    height: MediaQuery.of(context).size.height*.5,
                     child: ListView.builder(
                       itemCount: options.length,
                       itemBuilder: (context, index) {

@@ -42,6 +42,7 @@ dependencies:
   iconly: ^1.0.1
   font_awesome_flutter: ^10.5.0
   fl_chart: ^0.66.1
+  image_picker: ^1.1.0
 
 dev_dependencies:
   flutter_test:

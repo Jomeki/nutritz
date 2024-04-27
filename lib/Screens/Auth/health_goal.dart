@@ -17,12 +17,12 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
   bool isChanged = true;
 
   int selectedIndex = -1;
-  List<String> options = [
-    'Loose weight',
-    'Eat Healthy',
-    'Manage Stress',
-    'Disease Prevention',
-    'Others'
+  List <Map<String,String>> options = [
+  {'title':'Loose weight','description':'This nutritional goal aims at improving the quality of food intake'},
+  {'title':'Eat Healthy','description':'This nutritional goal aims at improving the quality of food intake'},
+  {'title':'Manage Stress','description':'This nutritional goal aims at improving the quality of food intake'},
+  {'title':'Disease Prevention','description':'This nutritional goal aims at improving the quality of food intake'},
+  {'title':'Others','description':'Please write a short description of the nutritional goal you intend to achieve'},
   ];
 
   @override
@@ -48,7 +48,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: 90.0,
+              height: 30.0,
             ),
             Text('What is your goal?',
                 style: TextStyle(
@@ -57,7 +57,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Inter')),
             SizedBox(
-              height: 30.0,
+              height: 20.0,
             ),
             Form(
               key: _formKey,
@@ -66,7 +66,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .4,
+                    height: MediaQuery.of(context).size.height * .7,
                     child: ListView.builder(
                       itemCount: options.length,
                       itemBuilder: (context, index) {
@@ -74,7 +74,8 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16),
                           child: CheckboxListTile(
-                            title: Text(options[index]),
+                            title: Text(options[index]['title']!),
+                            subtitle: Text(options[index]['description']!),
                             value: selectedIndex ==
                                 index, // Check if current option is selected
                             onChanged: (bool? value) => setState(
@@ -91,9 +92,32 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: 90.0,
-                  ),
+                  if (selectedIndex == 4)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                      child: TextFormField(
+                        maxLines: 2,
+                        decoration: InputDecoration(
+                          hintText: 'Tell us about your goal',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor)),
+                        ),
+                      ),
+                    ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
