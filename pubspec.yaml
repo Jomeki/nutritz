@@ -43,6 +43,7 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   fl_chart: ^0.66.1
   image_picker: ^1.1.0
+  number_paginator: ^0.4.1
 
 dev_dependencies:
   flutter_test:

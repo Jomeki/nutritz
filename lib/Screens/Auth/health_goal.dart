@@ -22,7 +22,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
   {'title':'Eat Healthy','description':'This nutritional goal aims at improving the quality of food intake'},
   {'title':'Manage Stress','description':'This nutritional goal aims at improving the quality of food intake'},
   {'title':'Disease Prevention','description':'This nutritional goal aims at improving the quality of food intake'},
-  {'title':'Others','description':'Please write a short description of the nutritional goal you intend to achieve'},
+  {'title':'Others','description':'Describe the nutritional goal you intend to achieve'},
   ];
 
   @override
@@ -57,7 +57,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Inter')),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
             ),
             Form(
               key: _formKey,
@@ -66,7 +66,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .7,
+                    height: 480,
                     child: ListView.builder(
                       itemCount: options.length,
                       itemBuilder: (context, index) {
@@ -118,28 +118,31 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                         ),
                       ),
                     ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * .5,
-                    height: 50,
-                    child: FilledButton(
-                      onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (route) => false);
-                      },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: Colors.white),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: SizedBox(
+                      width: SizeConfig.screenWidth * .5,
+                      height: 50,
+                      child: FilledButton(
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Home()),
+                              (route) => false);
+                        },
+                        child: Text(
+                          'Next',
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                        style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8))),
                       ),
-                      style: FilledButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
                     ),
                   ),
                 ],
