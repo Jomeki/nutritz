@@ -531,6 +531,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 SizedBox(
                   height: 600,
                   child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                       itemCount: 5,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
@@ -721,6 +722,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 SizedBox(
                   height: 600,
                   child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                       itemCount: 5,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(

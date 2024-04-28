@@ -226,6 +226,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 610,
                   child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                       itemCount: 5,
                       itemBuilder: (context, i) => Padding(
                         padding: const EdgeInsets.symmetric(
