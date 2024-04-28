@@ -60,6 +60,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              strutStyle: StrutStyle(
+                                height: 2.5,
+                              ),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                 filled: true,
@@ -93,6 +96,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              strutStyle: StrutStyle(
+                                height: 2.5,
+                              ),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                 filled: true,
@@ -126,6 +132,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              strutStyle: StrutStyle(
+                                height: 2.5,
+                              ),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                 filled: true,
@@ -159,6 +168,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              strutStyle: StrutStyle(
+                                height: 2.5,
+                              ),
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                 filled: true,

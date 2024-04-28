@@ -58,213 +58,250 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile details'),
+        title: Text('Profile Details'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                _image != null
-                    ? CircleAvatar(
-                        radius: 64,
-                        backgroundImage: MemoryImage(_image!),
-                      )
-                    : CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
-                        radius: 64,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: SafeArea(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          _image != null
+                              ? CircleAvatar(
+                                  radius: 64,
+                                  backgroundImage: MemoryImage(_image!),
+                                )
+                              : CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
+                                  radius: 64,
+                                ),
+                          Positioned(
+                            child: IconButton(
+                              onPressed: selectImage,
+                              icon: Icon(Icons.add_a_photo),
+                            ),
+                            bottom: -10,
+                            left: 80,
+                          )
+                        ],
                       ),
-                Positioned(
-                  child: IconButton(
-                    onPressed: selectImage,
-                    icon: Icon(Icons.add_a_photo),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          "John Doe",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 25),
+                        ),
+                      ),
+                      Text(
+                        "+255 000 0000",
+                        style: TextStyle(
+                            color: AppColors.loginHintColor, fontSize: 20),
+                      ),
+                    ],
                   ),
-                  bottom: -10,
-                  left: 80,
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                "John Doe",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 25),
-              ),
-            ),
-            Text(
-              "+255 000 0000",
-              style: TextStyle(color: AppColors.loginHintColor, fontSize: 20),
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Center(
-              child: Text(
-                "Health information",
-                style: TextStyle(color: AppColors.primaryColor, fontSize: 15),
-              ),
-            ),
-            Expanded(
-              child: SafeArea(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16),
-                      child: SizedBox(
-                        height: 350,
-                        width: MediaQuery.of(context).size.width,
-                        child: GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  SizedBox(
+                    height: 20.0,
+                  ),
+
+                  Center(
+                    child: Text(
+                      "Health Goal",
+                      style: TextStyle(
+                          color: AppColors.primaryColor, fontSize: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                            width: 1, color: AppColors.loginBorderColor),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      subtitle: Text(
+                        'This nutritional goal aims at improving the quality of food intake',
+                        style: TextStyle(color: AppColors.loginHintColor),
+                      ),
+                      title: Text(
+                        'Eat Healthy',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      "Health information",
+                      style: TextStyle(
+                          color: AppColors.primaryColor, fontSize: 15),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 8.0),
+                    child: SizedBox(
+                      height: 350,
+                      width: MediaQuery.of(context).size.width,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 0,
-                            childAspectRatio: 1.2
-                          ),
-                          itemCount: healthinfo.length,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, i) => Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 8.0),
-                                child: Container(
-                                  width: 110,
-                                  height: 110,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: AppColors.primaryColor),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      icondata[i],
-                                      Text(
-                                        healthinfo[i]['label'].toString(),
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
+                            childAspectRatio: 1.2),
+                        itemCount: healthinfo.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, i) => Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0),
+                              child: Container(
+                                width: 110,
+                                height: 110,
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: AppColors.primaryColor),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    icondata[i],
+                                    Text(
+                                      healthinfo[i]['label'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 15,
                                       ),
-                                      Text(
-                                        healthinfo[i]['data'].toString(),
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.loginHintColor),
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Text(
+                                      healthinfo[i]['data'].toString(),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: AppColors.loginHintColor),
+                                    )
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    //   child: SizedBox(
-                    //     height: 130,
-                    //     width: 600,
-                    //     //TODO Make the tile details three per row
-                    //     child: ListView.builder(
-                    //       itemCount: healthinfo.length,
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemBuilder: (context, i) => Row(
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.symmetric(
-                    //                 horizontal: 8.0, vertical: 8.0),
-                    //             child: Container(
-                    //               width: 110,
-                    //               height: 110,
-                    //               decoration: BoxDecoration(
-                    //                 border: Border.all(color: AppColors.primaryColor),
-                    //                 borderRadius: BorderRadius.circular(8.0),
-                    //               ),
-                    //               child: Column(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: [
-                    //                   icondata[i],
-                    //                   Text(
-                    //                     healthinfo[i]['label'].toString(),
-                    //                     style: TextStyle(
-                    //                       fontSize: 15,
-                    //                     ),
-                    //                   ),
-                    //                   Text(
-                    //                     healthinfo[i]['data'].toString(),
-                    //                     style: TextStyle(
-                    //                         fontSize: 20,
-                    //                         color: AppColors.loginHintColor),
-                    //                   )
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    Center(
-                      child: Text(
-                        "Health Goal",
-                        style: TextStyle(color: AppColors.primaryColor, fontSize: 15),
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  //   child: SizedBox(
+                  //     height: 130,
+                  //     width: 600,
+                  //     //TODO Make the tile details three per row
+                  //     child: ListView.builder(
+                  //       itemCount: healthinfo.length,
+                  //       scrollDirection: Axis.horizontal,
+                  //       itemBuilder: (context, i) => Row(
+                  //         children: [
+                  //           Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 horizontal: 8.0, vertical: 8.0),
+                  //             child: Container(
+                  //               width: 110,
+                  //               height: 110,
+                  //               decoration: BoxDecoration(
+                  //                 border: Border.all(color: AppColors.primaryColor),
+                  //                 borderRadius: BorderRadius.circular(8.0),
+                  //               ),
+                  //               child: Column(
+                  //                 mainAxisAlignment: MainAxisAlignment.center,
+                  //                 children: [
+                  //                   icondata[i],
+                  //                   Text(
+                  //                     healthinfo[i]['label'].toString(),
+                  //                     style: TextStyle(
+                  //                       fontSize: 15,
+                  //                     ),
+                  //                   ),
+                  //                   Text(
+                  //                     healthinfo[i]['data'].toString(),
+                  //                     style: TextStyle(
+                  //                         fontSize: 20,
+                  //                         color: AppColors.loginHintColor),
+                  //                   )
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      width: SizeConfig.screenWidth * .5,
+                      height: 50,
+                      child: FilledButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditProfileScreen()));
+                        },
+                        child: Text(
+                          'Edit profile details',
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Colors.white),
+                        ),
+                        style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8))),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1, color: AppColors.loginBorderColor),
-                          borderRadius: BorderRadius.circular(8),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      width: SizeConfig.screenWidth * .5,
+                      height: 50,
+                      child: FilledButton(
+                        onPressed: () {
+                        },
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Colors.white),
                         ),
-                        subtitle: Text(
-                          'This nutritional goal aims at improving the quality of food intake',
-                          style: TextStyle(color: AppColors.loginHintColor),
-                        ),
-                        title: Text(
-                          'Eat Healthy',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
+                        style: FilledButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8))),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: SizedBox(
-                        width: SizeConfig.screenWidth * .5,
-                        height: 50,
-                        child: FilledButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const EditProfileScreen()));
-                          },
-                          child: Text(
-                            'Edit profile',
-                            style: TextStyle(
-                                fontFamily: 'Inter', fontSize: 16, color: Colors.white),
-                          ),
-                          style: FilledButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8))),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

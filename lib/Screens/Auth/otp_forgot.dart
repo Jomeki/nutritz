@@ -47,10 +47,11 @@ class _OtpScreenForgotState extends State<OtpScreenForgot> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16),
+                            vertical: 8.0, horizontal: 8),
                         child: SizedBox(
-                          width: 70.0,
+                          width: 80.0,
                           child: TextFormField(
+                            strutStyle: StrutStyle(height: 2.5),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.loginBorderColor,
@@ -76,10 +77,11 @@ class _OtpScreenForgotState extends State<OtpScreenForgot> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16),
+                            vertical: 8.0, horizontal: 8),
                         child: SizedBox(
-                          width: 70.0,
+                          width: 80.0,
                           child: TextFormField(
+                            strutStyle: StrutStyle(height: 2.5),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.loginBorderColor,
@@ -105,10 +107,11 @@ class _OtpScreenForgotState extends State<OtpScreenForgot> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16),
+                            vertical: 8.0, horizontal: 8),
                         child: SizedBox(
-                          width: 70.0,
+                          width: 80.0,
                           child: TextFormField(
+                            strutStyle: StrutStyle(height: 2.5),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.loginBorderColor,
@@ -134,10 +137,11 @@ class _OtpScreenForgotState extends State<OtpScreenForgot> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16),
+                            vertical: 8.0, horizontal: 8),
                         child: SizedBox(
-                          width: 70.0,
+                          width: 80.0,
                           child: TextFormField(
+                            strutStyle: StrutStyle(height: 2.5),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.loginBorderColor,
@@ -161,7 +165,7 @@ class _OtpScreenForgotState extends State<OtpScreenForgot> {
                           ),
                         ),
                       ),
-                    ],),
+                    ],mainAxisAlignment: MainAxisAlignment.center,),
                   Text('We have sent an OTP to the phone number you provided,'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
