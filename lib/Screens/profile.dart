@@ -275,28 +275,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: SizedBox(
-                      width: SizeConfig.screenWidth * .5,
-                      height: 50,
-                      child: FilledButton(
-                        onPressed: () {
-                        },
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                        style: FilledButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8))),
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  //   child: SizedBox(
+                  //     width: SizeConfig.screenWidth * .5,
+                  //     height: 50,
+                  //     child: FilledButton(
+                  //       onPressed: () {
+                  //       },
+                  //       child: Text(
+                  //         'Logout',
+                  //         style: TextStyle(
+                  //             fontFamily: 'Inter',
+                  //             fontSize: 16,
+                  //             color: Colors.white),
+                  //       ),
+                  //       style: FilledButton.styleFrom(
+                  //           backgroundColor: Colors.red,
+                  //           shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(8))),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

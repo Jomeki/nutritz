@@ -68,6 +68,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                   SizedBox(
                     height: 480,
                     child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: options.length,
                       itemBuilder: (context, index) {
                         return Padding(
