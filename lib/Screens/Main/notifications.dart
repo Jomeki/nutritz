@@ -34,7 +34,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16.0),
-              child: Text('No nofications currently',style: TextStyle(color: AppColors.loginHintColor),),
+              child: Text('No notifications currently',style: TextStyle(color: AppColors.loginHintColor),),
             ),
           ),
         ],

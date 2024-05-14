@@ -56,7 +56,7 @@ class _EvaluationWelcomeScreenState extends State<EvaluationWelcomeScreen> {
                 children: [
 
                   SizedBox(
-                    height: 400,
+                    height: 430,
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,

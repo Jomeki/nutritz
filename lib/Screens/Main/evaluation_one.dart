@@ -101,7 +101,7 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                         selectedTileColor: AppColors.primaryColor,
                       )),
                   SizedBox(
-                    height: 20.0,
+                    height: 330.0,
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,

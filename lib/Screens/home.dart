@@ -178,7 +178,7 @@ class _HomeState extends State<Home> {
       //       ? appState.bottomNavTitles.elementAt(appState.bottomNavIndex)
       //       : appState.sideNavTitles.elementAt(appState.drawerNavIndex),
       // ),
-      appBar: PreferredSize(
+      appBar:appState.bottomNavIndex !=3?PreferredSize(
           preferredSize:
               Size(SizeConfig.screenWidth, SizeConfig.screenHeight * .12),
           child: SafeArea(
@@ -212,7 +212,7 @@ class _HomeState extends State<Home> {
                                     color: AppColors.loginHintColor),
                               ),
                               Text(
-                                'John Doe',
+                                'Joackim Kisoka',
                                 style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w700,
@@ -262,7 +262,7 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-          )),
+          )):null,
       body: appState.isBottomNav
           ? appState.bottomNavPages.elementAt(appState.bottomNavIndex)
           : appState.sideNavPages.elementAt(appState.drawerNavIndex),

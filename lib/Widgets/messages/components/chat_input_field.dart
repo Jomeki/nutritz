@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/nutriibot.dart';
+
 
 class ChatInputField extends StatefulWidget {
   const ChatInputField({
@@ -15,6 +17,7 @@ class ChatInputField extends StatefulWidget {
 class _ChatInputFieldState extends State<ChatInputField> {
   final messageController = TextEditingController();
   bool sending = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,7 +66,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
             ),
             const SizedBox(width: 20.0 / 2),
             GestureDetector(
-                onTap: !sending ? () async {} : () {},
+                onTap: !sending ? () async {} : () {
+
+                },
                 child: sending
                     ? Container(
                         height: 45,
@@ -88,3 +93,5 @@ class _ChatInputFieldState extends State<ChatInputField> {
     );
   }
 }
+
+

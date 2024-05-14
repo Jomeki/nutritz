@@ -122,7 +122,7 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                         selectedTileColor: AppColors.primaryColor,
                       )),
                   SizedBox(
-                    height: 80.0,
+                    height: 330.0,
                   ),
                   SizedBox(
                     width: SizeConfig.screenWidth * .5,
