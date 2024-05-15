@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Services/validator.dart';
 import 'otp_forgot.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
@@ -14,6 +15,7 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: phoneController,
+                      validator: (phone)=>phone!=null ? InputValidators.validNumber(phone):null,
                       decoration: InputDecoration(
                         hintText: 'Phone number',
                         prefixIcon: Icon(
@@ -88,10 +93,19 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OtpScreenForgot()));
+
+                        try{
+                          if(_formKey.currentState!.validate()){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OtpScreenForgot()));
+                          }
+                        }catch(e){
+                          const AlertDialog(
+                            title: Text("Failed to validate user credentials"),
+                          );
+                        }
                       },
                       child: Text(
                         'Submit',

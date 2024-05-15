@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/health_goal.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
+import 'package:nutriapp/Services/validator.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
 class HealthInfoScreen extends StatefulWidget {
@@ -15,6 +16,10 @@ class HealthInfoScreen extends StatefulWidget {
 class _HealthInfoScreenState extends State<HealthInfoScreen> {
   final _formKey = GlobalKey<FormState>();
   String dropdownvalue = "Choose blood group";
+
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+
   var blood = ['O', 'A', 'B', 'AB'];
 
   String selectedMeasurement = 'cm';
@@ -64,6 +69,9 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      controller: heightController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (height) => height!=null ? (InputValidators.numberValidator(height, 'Height')):null,
                       decoration: InputDecoration(
                         hintText: 'Height',
                         suffixIcon: SizedBox(
@@ -125,6 +133,9 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: weightController,
+                      validator: (weight) => weight!=null ? InputValidators.numberValidator(weight, "Weight"):null,
                       decoration: InputDecoration(
                         hintText: 'Weight',
                         suffixIcon: SizedBox(
@@ -187,6 +198,7 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
+                    //TODO Implement validation for this dropdown
                     child: DropdownButtonFormField(
                       decoration: InputDecoration(
                         hintText: 'Blood Group',
@@ -230,10 +242,18 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HealthGoalScreen()));
+                        try{
+                          if(_formKey.currentState!.validate()){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HealthGoalScreen()));
+                          }
+                        }catch(e){
+                          const AlertDialog(
+                            title: Text("Failed to validate user credentials"),
+                          );
+                        }
                       },
                       child: Text(
                         'Next',

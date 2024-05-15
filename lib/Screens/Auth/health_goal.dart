@@ -24,7 +24,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
   {'title':'Disease Prevention','description':'This nutritional goal aims at improving the quality of food intake'},
   {'title':'Others','description':'Describe the nutritional goal you intend to achieve'},
   ];
-
+//TODO Validation not implemented
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

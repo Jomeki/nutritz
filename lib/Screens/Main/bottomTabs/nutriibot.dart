@@ -94,7 +94,7 @@ class _NutribotState extends State<Nutribot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        leading: Icon(Icons.menu),
         title: Text("NutriBot",style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 36,

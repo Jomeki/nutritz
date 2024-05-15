@@ -5,6 +5,7 @@ import 'package:nutriapp/Screens/Auth/forget.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
 import 'package:nutriapp/Screens/home.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
+import 'package:nutriapp/Services/validator.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _loginDetailsController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  bool _validNumber(String input) {
+    RegExp regex = RegExp(r'^(07|06)\d{8}$');
+    return regex.hasMatch(input);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      controller: _loginDetailsController,
+                      validator: (username) => ((username) != null) ?  InputValidators.validNumber(username):null,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         hintText: 'Phone number',
                         prefixIcon: Icon(
@@ -82,6 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      controller: _passwordController,
+                      validator: (pass) => (pass != null)?InputValidators.passValidator(pass):null,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Passsword',
@@ -117,11 +131,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (route) => false);
+                        try{
+                          if(_formKey.currentState!.validate()){
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Home()),
+                                (route) => false);
+                          }
+
+                        }catch(e){
+                            const AlertDialog(
+                              title: Text("Failed to validate user credentials"),
+                            );
+                        }
                       },
                       child: Text(
                         'Login',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Services/validator.dart';
 import 'otp.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
@@ -17,20 +18,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String dropdownvalue = "Choose Gender";
   var Gender = ['Male', 'Female'];
   TextEditingController dateController = TextEditingController();
-
+  TextEditingController fnameController = TextEditingController();
+  TextEditingController snameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+  DateTime? picker;
 
   Future<void> selectDate() async {
-    DateTime? picker = await showDatePicker(
+
+        picker = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2030));
+        firstDate: DateTime(1900,1,1),
+        lastDate: DateTime.now()
+    );
 
-    if(picker != null){
-      setState(() {
-        dateController.text = picker.toString().split(" ")[0];
-      });
-    }
+
+      if(picker != null){
+        setState(() {
+          dateController.text = picker.toString().split(" ")[0];
+        });
+      }
   }
 
   @override
@@ -72,6 +82,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      controller: fnameController,
+                      validator: (fname)=>(fname != null)?InputValidators.textFieldValidator(fname,'First name'):null,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         hintText: 'First name',
                         prefixIcon: Icon(
@@ -101,6 +114,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: snameController,
+                      validator: (sname) => (sname!=null)?InputValidators.textFieldValidator(sname,"Second name"):null,
                       decoration: InputDecoration(
                         hintText: 'Second name',
                         prefixIcon: Icon(
@@ -130,6 +146,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: phoneController,
+                      validator: (phone) => (phone != null) ? (InputValidators.validNumber(phone)):null,
                       decoration: InputDecoration(
                         hintText: 'Phone number',
                         prefixIcon: Icon(
@@ -159,6 +178,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: passController,
+                      validator: (pass)=>pass!=null ?  InputValidators.passValidator(pass):null,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Passsword',
@@ -190,6 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16.0),
                     child: DropdownButtonFormField(
+                      //TODO: Not yet implemented validation for dropdown input
                       decoration: InputDecoration(
                         hintText: 'Gender',
                         prefixIconColor: AppColors.primaryColor,
@@ -217,13 +240,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                       ).toList(),
                       onChanged: (String? newvalue) {
-                        setState(() {
-                          dropdownvalue = newvalue!;
-                        });
+                        setState(() {dropdownvalue = newvalue!;});
                       },
 
                     ),
                   ),
+                  //TODO Validator on date picker
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
@@ -232,7 +254,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onTap: () {
                         selectDate();
                       },
-                      controller: dateController,
                       decoration: InputDecoration(
                         hintText: 'Date of Birth',
                         prefixIconColor: AppColors.primaryColor,
@@ -267,10 +288,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OtpScreen()));
+                        try{
+                          if(_formKey.currentState!.validate()){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OtpScreen()));
+                          }
+                        }catch(e){
+                          const AlertDialog(
+                            title: Text("Failed to validate user credentials"),
+                          );
+                        }
                       },
                       child: Text(
                         'Submit',
