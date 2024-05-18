@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:nutriapp/Screens/Main/bottomTabs/homepage.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
@@ -126,7 +127,7 @@ class _EvaluationQuestionFourState extends State<EvaluationQuestionFour> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)),
                                 child: Container(
-                                  height: 230,
+                                  height: 280,
                                   width: 100,
                                   child: Column(
                                     mainAxisAlignment:

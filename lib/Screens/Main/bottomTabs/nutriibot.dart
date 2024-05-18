@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:iconly/iconly.dart';
+import 'package:nutriapp/Services/ScreenSizes.dart';
 import '../../../Models/ChatMessage.dart';
 import '../../../Themes/colors.dart';
 import '../../../Widgets/messages/components/chat_input_field.dart';
@@ -34,7 +36,7 @@ class _NutribotState extends State<Nutribot> {
   void initState() {
     // TODO: implement initState
     _model =
-        GenerativeModel(model: 'gemini-pro', apiKey: dotenv.env['GEMINI_KEY']!);
+        GenerativeModel(model: 'gemini-pro-vision', apiKey: dotenv.env['GEMINI_KEY']!);
     _chatSession = _model.startChat();
   }
 
@@ -70,6 +72,7 @@ class _NutribotState extends State<Nutribot> {
       });
     }
   }
+
   void _showError(String message) {
     showDialog(
         context: context,
@@ -92,14 +95,46 @@ class _NutribotState extends State<Nutribot> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      drawer: Drawer(
+        width: SizeConfig.screenWidth * .6,
+        backgroundColor: AppColors.primaryColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(topRight: Radius.circular(16))),
+        child: Column(
+          children: [
+            SafeArea(
+                child: Text(
+              'Chat History',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .3,
+              child: ListView.builder(
+                itemCount: 3,
+                  itemBuilder: (context, i) => ListTile(
+                        title: Text('Chat $i'),
+                        subtitle: Text(
+                          'Chat Description',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
-        leading: Icon(Icons.menu),
-        title: Text("NutriBot",style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 36,
-            color: AppColors.primaryColor,
-            fontWeight: FontWeight.w700),),
+        centerTitle: true,
+        title: Text(
+          "NutriBot",
+          style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 24,
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.w700),
+        ),
       ),
       body: Column(
         children: [

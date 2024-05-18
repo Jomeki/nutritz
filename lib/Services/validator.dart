@@ -35,6 +35,7 @@ class InputValidators {
   ///Function to validate phone numbers
   static String? validNumber(String input) {
     RegExp regex = RegExp(r'^(07|06)\d{8}$');
+    RegExp numbers = RegExp('^[0-9]+\$');
 
     if(input.isNotEmpty){
       if(regex.hasMatch(input)){
@@ -43,7 +44,7 @@ class InputValidators {
         return 'Please Enter a valid Phone Number (i.e Starting with 07/6)';
       }
     }else{
-      return 'Fiield cannot be empty, Please enter valid Phone number';
+      return 'Field cannot be empty, Please enter valid Phone number';
     }
   }
 
@@ -56,7 +57,7 @@ class InputValidators {
         return 'Password cannot be less than 8 characters';
       }
     }else{
-      return 'Field cannot be empty, Password cannot be empty';
+      return 'Field cannot be empty, Please enter a valid Password';
     }
   }
 

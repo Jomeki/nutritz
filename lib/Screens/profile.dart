@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "Joachim Kisoka",
+                          "John Doe",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,

@@ -212,7 +212,7 @@ class _HomeState extends State<Home> {
                                     color: AppColors.loginHintColor),
                               ),
                               Text(
-                                'Joackim Kisoka',
+                                'John Doe',
                                 style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w700,

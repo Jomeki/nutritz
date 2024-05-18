@@ -24,6 +24,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -134,7 +135,6 @@ class _NewPassScreenState extends State<NewPassScreen> {
                     height: 50,
                     child: FilledButton(
                       onPressed: () async {
-                        //TODO: Go to login page after successful password change
                         if(_formKey.currentState!.validate()){
                           showCupertinoModalPopup(
                               context: context,
@@ -154,6 +154,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
                                                 BorderRadius.circular(8.0),
                                                 color: Colors.white),
                                             width: 250,
+                                            height: 280,
                                             child: Padding(
                                               padding: const EdgeInsets.all(24.0),
                                               child: Column(
@@ -167,6 +168,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
                                                   ),
                                                   DefaultTextStyle(
                                                     style: TextStyle(
+                                                        fontSize: 20,
                                                         fontFamily: 'Inter',
                                                         fontWeight: FontWeight.w900,color: Colors.black),
                                                     child: Text('Password \nChanged \nSuccessfully'),textAlign: TextAlign.center,),
