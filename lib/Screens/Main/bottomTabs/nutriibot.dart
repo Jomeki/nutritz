@@ -100,33 +100,33 @@ class _NutribotState extends State<Nutribot> {
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: Drawer(
-        width: SizeConfig.screenWidth * .6,
-        backgroundColor: AppColors.primaryColor,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(16))),
-        child: Column(
-          children: [
-            SafeArea(
-                child: Text(
-              'Chat History',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            )),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .3,
-              child: ListView.builder(
-                itemCount: 3,
-                  itemBuilder: (context, i) => ListTile(
-                        title: Text('Chat $i'),
-                        subtitle: Text(
-                          'Chat Description',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      )),
-            )
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   width: SizeConfig.screenWidth * .6,
+      //   backgroundColor: AppColors.primaryColor,
+      //   shape: RoundedRectangleBorder(
+      //       borderRadius: BorderRadius.only(topRight: Radius.circular(16))),
+      //   child: Column(
+      //     children: [
+      //       SafeArea(
+      //           child: Text(
+      //         'Chat History',
+      //         style: TextStyle(color: Colors.white, fontSize: 20),
+      //       )),
+      //       SizedBox(
+      //         height: MediaQuery.of(context).size.height * .3,
+      //         child: ListView.builder(
+      //           itemCount: 3,
+      //             itemBuilder: (context, i) => ListTile(
+      //                   title: Text('Chat $i'),
+      //                   subtitle: Text(
+      //                     'Chat Description',
+      //                     style: TextStyle(fontSize: 12),
+      //                   ),
+      //                 )),
+      //       )
+      //     ],
+      //   ),
+      // ),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
