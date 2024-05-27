@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:core';
 import 'dart:typed_data';
 import 'package:nutriapp/Screens/edit_profile.dart';
 
@@ -8,9 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nutriapp/Providers/appState.dart';
-import 'package:nutriapp/Resources/assets.dart';
-import 'package:nutriapp/Screens/utils.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 

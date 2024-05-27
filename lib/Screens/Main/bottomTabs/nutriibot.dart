@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +8,6 @@ import 'package:iconly/iconly.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import '../../../Models/ChatMessage.dart';
 import '../../../Themes/colors.dart';
-import '../../../Widgets/messages/components/chat_input_field.dart';
 import '../../../Widgets/messages/components/message.dart';
 
 class Nutribot extends StatefulWidget {
@@ -22,8 +20,8 @@ class Nutribot extends StatefulWidget {
 class _NutribotState extends State<Nutribot> {
   String? message;
   final ScrollController _scrollController = ScrollController();
-  late final GenerativeModel _model;
-  late final ChatSession _chatSession;
+  GenerativeModel? _model;
+  ChatSession? _chatSession;
   final messageController = TextEditingController();
   bool sending = false;
 
@@ -32,21 +30,25 @@ class _NutribotState extends State<Nutribot> {
         duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    _model =
-        GenerativeModel(model: 'gemini-pro-vision', apiKey: dotenv.env['GEMINI_KEY']!);
-    _chatSession = _model.startChat();
+  Future initChatSession()async{
+    if(_model==null&&_chatSession==null){
+      setState(() {
+        _model =
+            GenerativeModel(model: 'gemini-pro', apiKey: dotenv.env['GEMINI_KEY']!);
+        _chatSession = _model?.startChat();
+      });
+    }
   }
 
   Future<void> _sendChatMessage(String message) async {
+
+  await initChatSession();
     setState(() {
       sending = true;
     });
 
     try {
-      final response = await _chatSession.sendMessage(
+      final response = await _chatSession!.sendMessage(
         Content.text(message),
       );
       print(response.text);
@@ -143,9 +145,9 @@ class _NutribotState extends State<Nutribot> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: ListView.builder(
                 controller: _scrollController,
-                itemCount: _chatSession.history.length,
+                itemCount:_chatSession!=null? _chatSession!.history.length:0,
                 itemBuilder: (context, index) {
-                  final Content content = _chatSession.history.toList()[index];
+                  final Content content = _chatSession!.history.toList()[index];
                   final text = content.parts
                       .whereType<TextPart>()
                       .map<String>((e) => e.text)

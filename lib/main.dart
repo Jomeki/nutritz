@@ -22,6 +22,7 @@ class NutriTZ extends StatelessWidget {
       title: 'Nutri TZ',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrangeAccent),
         useMaterial3: true,
       ),

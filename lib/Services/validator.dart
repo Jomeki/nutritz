@@ -35,7 +35,7 @@ class InputValidators {
   ///Function to validate phone numbers
   static String? validNumber(String input) {
     RegExp regex = RegExp(r'^(07|06)\d{8}$');
-    RegExp numbers = RegExp('^[0-9]+\$');
+    // RegExp numbers = RegExp('^[0-9]+\$');
 
     if(input.isNotEmpty){
       if(regex.hasMatch(input)){

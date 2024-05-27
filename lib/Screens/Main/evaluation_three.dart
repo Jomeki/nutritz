@@ -22,6 +22,8 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      extendBodyBehindAppBar: false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -39,116 +41,121 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
         width: SizeConfig.screenWidth,
         height: SizeConfig.screenHeight,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 80.0,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Text('Do you have any food allergies?',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: 'Inter')),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: RadioListTile(
-                        value: 1,
-                        groupValue: _selectedValue,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedValue = value!;
-                          });
-                        },
-                        title: Text("Yes"),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                width: 1, color: AppColors.loginBorderColor),
-                            borderRadius: BorderRadius.circular(8)),
-                        selectedTileColor: AppColors.primaryColor,
-                      )),
-                  if (_selectedValue == 1)
+            Expanded(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: TextFormField(
-                        maxLines: 4,
-                        decoration: InputDecoration(
-                          hintText: 'Allergies',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.loginBorderColor)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.loginBorderColor)),
-                          disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.loginBorderColor)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                  width: 1, color: AppColors.loginBorderColor)),
+                          vertical: 8.0, horizontal: 16.0),
+                      child: Text('Do you have any food allergies?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Inter')),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: RadioListTile(
+                          value: 1,
+                          groupValue: _selectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          title: Text("Yes"),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor),
+                              borderRadius: BorderRadius.circular(8)),
+                          selectedTileColor: AppColors.primaryColor,
+                        )),
+                    if (_selectedValue == 1)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16),
+                        child: TextFormField(
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            hintText: 'Allergies',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.loginBorderColor)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.loginBorderColor)),
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.loginBorderColor)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    width: 1, color: AppColors.loginBorderColor)),
+                          ),
                         ),
                       ),
-                    ),
-                  Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: RadioListTile(
-                        value: 2,
-                        groupValue: _selectedValue,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedValue = value!;
-                          });
-                        },
-                        title: Text("No"),
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                width: 1, color: AppColors.loginBorderColor),
-                            borderRadius: BorderRadius.circular(8)),
-                        selectedTileColor: AppColors.primaryColor,
-                      )),
-                  SizedBox(
-                    height: 330.0,
-                  ),
-                  SizedBox(
-                    width: SizeConfig.screenWidth * .5,
-                    height: 50,
-                    child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EvaluationQuestionFour()));
-                      },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 16,
-                            color: Colors.white),
-                      ),
-                      style: FilledButton.styleFrom(
-                          backgroundColor: AppColors.primaryColor,
+                    Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: RadioListTile(
+                          value: 2,
+                          groupValue: _selectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedValue = value!;
+                            });
+                          },
+                          title: Text("No"),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8))),
+                              side: BorderSide(
+                                  width: 1, color: AppColors.loginBorderColor),
+                              borderRadius: BorderRadius.circular(8)),
+                          selectedTileColor: AppColors.primaryColor,
+                        )),
+
+
+                  ],
+                ),
+              ),
+            ),
+            // Spacer(),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 32),
+                child: SizedBox(
+                  width: SizeConfig.screenWidth * .5,
+                  height: 50,
+                  child: FilledButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  EvaluationQuestionFour()));
+                    },
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                          color: Colors.white),
                     ),
+                    style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
                   ),
-                ],
+                ),
               ),
             ),
           ],

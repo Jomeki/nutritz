@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -16,153 +14,6 @@ class DietSuggestions extends StatefulWidget {
 }
 
 class _DietSuggestionsState extends State<DietSuggestions> {
-  int findex = 10;
-  var foodpages = List.generate(15, (findex) => Padding(
-    padding: const EdgeInsets.symmetric(
-        horizontal: 16, vertical: 4),
-    child: Container(
-      width: SizeConfig.screenWidth,
-      height: 110,
-      decoration: BoxDecoration(
-        color: AppColors.foodsCard,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child:
-                Image.asset(AssetsLoader.banana)),
-          ),
-          // Expanded(
-          //   child: Padding(
-          //     padding: const EdgeInsets.only(left: 8.0),
-          //     child: GestureDetector(
-          //       onTap: () {
-          //         showCupertinoModalPopup(
-          //             context: context,
-          //             builder: (BuildContext context) {
-          //               return Padding(
-          //                 padding: const EdgeInsets
-          //                     .symmetric(
-          //                     horizontal: 2.0,
-          //                     vertical: 32.0),
-          //                 child: SizedBox(
-          //                   height:
-          //                   SizeConfig.screenHeight,
-          //                   child: Container(
-          //                       decoration: BoxDecoration(
-          //                           borderRadius:
-          //                           BorderRadius
-          //                               .circular(
-          //                               8.0),
-          //                           color:
-          //                           Colors.white),
-          //                       height: 350,
-          //                       width: 380,
-          //                       child: Padding(
-          //                         padding:
-          //                         const EdgeInsets
-          //                             .all(24.0),
-          //                         child: Column(
-          //                           crossAxisAlignment:
-          //                           CrossAxisAlignment
-          //                               .start,
-          //                           children: [
-          //                             Row(
-          //                               children: [
-          //                                 DefaultTextStyle(
-          //                                     style: TextStyle(
-          //                                         fontSize:
-          //                                         18.0,
-          //                                         color: Colors
-          //                                             .black,
-          //                                         fontFamily:
-          //                                         'Inter',
-          //                                         fontWeight: FontWeight
-          //                                             .w900),
-          //                                     child: Text(
-          //                                         'Bananas')),
-          //                                 GestureDetector(
-          //                                     onTap:
-          //                                         () {
-          //                                       Navigator.pop(
-          //                                           context);
-          //                                     },
-          //                                     child:
-          //                                     Icon(
-          //                                       Icons
-          //                                           .close,
-          //                                       color: Colors
-          //                                           .red,
-          //                                     )),
-          //                               ],
-          //                               mainAxisAlignment:
-          //                               MainAxisAlignment
-          //                                   .spaceBetween,
-          //                             ),
-          //                             SizedBox(
-          //                               height: 20.0,
-          //                             ),
-          //                             Column(
-          //                               children: [
-          //                                 DefaultTextStyle(
-          //                                     style: TextStyle(
-          //                                         fontSize:
-          //                                         15.0,
-          //                                         color: Colors
-          //                                             .black,
-          //                                         fontFamily:
-          //                                         'Inter',
-          //                                         fontWeight: FontWeight
-          //                                             .w400),
-          //                                     child: Text(
-          //                                         'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.')),
-          //                               ],
-          //                             ),
-          //                           ],
-          //                         ),
-          //                       )),
-          //                 ),
-          //               );
-          //             });
-          //       },
-          //       child: Column(
-          //         crossAxisAlignment:
-          //         CrossAxisAlignment.start,
-          //         children: [
-          //           Text(
-          //             'Bananas',
-          //             style: TextStyle(
-          //                 fontFamily: 'Inter',
-          //                 fontSize: 20,
-          //                 fontWeight: FontWeight.w700),
-          //           ),
-          //           Padding(
-          //             padding: const EdgeInsets.only(
-          //                 right: 8.0),
-          //             child: Text(
-          //               'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
-          //               style: TextStyle(
-          //                   fontFamily: 'Inter',
-          //                   fontSize: 8,
-          //                   fontWeight:
-          //                   FontWeight.w400),
-          //               overflow: TextOverflow.ellipsis,
-          //               maxLines: 5,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // )
-        ],
-      ),
-    ),
-  ));
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -679,156 +530,155 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 ),
                 SizedBox(
                   height: 600,
-                  child:foodpages[findex],
-                  // ListView.builder(
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //     itemCount: 5,
-                  //     itemBuilder: (context, i) => Padding(
-                  //           padding: const EdgeInsets.symmetric(
-                  //               horizontal: 16, vertical: 4),
-                  //           child: Container(
-                  //             width: SizeConfig.screenWidth,
-                  //             height: 110,
-                  //             decoration: BoxDecoration(
-                  //               color: AppColors.foodsCard,
-                  //               borderRadius: BorderRadius.circular(8),
-                  //             ),
-                  //             child: Row(
-                  //               children: [
-                  //                 Padding(
-                  //                   padding: const EdgeInsets.all(8.0),
-                  //                   child: ClipRRect(
-                  //                       borderRadius: BorderRadius.circular(14),
-                  //                       child:
-                  //                           Image.asset(AssetsLoader.banana)),
-                  //                 ),
-                  //                 Expanded(
-                  //                   child: Padding(
-                  //                     padding: const EdgeInsets.only(left: 8.0),
-                  //                     child: GestureDetector(
-                  //                       onTap: () {
-                  //                         showCupertinoModalPopup(
-                  //                             context: context,
-                  //                             builder: (BuildContext context) {
-                  //                               return Padding(
-                  //                                 padding: const EdgeInsets
-                  //                                     .symmetric(
-                  //                                     horizontal: 2.0,
-                  //                                     vertical: 32.0),
-                  //                                 child: SizedBox(
-                  //                                   height:
-                  //                                       SizeConfig.screenHeight,
-                  //                                   child: Container(
-                  //                                       decoration: BoxDecoration(
-                  //                                           borderRadius:
-                  //                                               BorderRadius
-                  //                                                   .circular(
-                  //                                                       8.0),
-                  //                                           color:
-                  //                                               Colors.white),
-                  //                                       height: 350,
-                  //                                       width: 380,
-                  //                                       child: Padding(
-                  //                                         padding:
-                  //                                             const EdgeInsets
-                  //                                                 .all(24.0),
-                  //                                         child: Column(
-                  //                                           crossAxisAlignment:
-                  //                                               CrossAxisAlignment
-                  //                                                   .start,
-                  //                                           children: [
-                  //                                             Row(
-                  //                                               children: [
-                  //                                                 DefaultTextStyle(
-                  //                                                     style: TextStyle(
-                  //                                                         fontSize:
-                  //                                                             18.0,
-                  //                                                         color: Colors
-                  //                                                             .black,
-                  //                                                         fontFamily:
-                  //                                                             'Inter',
-                  //                                                         fontWeight: FontWeight
-                  //                                                             .w900),
-                  //                                                     child: Text(
-                  //                                                         'Bananas')),
-                  //                                                 GestureDetector(
-                  //                                                     onTap:
-                  //                                                         () {
-                  //                                                       Navigator.pop(
-                  //                                                           context);
-                  //                                                     },
-                  //                                                     child:
-                  //                                                         Icon(
-                  //                                                       Icons
-                  //                                                           .close,
-                  //                                                       color: Colors
-                  //                                                           .red,
-                  //                                                     )),
-                  //                                               ],
-                  //                                               mainAxisAlignment:
-                  //                                                   MainAxisAlignment
-                  //                                                       .spaceBetween,
-                  //                                             ),
-                  //                                             SizedBox(
-                  //                                               height: 20.0,
-                  //                                             ),
-                  //                                             Column(
-                  //                                               children: [
-                  //                                                 DefaultTextStyle(
-                  //                                                     style: TextStyle(
-                  //                                                         fontSize:
-                  //                                                             15.0,
-                  //                                                         color: Colors
-                  //                                                             .black,
-                  //                                                         fontFamily:
-                  //                                                             'Inter',
-                  //                                                         fontWeight: FontWeight
-                  //                                                             .w400),
-                  //                                                     child: Text(
-                  //                                                         'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.')),
-                  //                                               ],
-                  //                                             ),
-                  //                                           ],
-                  //                                         ),
-                  //                                       )),
-                  //                                 ),
-                  //                               );
-                  //                             });
-                  //                       },
-                  //                       child: Column(
-                  //                         crossAxisAlignment:
-                  //                             CrossAxisAlignment.start,
-                  //                         children: [
-                  //                           Text(
-                  //                             'Bananas',
-                  //                             style: TextStyle(
-                  //                                 fontFamily: 'Inter',
-                  //                                 fontSize: 20,
-                  //                                 fontWeight: FontWeight.w700),
-                  //                           ),
-                  //                           Padding(
-                  //                             padding: const EdgeInsets.only(
-                  //                                 right: 8.0),
-                  //                             child: Text(
-                  //                               'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
-                  //                               style: TextStyle(
-                  //                                   fontFamily: 'Inter',
-                  //                                   fontSize: 8,
-                  //                                   fontWeight:
-                  //                                       FontWeight.w400),
-                  //                               overflow: TextOverflow.ellipsis,
-                  //                               maxLines: 5,
-                  //                             ),
-                  //                           ),
-                  //                         ],
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                 )
-                  //               ],
-                  //             ),
-                  //           ),
-                  //         )),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                      itemCount: 5,
+                      itemBuilder: (context, i) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            child: Container(
+                              width: SizeConfig.screenWidth,
+                              height: 110,
+                              decoration: BoxDecoration(
+                                color: AppColors.foodsCard,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(14),
+                                        child:
+                                            Image.asset(AssetsLoader.banana)),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          showCupertinoModalPopup(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 2.0,
+                                                      vertical: 32.0),
+                                                  child: SizedBox(
+                                                    height:
+                                                        SizeConfig.screenHeight,
+                                                    child: Container(
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            color:
+                                                                Colors.white),
+                                                        height: 350,
+                                                        width: 380,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(24.0),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  DefaultTextStyle(
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18.0,
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontFamily:
+                                                                              'Inter',
+                                                                          fontWeight: FontWeight
+                                                                              .w900),
+                                                                      child: Text(
+                                                                          'Bananas')),
+                                                                  GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .close,
+                                                                        color: Colors
+                                                                            .red,
+                                                                      )),
+                                                                ],
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20.0,
+                                                              ),
+                                                              Column(
+                                                                children: [
+                                                                  DefaultTextStyle(
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              15.0,
+                                                                          color: Colors
+                                                                              .black,
+                                                                          fontFamily:
+                                                                              'Inter',
+                                                                          fontWeight: FontWeight
+                                                                              .w400),
+                                                                      child: Text(
+                                                                          'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.')),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Bananas',
+                                              style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: Text(
+                                                'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
+                                                style: TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 8,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 5,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -1146,11 +996,9 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                   padding: EdgeInsets.symmetric(horizontal: 32),
                   child: NumberPaginator(
                     initialPage: 0,
-                    numberPages: foodpages.length,
+                    numberPages: 4,
                     onPageChange: (index){
-                      setState(() {
-                        findex =index;
-                      });
+
                     },
                     config: NumberPaginatorUIConfig(
                       buttonSelectedBackgroundColor: AppColors.primaryColor,

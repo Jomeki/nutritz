@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Providers/appState.dart';
 import 'package:nutriapp/Resources/assets.dart';
-import 'package:nutriapp/Screens/Main/bottomTabs/suggestions.dart';
 import 'package:nutriapp/Screens/Main/evaluation_welcome.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:provider/provider.dart';
