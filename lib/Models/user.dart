@@ -1,9 +1,8 @@
-class User{
-
-
+class User {
   String? id;
   String? fname;
   String? sname;
+  String? full_name;
   String? gender;
   String? dob;
   String? height;
@@ -15,11 +14,11 @@ class User{
   String? password;
   String? password_confirmation;
 
-
   User(
       {this.id,
       this.fname,
       this.sname,
+      this.full_name,
       this.gender,
       this.dob,
       this.height,
@@ -31,32 +30,50 @@ class User{
       this.password,
       this.password_confirmation});
 
-  Map<String,dynamic> toRegistration()=>{
-    "fname":fname,
-    "sname":sname,
-    "phone_number":phone_number,
-    "gender":gender,
-    "dob":dob,
-    "height":height,
-    "ngoal_id":ngoal_id,
-    "weight":weight,
-    "blood_group":blood_group,
-    "is_evaluated":is_evaluated,
-    "password":password,
-    "password_confirmation":password_confirmation
-  };
+  Map<String, dynamic> toRegistration() => {
+        "fname": fname,
+        "sname": sname,
+        "phone_number": phone_number,
+        "gender": gender,
+        "dob": dob,
+        "height": height,
+        "ngoal_id": ngoal_id,
+        "weight": weight,
+        "blood_group": blood_group,
+        "is_evaluated": 0,
+        "password": password,
+        "password_confirmation": password_confirmation
+      };
+  Map<String, dynamic> toLogin() => {
+        "phone_number": phone_number,
+        "password": password,
+      };
 
-  factory User.fromJson(Map<String,dynamic> json)=>User(
-    id: json['id'].toString(),
-    fname: json['fname'],
-    sname: json['sname'],
-    phone_number: json['phone_number'].toString(),
-    gender: json['gender'],
-    dob: json['dob'].toString(),
-    height: json['height'].toString(),
-    ngoal_id: json['ngoal_id'].toString(),
-    is_evaluated: json['is_evaluated'].toString(),
-  );
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "fname": fname,
+        "sname": sname,
+        "phone_number": phone_number,
+        "gender": gender,
+        "dob": dob,
+        "height": height,
+        "ngoal_id": ngoal_id,
+        "weight": weight,
+        "blood_group": blood_group,
+        "is_evaluated": is_evaluated
+      };
 
-
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'].toString(),
+        fname: json['fname'],
+        sname: json['sname'],
+        full_name: "${json['fname']} ${json['sname']}",
+        phone_number: json['phone_number'].toString(),
+        gender: json['gender'],
+        dob: json['dob'].toString(),
+        height: json['height'].toString(),
+        weight: json['weight'].toString(),
+        ngoal_id: json['ngoal_id'].toString(),
+        is_evaluated: json['is_evaluated'].toString(),
+      );
 }

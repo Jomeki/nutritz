@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
+import 'package:nutriapp/Services/storage.dart';
 import 'package:nutriapp/Themes/colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -65,7 +66,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 width: SizeConfig.screenWidth*.6,
                 height: 50,
                 child: FilledButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    await LocalStorage.storeOnboarding();
                     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const LoginScreen()), (route) => false);
                   },
                   child: Text(

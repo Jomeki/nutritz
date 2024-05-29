@@ -9,5 +9,5 @@ class Goals {
       {"id": id, "name": name, "description": description};
 
   factory Goals.fromJson(Map<String, dynamic> json) => Goals(
-      id: json['id'], name: json['name'], description: json['description']);
+      id: json['id'].toString(), name: json['name'], description: json['description']);
 }

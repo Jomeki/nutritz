@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Models/user.dart';
+import 'package:nutriapp/Providers/authProvider.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Auth/forget.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
 import 'package:nutriapp/Screens/home.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Services/validator.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,12 +21,21 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _loginDetailsController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _phone = TextEditingController();
+  final _password = TextEditingController();
+  late AuthProvider authProvider;
 
   bool _validNumber(String input) {
     RegExp regex = RegExp(r'^(07|06)\d{8}$');
     return regex.hasMatch(input);
+  }
+
+  bool _hidePass = true;
+
+  @override
+  void didChangeDependencies() {
+    authProvider = Provider.of<AuthProvider>(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -62,8 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
-                      controller: _loginDetailsController,
-                      validator: (username) => ((username) != null) ?  InputValidators.validNumber(username):null,
+                      controller: _phone,
+                      validator: (username) => ((username) != null)
+                          ? InputValidators.validNumber(username)
+                          : null,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         hintText: 'Phone number',
@@ -94,16 +109,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0, horizontal: 16),
                     child: TextFormField(
-                      controller: _passwordController,
-                      validator: (pass) => (pass != null)?InputValidators.passValidator(pass):null,
+                      controller: _password,
+                      validator: (pass) => (pass != null)
+                          ? InputValidators.passValidator(pass)
+                          : null,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      obscureText: true,
+                      obscureText: _hidePass,
                       decoration: InputDecoration(
                         hintText: 'Passsword',
                         prefixIconColor: AppColors.primaryColor,
                         prefixIcon: Icon(
                           CupertinoIcons.padlock_solid,
                           color: AppColors.primaryColor,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _hidePass
+                                ? CupertinoIcons.eye
+                                : CupertinoIcons.eye_slash,
+                            color: AppColors.primaryColor,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _hidePass = !_hidePass;
+                            });
+                          },
                         ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -131,22 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
                     child: FilledButton(
-                      onPressed: () {
-                        try{
-                          if(_formKey.currentState!.validate()){
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Home()),
-                                (route) => false);
-                          }
-
-                        }catch(e){
-                            const AlertDialog(
-                              title: Text("Failed to validate user credentials"),
-                            );
-                        }
-                      },
+                      onPressed: _login,
                       child: Text(
                         'Login',
                         style: TextStyle(
@@ -163,11 +178,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const ForgetPasswordScreen()));
+                                builder: (context) =>
+                                    const ForgetPasswordScreen()));
                       },
                       child: Text(
                         'Forgot Password?',
@@ -216,5 +232,43 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future _login() async {
+    if (_formKey.currentState!.validate()) {
+      if (_phone.text.isNotEmpty && _password.text.isNotEmpty) {
+        showDialog(
+            context: context,
+            builder: (context) => Dialog(
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).padding.horizontal * .1),
+                      child: Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                    ),
+                  ),
+                ));
+
+        await authProvider.login(
+            user: User(phone_number: _phone.text, password: _password.text));
+        if (authProvider.isLoggedIn) {
+          Provider.of<LocalStorageProvider>(context, listen: false)
+              .initialize();
+          Navigator.pop(context);
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+              (route) => false);
+        } else {
+          Navigator.pop(context);
+        }
+      }
+    }
   }
 }

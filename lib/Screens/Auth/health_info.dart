@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Providers/authProvider.dart';
 import 'package:nutriapp/Screens/Auth/health_goal.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Services/validator.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
 
 class HealthInfoScreen extends StatefulWidget {
   const HealthInfoScreen({super.key});
@@ -27,10 +31,22 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
 
   List<String> measurement = ['cm', 'ft'];
   List<String> weight = ['kg', 'pnd'];
+
+  late AuthProvider authProvider;
+
+
+  @override
+  void didChangeDependencies() {
+authProvider = Provider.of<AuthProvider>(context);
+    super.didChangeDependencies();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -71,7 +87,9 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     child: TextFormField(
                       controller: heightController,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (height) => height!=null ? (InputValidators.numberValidator(height, 'Height')):null,
+                      validator: (height) => height != null
+                          ? (InputValidators.numberValidator(height, 'Height'))
+                          : null,
                       decoration: InputDecoration(
                         hintText: 'Height',
                         suffixIcon: SizedBox(
@@ -135,7 +153,9 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     child: TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: weightController,
-                      validator: (weight) => weight!=null ? InputValidators.numberValidator(weight, "Weight"):null,
+                      validator: (weight) => weight != null
+                          ? InputValidators.numberValidator(weight, "Weight")
+                          : null,
                       decoration: InputDecoration(
                         hintText: 'Weight',
                         suffixIcon: SizedBox(
@@ -241,20 +261,7 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
                     child: FilledButton(
-                      onPressed: () {
-                        try{
-                          if(_formKey.currentState!.validate()){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HealthGoalScreen()));
-                          }
-                        }catch(e){
-                          const AlertDialog(
-                            title: Text("Failed to validate user credentials"),
-                          );
-                        }
-                      },
+                      onPressed:_saveRegistrationData,
                       child: Text(
                         'Next',
                         style: TextStyle(
@@ -278,5 +285,43 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
         ),
       ),
     );
+  }
+
+  Future _saveRegistrationData() async {
+    if (_formKey.currentState!.validate()) {
+      if (heightController.text.isNotEmpty &&
+              weightController.text.isNotEmpty &&
+              dropdownvalue.toString() == "O" ||
+          dropdownvalue.toString() == "A" ||
+          dropdownvalue.toString() == "B" ||
+          dropdownvalue.toString() == "AB") {
+        showDialog(
+            context: context,
+            builder: (context) => Dialog(
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal:
+                              MediaQuery.of(context).padding.horizontal * .1),
+                      child: Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                    ),
+                  ),
+                ));
+
+        authProvider.registrationUser!.height = "${heightController.text} $selectedMeasurement";
+        authProvider.registrationUser!.weight = "${weightController.text} $selectedWeight";
+        authProvider.registrationUser!.blood_group = dropdownvalue;
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => const OtpScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const HealthGoalScreen()));
+      }
+    }
   }
 }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Resources/assets.dart';
 import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Main/notifications.dart';
 import 'package:nutriapp/Screens/profile.dart';
 import 'package:nutriapp/Services/greetings.dart';
+import 'package:nutriapp/Services/storage.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
 import '../Providers/appState.dart';
@@ -22,6 +24,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late LocalStorageProvider storageProvider;
+
+  @override
+  void didChangeDependencies() {
+    storageProvider = Provider.of<LocalStorageProvider>(context);
+    super.didChangeDependencies();
+  }
+
   void _onItemTapped(int index) {
     Provider.of<AppState>(context, listen: false).setBottomNavIndex(index);
   }
@@ -109,7 +119,10 @@ class _HomeState extends State<Home> {
               leading: Icon(Icons.person),
               title: Text("Profile"),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()));
               },
             ),
             ListTile(
@@ -117,8 +130,11 @@ class _HomeState extends State<Home> {
               textColor: Colors.white,
               leading: Icon(Icons.logout),
               title: Text("Logout"),
-              onTap: () {
+              onTap: () async {
                 appState.setBottomNavIndex(0);
+                await LocalStorage.logout();
+                await Provider.of<LocalStorageProvider>(context, listen: false)
+                    .initialize();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -175,91 +191,95 @@ class _HomeState extends State<Home> {
       //       ? appState.bottomNavTitles.elementAt(appState.bottomNavIndex)
       //       : appState.sideNavTitles.elementAt(appState.drawerNavIndex),
       // ),
-      appBar:appState.bottomNavIndex !=3?PreferredSize(
-          preferredSize:
-              Size(SizeConfig.screenWidth, SizeConfig.screenHeight * .12),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      appBar: appState.bottomNavIndex != 3
+          ? PreferredSize(
+              preferredSize:
+                  Size(SizeConfig.screenWidth, SizeConfig.screenHeight * .12),
+              child: SafeArea(
+                child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Image.asset(
-                            AssetsLoader.profileImg,
-                            width: 60,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${getGreeting()},',
-                                style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.loginHintColor),
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Image.asset(
+                                AssetsLoader.profileImg,
+                                width: 60,
                               ),
-                              Text(
-                                'John Doe',
-                                style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 20,
-                                    color: Colors.black),
-                              )
-                            ],
-                          ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${getGreeting()},',
+                                    style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.loginHintColor),
+                                  ),
+                                  Text(
+                                    storageProvider.user!.full_name.toString(),
+                                    style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20,
+                                        color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NotificationScreen()));
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.bell,
+                                  color: AppColors.primaryColor,
+                                )),
+                            Builder(builder: (context) {
+                              return IconButton(
+                                  onPressed: () {
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                  icon: SvgPicture.asset(
+                                    AssetsLoader.drawer,
+                                    width: 25,
+                                    color: AppColors.primaryColor,
+                                  ));
+                            }),
+                          ],
+                        )
                       ],
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NotificationScreen()));
-                            },
-                            icon: Icon(
-                              CupertinoIcons.bell,
-                              color: AppColors.primaryColor,
-                            )),
-                        Builder(builder: (context) {
-                          return IconButton(
-                              onPressed: () {
-                                Scaffold.of(context).openDrawer();
-                              },
-                              icon: SvgPicture.asset(
-                                AssetsLoader.drawer,
-                                width: 25,
-                                color: AppColors.primaryColor,
-                              ));
-                        }),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16),
+                      child: Divider(
+                        color: AppColors.dividerColor,
+                      ),
                     )
                   ],
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                  child: Divider(
-                    color: AppColors.dividerColor,
-                  ),
-                )
-              ],
-            ),
-          )):null,
+              ))
+          : null,
       body: appState.isBottomNav
           ? appState.bottomNavPages.elementAt(appState.bottomNavIndex)
           : appState.sideNavPages.elementAt(appState.drawerNavIndex),

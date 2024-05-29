@@ -10,7 +10,7 @@ class LocalStorage {
   static const FlutterSecureStorage _storage = FlutterSecureStorage();
 
   static Future storeUserData({required User user}) async {
-    await _storage.write(key: 'user', value: json.encode(user.toRegistration()));
+    await _storage.write(key: 'user', value: json.encode(user.toJson()));
   }
 
   static Future<User?> getUserData() async {
@@ -64,20 +64,4 @@ class LocalStorage {
   }
 }
 
-class LocalStorageProvider extends ChangeNotifier {
-  User? _user;
-  User? get user => _user;
-  final _storage = const FlutterSecureStorage();
 
-  Future<void> initialize() async {
-    try {
-      _user = await LocalStorage.getUserData();
-      notifyListeners();
-    } catch (e) {
-      _user = null;
-      notifyListeners();
-    }
-
-    notifyListeners();
-  }
-}

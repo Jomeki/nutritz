@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Providers/appState.dart';
+import 'package:nutriapp/Providers/planProvider.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Resources/assets.dart';
 import 'package:nutriapp/Screens/Main/evaluation_welcome.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:provider/provider.dart';
+import '../../../Models/plans.dart';
 import '../../../Themes/colors.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +19,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late LocalStorageProvider storageProvider;
+  late PlansProvider plansProvider;
+  List<Plans> _plans = [];
+
+  @override
+  void didChangeDependencies() {
+    storageProvider = Provider.of<LocalStorageProvider>(context);
+    plansProvider = Provider.of<PlansProvider>(context);
+    _plans = plansProvider.plans;
+    super.didChangeDependencies();
+  }
+
   bool evalcomplete = true;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                           children: ([
                     Positioned(
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             evalcomplete = false;
                           });
@@ -143,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                               fontFamily: 'Inter', fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          '100KG',
+                          storageProvider.user!.weight.toString(),
                           style: TextStyle(
                               fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
@@ -171,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                               fontFamily: 'Inter', fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          '160CM',
+                          storageProvider.user!.height.toString(),
                           style: TextStyle(
                               fontFamily: 'Inter', fontWeight: FontWeight.w500),
                         ),
@@ -248,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                   height: 610,
                   child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: _plans.length > 5 ? 5 : _plans.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
@@ -282,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Low Carbs',
+                                              _plans[i].name.toString(),
                                               style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w700,
@@ -291,7 +306,7 @@ class _HomePageState extends State<HomePage> {
                                             RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        'Duration: 28 days | ',
+                                                        'Duration: ${_plans[i].duration.toString()} days | ',
                                                     style: TextStyle(
                                                         fontFamily: 'Inter',
                                                         fontWeight:
@@ -301,7 +316,8 @@ class _HomePageState extends State<HomePage> {
                                                             .loginHintColor),
                                                     children: [
                                                   TextSpan(
-                                                      text: 'Frequency: Daily',
+                                                      text:
+                                                          'Frequency: ${_plans[i].frequency.toString()}',
                                                       style: TextStyle(
                                                           fontFamily: 'Inter',
                                                           fontWeight:

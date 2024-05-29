@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:number_paginator/number_paginator.dart';
+import 'package:nutriapp/Models/plans.dart';
+import 'package:nutriapp/Providers/foodsProvider.dart';
+import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:nutriapp/Resources/assets.dart';
+import 'package:provider/provider.dart';
+import '../../../Models/foods.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 
@@ -14,6 +19,26 @@ class DietSuggestions extends StatefulWidget {
 }
 
 class _DietSuggestionsState extends State<DietSuggestions> {
+
+  late FoodsProvider _foodsProvider;
+  late PlansProvider _plansProvider;
+  List<Foods> _foods=[];
+  List<Plans> _plans=[];
+
+
+
+  @override
+  void didChangeDependencies() {
+  _plansProvider = Provider.of<PlansProvider>(context);
+  _plans = _plansProvider.plans;
+  _foodsProvider = Provider.of<FoodsProvider>(context);
+
+  _foods = _foodsProvider.foods;
+    super.didChangeDependencies();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -532,7 +557,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                   height: 600,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: _foods.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
@@ -600,7 +625,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                                           fontWeight: FontWeight
                                                                               .w900),
                                                                       child: Text(
-                                                                          'Bananas')),
+                                                                          _foods[i].name.toString())),
                                                                   GestureDetector(
                                                                       onTap:
                                                                           () {
@@ -635,7 +660,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                                           fontWeight: FontWeight
                                                                               .w400),
                                                                       child: Text(
-                                                                          'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies.')),
+                                                                         _foods[i].description.toString())),
                                                                 ],
                                                               ),
                                                             ],
@@ -650,7 +675,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Bananas',
+                                              _foods[i].name.toString(),
                                               style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontSize: 20,
@@ -660,7 +685,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                               padding: const EdgeInsets.only(
                                                   right: 8.0),
                                               child: Text(
-                                                'A banana is a long, curved fruit with a soft, yellow skin when ripe. It typically grows in clusters on large herbaceous plants belonging to the genus Musa in the family Musaceae. Bananas are one of the most popular fruits worldwide, known for their sweet flavor and creamy texture. They are rich in essential nutrients such as potassium, vitamin C, and vitamin B6. Bananas are often consumed raw, but they can also be used in cooking, baking, or blended into smoothies. Read more',
+                                               _foods[i].description.toString(),
                                                 style: TextStyle(
                                                     fontFamily: 'Inter',
                                                     fontSize: 8,
@@ -723,7 +748,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                   height: 600,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: _plans.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
@@ -757,7 +782,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Low Carbs',
+                                              _plans[i].name.toString(),
                                               style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w700,
@@ -766,7 +791,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                             RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        'Duration: 28 days | ',
+                                                        'Duration: ${_plans[i].duration.toString()} days | ',
                                                     style: TextStyle(
                                                         fontFamily: 'Inter',
                                                         fontWeight:
@@ -776,7 +801,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                             .loginHintColor),
                                                     children: [
                                                   TextSpan(
-                                                      text: 'Frequency: Daily',
+                                                      text: 'Frequency: ${_plans[i].frequency.toString()}',
                                                       style: TextStyle(
                                                           fontFamily: 'Inter',
                                                           fontWeight:

@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
-var baseUrl = '/api/v2'; // for production
 
-final urlWithoutVersion = baseUrl.replaceFirst('/v2', '');
+String? baseUrl = dotenv.env['API_URL']; // for production
+
+// final urlWithoutVersion = baseUrl.replaceFirst('/v2', '');
 
 
 
@@ -14,7 +17,7 @@ class ApiClient {
 
   ApiClient({
     required this.url,
-    required this.token,
+     this.token,
     this.data,
   });
 
@@ -22,7 +25,7 @@ class ApiClient {
     return {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+     if(token!=null) 'Authorization': 'Bearer $token',
     };
   }
 
@@ -34,8 +37,9 @@ class ApiClient {
     try {
       beforeSend();
       final response =
-      await http.get(Uri.parse(baseUrl + url), headers: _getHeaders());
-      if (response.statusCode == 200) {
+      await http.get(Uri.parse(baseUrl! + url), headers: _getHeaders());
+
+      if (response.statusCode == 200||response.statusCode==201) {
         final responseData = json.decode(response.body);
         // print("DATA_AGET:_$responseData");
         onSuccess(responseData);
@@ -57,9 +61,9 @@ class ApiClient {
   }) async {
     try {
       beforeSend();
-      final response = await http.post(Uri.parse(baseUrl + url),
+      final response = await http.post(Uri.parse(baseUrl! + url),
           headers: _getHeaders(), body: jsonEncode(data));
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200||response.statusCode==201) {
         final responseData = json.decode(response.body);
         // print("DATA_APOST:_ $responseData");
         onSuccess(responseData);
