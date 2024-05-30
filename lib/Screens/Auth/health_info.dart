@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
 import 'package:nutriapp/Screens/Auth/health_goal.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
@@ -295,30 +296,6 @@ authProvider = Provider.of<AuthProvider>(context);
           dropdownvalue.toString() == "A" ||
           dropdownvalue.toString() == "B" ||
           dropdownvalue.toString() == "AB") {
-        showDialog(
-            context: context,
-            builder: (context) => Dialog(
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).padding.horizontal * .1),
-                      child: Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    ),
-                  ),
-                ));
-
-        authProvider.registrationUser!.height = "${heightController.text} $selectedMeasurement";
-        authProvider.registrationUser!.weight = "${weightController.text} $selectedWeight";
-        authProvider.registrationUser!.blood_group = dropdownvalue;
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => const OtpScreen()));
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const HealthGoalScreen()));
       }

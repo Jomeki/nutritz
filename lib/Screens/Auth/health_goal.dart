@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nutriapp/Models/goals.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
 import 'package:nutriapp/Providers/goalsProvider.dart';
@@ -189,43 +190,49 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
     );
   }
 
-
   Future _saveRegistrationData() async {
+    if (selectedIndex != -1) {
+      showDialog(
+          context: context,
+          builder: (context) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SpinKitCircle(
+                    color: AppColors.primaryColor,
+                    size: 100.0,
+                  ),
+                  Text("Creating Account",style: TextStyle(fontSize: 15,decoration: TextDecoration.none,color: Colors.white,fontFamily: 'Inter'),)
+                ],
+              ));
 
-      if (selectedIndex!=-1) {
-
+      authProvider.registrationUser!.ngoal_id =
+          _goals[selectedIndex].id.toString();
+      await authProvider.registration();
+      if (authProvider.isLoggedIn) {
+        Provider.of<LocalStorageProvider>(context, listen: false).initialize();
+        Navigator.pop(context);
+        print("registering");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const Home()),
+            (route) => false);
+      } else {
+        Navigator.pop(context);
         showDialog(
             context: context,
-            builder: (context) => Dialog(
-              child: SizedBox(
-                height: 50,
-                width: 50,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal:
-                      MediaQuery.of(context).padding.horizontal * .1),
-                  child: Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                ),
-              ),
-            ));
-
-
-        authProvider.registrationUser!.ngoal_id = _goals[selectedIndex].id.toString();
-        await authProvider.registration();
-        if (authProvider.isLoggedIn) {
-          Provider.of<LocalStorageProvider>(context, listen: false)
-              .initialize();
-          Navigator.pop(context);
-
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const Home()),
-                  (route) => false);
-        } else {
-          Navigator.pop(context);
-        }
+            builder: (context) => AlertDialog(
+                  title: Text("Registration Failed"),
+                  content: (authProvider.responseMessage != null)?(SelectableText(authProvider.responseMessage)):(SelectableText("We have Trouble creating your account, Check your network connection and Try again later")),
+                  actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("OK"))
+              ],
+                ));
       }
+    }
   }
 }

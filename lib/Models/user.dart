@@ -40,7 +40,7 @@ class User {
         "ngoal_id": ngoal_id,
         "weight": weight,
         "blood_group": blood_group,
-        "is_evaluated": 0,
+        "is_evaluated": "0",
         "password": password,
         "password_confirmation": password_confirmation
       };
@@ -70,6 +70,7 @@ class User {
         full_name: "${json['fname']} ${json['sname']}",
         phone_number: json['phone_number'].toString(),
         gender: json['gender'],
+        blood_group: json['blood_group'],
         dob: json['dob'].toString(),
         height: json['height'].toString(),
         weight: json['weight'].toString(),

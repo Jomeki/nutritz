@@ -61,17 +61,15 @@ class InputValidators {
     }
   }
 
-  ///Cheking dropdown value validity
-  static String? isDropdownValid(dynamic value,String name) {
-    if(value != null){
-      return null;
-    }else{
-    return 'Field cannot be empty, Please enter '+name;
-    }
-  }
+  ///Checking dropdown value validity
+  // static String? isDropdownValid(dynamic value,String name) {
+  //   if(value != null){return null;}
+  //     return 'Field cannot be empty, Please enter '+name;
+  // }
 
   ///code to check date input
   static String? isDateValid(DateTime selectedDate) {
+    print(selectedDate);
     DateTime currentDate = DateTime.now();
     DateTime minValidDate = DateTime(currentDate.year - 10, currentDate.month, currentDate.day);
 
@@ -79,6 +77,7 @@ class InputValidators {
         if(!(selectedDate.isBefore(minValidDate))){
           return "You cannot enter age below 10 year";
         }else{
+          print("This is the date$selectedDate");
           return null;
         }
     }else{

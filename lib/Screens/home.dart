@@ -206,10 +206,11 @@ class _HomeState extends State<Home> {
                           children: [
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Image.asset(
-                                AssetsLoader.profileImg,
-                                width: 60,
+                                  const EdgeInsets.symmetric(horizontal: 8.0).copyWith(left: 16),
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
+                                radius: 24,
                               ),
                             ),
                             Padding(

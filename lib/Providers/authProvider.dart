@@ -9,6 +9,8 @@ import '../Models/user.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isLoggedIn = false;
+  int responseTime = 0;
+  var responseMessage;
 
   set isLoggedIn(bool value) {
     _isLoggedIn = value;
@@ -73,6 +75,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future login({required User user}) async {
+    Stopwatch watch = Stopwatch()..start();
     var response = await http.post(Uri.parse("$_baseUrl/login"),
         headers: {
           "Accept": "application/json"
@@ -88,10 +91,15 @@ class AuthProvider extends ChangeNotifier {
         isLoggedIn = true;
         notifyListeners();
       } catch (e) {
+        responseTime = watch.elapsedMilliseconds;
+        watch.stop();
         print(e.toString());
         isLoggedIn = false;
         notifyListeners();
       }
+    }else{
+      responseTime = watch.elapsedMilliseconds;
+      watch.stop();
     }
   }
 
@@ -101,6 +109,7 @@ class AuthProvider extends ChangeNotifier {
           "Accept": "application/json"
         },
         body: _registrationUser!.toRegistration());
+    log(response.body);
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
@@ -114,6 +123,11 @@ class AuthProvider extends ChangeNotifier {
         _isLoggedIn = false;
         notifyListeners();
       }
+    }else{
+      var decodedMessage = jsonDecode(response.body);
+      responseMessage = decodedMessage['message'];
+      _isLoggedIn = false;
+      notifyListeners();
     }
   }
 }

@@ -554,122 +554,122 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                       )),
                 ),
                 SizedBox(
-                  height: 600,
+                  height: 590,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                       itemCount: _foods.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
-                            child: Container(
-                              width: SizeConfig.screenWidth,
-                              height: 110,
-                              decoration: BoxDecoration(
-                                color: AppColors.foodsCard,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(14),
-                                        child:
-                                            Image.asset(AssetsLoader.banana)),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          showCupertinoModalPopup(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 2.0,
-                                                      vertical: 32.0),
-                                                  child: SizedBox(
-                                                    height:
-                                                        SizeConfig.screenHeight,
-                                                    child: Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8.0),
-                                                            color:
-                                                                Colors.white),
-                                                        height: 350,
-                                                        width: 380,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(24.0),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Row(
-                                                                children: [
-                                                                  DefaultTextStyle(
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              18.0,
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontFamily:
-                                                                              'Inter',
-                                                                          fontWeight: FontWeight
-                                                                              .w900),
-                                                                      child: Text(
-                                                                          _foods[i].name.toString())),
-                                                                  GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        Navigator.pop(
-                                                                            context);
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .close,
-                                                                        color: Colors
-                                                                            .red,
-                                                                      )),
-                                                                ],
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20.0,
-                                                              ),
-                                                              Column(
-                                                                children: [
-                                                                  DefaultTextStyle(
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              15.0,
-                                                                          color: Colors
-                                                                              .black,
-                                                                          fontFamily:
-                                                                              'Inter',
-                                                                          fontWeight: FontWeight
-                                                                              .w400),
-                                                                      child: Text(
-                                                                         _foods[i].description.toString())),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                  ),
-                                                );
-                                              });
-                                        },
+                            child: GestureDetector(
+                              onTap: () {
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Padding(
+                                        padding: const EdgeInsets
+                                            .symmetric(
+                                            horizontal: 2.0,
+                                            vertical: 32.0),
+                                        child: SizedBox(
+                                          height:
+                                          SizeConfig.screenHeight,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(
+                                                      8.0),
+                                                  color:
+                                                  Colors.white),
+                                              height: 350,
+                                              width: 380,
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets
+                                                    .all(24.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        DefaultTextStyle(
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                18.0,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily:
+                                                                'Inter',
+                                                                fontWeight: FontWeight
+                                                                    .w900),
+                                                            child: Text(
+                                                                _foods[i].name.toString())),
+                                                        GestureDetector(
+                                                            onTap:
+                                                                () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child:
+                                                            Icon(
+                                                              Icons
+                                                                  .close,
+                                                              color: Colors
+                                                                  .red,
+                                                            )),
+                                                      ],
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20.0,
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        DefaultTextStyle(
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                15.0,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily:
+                                                                'Inter',
+                                                                fontWeight: FontWeight
+                                                                    .w400),
+                                                            child: Text(
+                                                                _foods[i].description.toString())),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                width: SizeConfig.screenWidth,
+                                height: 110,
+                                decoration: BoxDecoration(
+                                  color: AppColors.foodsCard,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(14),
+                                          child:
+                                              Image.asset(AssetsLoader.banana)),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -698,9 +698,9 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           )),
@@ -745,7 +745,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                       )),
                 ),
                 SizedBox(
-                  height: 600,
+                  height: 590,
                   child: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                       itemCount: _plans.length,

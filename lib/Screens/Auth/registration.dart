@@ -268,6 +268,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
                         child: DropdownButtonFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (gender) => (gender != null) ? null : 'Field cannot be empty, Please select Gender',
                           //TODO: Not yet implemented validation for dropdown input
                           decoration: InputDecoration(
                             hintText: 'Gender',
@@ -317,6 +319,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onTap: () {
                             selectDate();
                           },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
                             hintText: 'Date of Birth',
                             prefixIconColor: AppColors.primaryColor,
@@ -387,22 +390,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           snameController.text.isNotEmpty &&
           dateController.text.isNotEmpty &&
           dropdownvalue.toString()=="Male"||dropdownvalue.toString()=="Female") {
-        showDialog(
-            context: context,
-            builder: (context) => Dialog(
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).padding.horizontal * .1),
-                      child: Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    ),
-                  ),
-                ));
 
         authProvider.registrationUser = User(
           fname: fnameController.text,

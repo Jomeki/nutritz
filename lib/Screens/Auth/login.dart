@@ -11,6 +11,7 @@ import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Services/validator.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -239,24 +240,29 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_phone.text.isNotEmpty && _password.text.isNotEmpty) {
         showDialog(
             context: context,
-            builder: (context) => Dialog(
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              MediaQuery.of(context).padding.horizontal * .1),
-                      child: Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
+            builder: (context) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SpinKitCircle(
+                      color: AppColors.primaryColor,
+                      size: 100.0,
                     ),
-                  ),
+                    Text(
+                      "Logging In",
+                      style: TextStyle(
+                          fontSize: 15,
+                          decoration: TextDecoration.none,
+                          color: Colors.white,
+                          fontFamily: 'Inter'),
+                    ),
+                  ],
                 ));
+        await authProvider.login(user: User(phone_number: _phone.text, password: _password.text));
 
-        await authProvider.login(
-            user: User(phone_number: _phone.text, password: _password.text));
         if (authProvider.isLoggedIn) {
+          print("API response time");
+          print(authProvider.responseTime.runtimeType);
           Provider.of<LocalStorageProvider>(context, listen: false)
               .initialize();
           Navigator.pop(context);
@@ -265,10 +271,45 @@ class _LoginScreenState extends State<LoginScreen> {
               context,
               MaterialPageRoute(builder: (context) => const Home()),
               (route) => false);
-        } else {
-          Navigator.pop(context);
-        }
+        } else{
+            if(authProvider.responseTime >= 5000){
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Network Issues"),
+                  content: SelectableText(
+                      "Please check your network connection and try to login again"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ],
+                ),
+              );
+            }else{
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Invalid Credentials"),
+                  content: SelectableText(
+                      "Please check your credentials and try to login again"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ],
+                ),
+              );
+            }
+            }
+          }
       }
     }
   }
-}
+

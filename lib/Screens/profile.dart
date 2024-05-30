@@ -1,7 +1,12 @@
 import 'dart:core';
 import 'dart:typed_data';
+import 'package:nutriapp/Models/goals.dart';
+import 'package:nutriapp/Providers/goalsProvider.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/edit_profile.dart';
+import 'package:provider/provider.dart';
 
+import '../Models/user.dart';
 import 'utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +23,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  late LocalStorageProvider storageProvider;
+  late User user;
+  late Goals goal;
+  late GoalsProvider goalsProvider;
   Uint8List? _image;
 
   void selectImage() async {
@@ -27,17 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  List<Map<String, String>> healthinfo = [
-    {'label': 'Weight', 'data': '40Kg'},
-    {'label': 'Height', 'data': '160Cm'},
-    {'label': 'BMI', 'data': '30Kg/Cm'},
-    {'label': 'Blood Group', 'data': 'A'},
-    {'label': 'Gender', 'data': 'Male'},
-    {'label': 'Sleep Hours', 'data': '<8 Hrs'},
-    {'label': 'Allergies', 'data': 'No'},
-    {'label': 'Alcohol', 'data': 'No'},
-    {'label': 'Activity', 'data': 'Not Active'},
-  ];
+
 
   List<Icon> icondata = [
     Icon(Icons.balance, color: AppColors.primaryColor),
@@ -50,8 +50,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Icon(Icons.local_drink, color: AppColors.primaryColor),
     Icon(Icons.directions_walk, color: AppColors.primaryColor)
   ];
+
+  @override
+  void didChangeDependencies() {
+storageProvider  =  Provider.of<LocalStorageProvider>(context);
+goalsProvider = Provider.of<GoalsProvider>(context);
+ user =  storageProvider.user!;
+ goal = goalsProvider.goals.firstWhere((element) => element.id.toString()==user.ngoal_id);
+    super.didChangeDependencies();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> healthinfo = [
+      {'label': 'Weight', 'data': user.weight.toString()},
+      {'label': 'Height', 'data': user.height.toString()},
+      {'label': 'BMI', 'data': '30Kg/Cm'},
+      {'label': 'Blood Group', 'data': user.blood_group.toString()},
+      {'label': 'Gender', 'data': user.gender.toString()},
+      {'label': 'Sleep Hours', 'data': '<8 Hrs'},
+      {'label': 'Allergies', 'data': 'No'},
+      {'label': 'Alcohol', 'data': 'No'},
+      {'label': 'Activity', 'data': 'Not Active'},
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile Details'),
@@ -93,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          "John Doe",
+                         user.full_name.toString(),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
@@ -101,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       Text(
-                        "+255 000 0000",
+                        user.phone_number.toString(),
                         style: TextStyle(
                             color: AppColors.loginHintColor, fontSize: 20),
                       ),
@@ -127,11 +149,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       subtitle: Text(
-                        'This nutritional goal aims at improving the quality of food intake',
+                        goal.description.toString(),
                         style: TextStyle(color: AppColors.loginHintColor),
                       ),
                       title: Text(
-                        'Eat Healthy',
+                        goal.name.toString(),
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w700),
                       ),
