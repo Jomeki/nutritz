@@ -261,8 +261,6 @@ class _LoginScreenState extends State<LoginScreen> {
         await authProvider.login(user: User(phone_number: _phone.text, password: _password.text));
 
         if (authProvider.isLoggedIn) {
-          print("API response time");
-          print(authProvider.responseTime.runtimeType);
           Provider.of<LocalStorageProvider>(context, listen: false)
               .initialize();
           Navigator.pop(context);
