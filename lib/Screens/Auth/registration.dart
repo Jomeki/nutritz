@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
 import 'package:nutriapp/Services/validator.dart';
 import 'package:provider/provider.dart';
 import '../../Models/user.dart';
-import '../../Providers/storageProvider.dart';
 import 'health_info.dart';
-import 'otp.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+
+import 'otp.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -269,7 +271,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             vertical: 8.0, horizontal: 16.0),
                         child: DropdownButtonFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (gender) => (gender != null) ? null : 'Field cannot be empty, Please select Gender',
+                          validator: (gender) => (gender != null)
+                              ? null
+                              : 'Field cannot be empty, Please select Gender',
                           //TODO: Not yet implemented validation for dropdown input
                           decoration: InputDecoration(
                             hintText: 'Gender',
@@ -357,7 +361,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: SizeConfig.screenWidth * .5,
                         height: 50,
                         child: FilledButton(
-                          onPressed:_saveRegistrationData,
+                          onPressed: _saveRegistrationData,
                           child: Text(
                             'Submit',
                             style: TextStyle(
@@ -385,29 +389,72 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future _saveRegistrationData() async {
     if (_formKey.currentState!.validate()) {
       if (phoneController.text.isNotEmpty &&
-          passController.text.isNotEmpty &&
-          fnameController.text.isNotEmpty &&
-          snameController.text.isNotEmpty &&
-          dateController.text.isNotEmpty &&
-          dropdownvalue.toString()=="Male"||dropdownvalue.toString()=="Female") {
+              passController.text.isNotEmpty &&
+              fnameController.text.isNotEmpty &&
+              snameController.text.isNotEmpty &&
+              dateController.text.isNotEmpty &&
+              dropdownvalue.toString() == "Male" ||
+          dropdownvalue.toString() == "Female") {
+        Map number = await parse(phoneController.text.toString(), region: "TZ");
 
         authProvider.registrationUser = User(
           fname: fnameController.text,
           sname: snameController.text,
           gender: dropdownvalue,
           dob: dateController.text,
-          phone_number: phoneController.text,
+          phone_number: number['e164'].toString().split("+")[1].toString(),
           password: passController.text,
           password_confirmation: passController.text,
         );
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => const OtpScreen()));
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const HealthInfoScreen()));
+
+        showDialog(
+            context: context,
+            // barrierDismissible: false,
+            builder: (context) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SpinKitCircle(
+                      color: AppColors.primaryColor,
+                      size: 100.0,
+                    ),
+                    Text(
+                      "Verifying Phone Number",
+                      style: TextStyle(
+                          fontSize: 15,
+                          decoration: TextDecoration.none,
+                          color: Colors.white,
+                          fontFamily: 'Inter'),
+                    )
+                  ],
+                ));
+        await authProvider.requestOTP(
+            phoneNumber: number['e164'].toString().split("+")[1].toString(),
+            registration: true);
+        Navigator.pop(context);
+        if (authProvider.otpSent) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const OtpScreen()));
+        } else {
+          if (authProvider.responseMessage != null) {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: Text("Verification Failed"),
+                      content: (authProvider.responseMessage != null)
+                          ? (SelectableText(authProvider.responseMessage))
+                          : (SelectableText(
+                              "We have Trouble creating your account, Check your network connection and Try again later")),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("OK"))
+                      ],
+                    ));
+          }
+        }
       }
     }
   }

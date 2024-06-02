@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Models/evaluations.dart';
+import 'package:nutriapp/Providers/evaluationProvider.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Main/evaluation_two.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
 
 class EvaluationQuestionOne extends StatefulWidget {
   const EvaluationQuestionOne({super.key});
@@ -17,8 +23,21 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
   bool isChanged = true;
   int _selectedValue = 0;
 
-  String selectedOption = "";
+  String? selectedOption;
   bool option = false;
+
+  late User _user;
+  late LocalStorageProvider _storageProvider;
+  late EvaluationProvider _evaluationProvider;
+
+  @override
+  void didChangeDependencies() {
+    _evaluationProvider = Provider.of<EvaluationProvider>(context);
+    _storageProvider = Provider.of<LocalStorageProvider>(context);
+    _user = _storageProvider.user!;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -64,12 +83,10 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: RadioListTile(
                         value: 1,
-                        groupValue:
-                        _selectedValue,
+                        groupValue: _selectedValue,
                         onChanged: (value) {
                           setState(() {
-                            _selectedValue =
-                            value!;
+                            _selectedValue = value!;
                           });
                         },
                         title: Text("Yes"),
@@ -84,12 +101,10 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                       padding: const EdgeInsets.all(16.0),
                       child: RadioListTile(
                         value: 2,
-                        groupValue:
-                        _selectedValue,
+                        groupValue: _selectedValue,
                         onChanged: (value) {
                           setState(() {
-                            _selectedValue =
-                            value!;
+                            _selectedValue = value!;
                           });
                         },
                         title: Text("No"),
@@ -107,12 +122,7 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
                     child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EvaluationQuestionTwo()));
-                      },
+                      onPressed:_saveEvaluation,
                       child: Text(
                         'Next',
                         style: TextStyle(
@@ -133,5 +143,20 @@ class _EvaluationQuestionOneState extends State<EvaluationQuestionOne> {
         ),
       ),
     );
+  }
+
+  Future _saveEvaluation() async {
+    if (_selectedValue != 0) {
+
+      _evaluationProvider.evaluation=Evaluations(
+        alcohol_intake: _selectedValue==1?"YES":"NO"
+      );
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => EvaluationQuestionTwo()));
+
+
+    }
   }
 }

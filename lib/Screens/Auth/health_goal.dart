@@ -194,6 +194,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
     if (selectedIndex != -1) {
       showDialog(
           context: context,
+          barrierDismissible: false,
           builder: (context) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,7 +203,14 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
                     color: AppColors.primaryColor,
                     size: 100.0,
                   ),
-                  Text("Creating Account",style: TextStyle(fontSize: 15,decoration: TextDecoration.none,color: Colors.white,fontFamily: 'Inter'),)
+                  Text(
+                    "Creating Account",
+                    style: TextStyle(
+                        fontSize: 15,
+                        decoration: TextDecoration.none,
+                        color: Colors.white,
+                        fontFamily: 'Inter'),
+                  )
                 ],
               ));
 
@@ -223,14 +231,17 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
             context: context,
             builder: (context) => AlertDialog(
                   title: Text("Registration Failed"),
-                  content: (authProvider.responseMessage != null)?(SelectableText(authProvider.responseMessage)):(SelectableText("We have Trouble creating your account, Check your network connection and Try again later")),
+                  content: (authProvider.responseMessage != null)
+                      ? (SelectableText(authProvider.responseMessage))
+                      : (SelectableText(
+                          "We have Trouble creating your account, Check your network connection and Try again later")),
                   actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("OK"))
-              ],
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ],
                 ));
       }
     }

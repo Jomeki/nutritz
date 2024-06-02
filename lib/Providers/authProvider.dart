@@ -12,6 +12,13 @@ class AuthProvider extends ChangeNotifier {
   int responseTime = 0;
   var responseMessage;
 
+  bool _otpSent = false;
+
+  bool get otpSent => _otpSent;
+  late String _otp;
+
+  String get otp => _otp;
+
   set isLoggedIn(bool value) {
     _isLoggedIn = value;
   }
@@ -77,10 +84,7 @@ class AuthProvider extends ChangeNotifier {
   Future login({required User user}) async {
     Stopwatch watch = Stopwatch()..start();
     var response = await http.post(Uri.parse("$_baseUrl/login"),
-        headers: {
-          "Accept": "application/json"
-        },
-        body: user.toLogin());
+        headers: {"Accept": "application/json"}, body: user.toLogin());
 
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
@@ -97,19 +101,17 @@ class AuthProvider extends ChangeNotifier {
         isLoggedIn = false;
         notifyListeners();
       }
-    }else{
+    } else {
       responseTime = watch.elapsedMilliseconds;
       watch.stop();
     }
   }
 
   Future registration() async {
+    log(_registrationUser!.toRegistration().toString());
     var response = await http.post(Uri.parse("$_baseUrl/register"),
-        headers: {
-          "Accept": "application/json"
-        },
+        headers: {"Accept": "application/json"},
         body: _registrationUser!.toRegistration());
-    log(response.body);
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
@@ -123,10 +125,44 @@ class AuthProvider extends ChangeNotifier {
         _isLoggedIn = false;
         notifyListeners();
       }
-    }else{
+    } else {
       var decodedMessage = jsonDecode(response.body);
       responseMessage = decodedMessage['message'];
       _isLoggedIn = false;
+      notifyListeners();
+    }
+  }
+
+  Future requestOTP(
+      {required String phoneNumber, required bool registration}) async {
+    var response = await http.post(Uri.parse("$_baseUrl/otp"),
+        headers: {
+          "Accept": "application/json",
+          'Content-Type': 'application/json'
+        },
+        body: json.encode(
+            {"phone_number": phoneNumber, "otp_type": registration ? 2 : 1}));
+    log(response.body);
+    if (response.statusCode == 200) {
+      var output = jsonDecode(response.body);
+      try {
+        _otp = output['otp'].toString();
+        _otpSent = true;
+
+        notifyListeners();
+      } catch (e) {
+        print(e.toString());
+
+        _otpSent = false;
+        notifyListeners();
+      }
+    } else if (response.statusCode == 400) {
+      var output = jsonDecode(response.body);
+      responseMessage = output['message'];
+      _otpSent = false;
+      notifyListeners();
+    } else {
+      _otpSent = false;
       notifyListeners();
     }
   }

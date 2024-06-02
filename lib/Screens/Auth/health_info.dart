@@ -35,13 +35,11 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
 
   late AuthProvider authProvider;
 
-
   @override
   void didChangeDependencies() {
-authProvider = Provider.of<AuthProvider>(context);
+    authProvider = Provider.of<AuthProvider>(context);
     super.didChangeDependencies();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +260,7 @@ authProvider = Provider.of<AuthProvider>(context);
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
                     child: FilledButton(
-                      onPressed:_saveRegistrationData,
+                      onPressed: _saveRegistrationData,
                       child: Text(
                         'Next',
                         style: TextStyle(
@@ -296,6 +294,9 @@ authProvider = Provider.of<AuthProvider>(context);
           dropdownvalue.toString() == "A" ||
           dropdownvalue.toString() == "B" ||
           dropdownvalue.toString() == "AB") {
+        authProvider.registrationUser!.height = heightController.text;
+        authProvider.registrationUser!.weight = weightController.text;
+        authProvider.registrationUser!.blood_group = dropdownvalue;
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const HealthGoalScreen()));
       }

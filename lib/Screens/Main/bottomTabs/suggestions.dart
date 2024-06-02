@@ -5,6 +5,7 @@ import 'package:number_paginator/number_paginator.dart';
 import 'package:nutriapp/Models/plans.dart';
 import 'package:nutriapp/Providers/foodsProvider.dart';
 import 'package:nutriapp/Providers/planProvider.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Resources/assets.dart';
 import 'package:provider/provider.dart';
 import '../../../Models/foods.dart';
@@ -19,25 +20,48 @@ class DietSuggestions extends StatefulWidget {
 }
 
 class _DietSuggestionsState extends State<DietSuggestions> {
-
   late FoodsProvider _foodsProvider;
   late PlansProvider _plansProvider;
-  List<Foods> _foods=[];
-  List<Plans> _plans=[];
+  late LocalStorageProvider _storageProvider;
+  List<Foods> _foods = [];
+  List<Foods> _paginatedFoods = [];
+  List<Plans> _plans = [];
+  List<Plans> _paginatedPlans = [];
 
 
+  int _initialPlanIndex = 0;
+  int _planStartRange = 0;
+  int _planEndRange = 5;
+
+
+
+  int _initialFoodIndex = 0;
+  int _foodStartRange = 0;
+  int _foodEndRange = 5;
 
   @override
   void didChangeDependencies() {
-  _plansProvider = Provider.of<PlansProvider>(context);
-  _plans = _plansProvider.plans;
-  _foodsProvider = Provider.of<FoodsProvider>(context);
+    _storageProvider = Provider.of<LocalStorageProvider>(context);
+    _plansProvider = Provider.of<PlansProvider>(context);
+    _plans = _plansProvider.plans;
+    _foodsProvider = Provider.of<FoodsProvider>(context);
+    _foods = _foodsProvider.foods;
+    try{
+      _paginatedPlans = _plans.getRange(_planStartRange, _planEndRange).toList();
+    }catch(e){
+      _paginatedPlans = _plans.getRange(_planStartRange, _planStartRange+(_plans.length%5)).toList();
+    }
 
-  _foods = _foodsProvider.foods;
+    try{
+      _paginatedFoods = _foods.getRange(_foodStartRange, _foodEndRange).toList();
+    }catch(e){
+      _paginatedFoods = _foods.getRange(_foodStartRange, _foodStartRange+(_foods.length%5)).toList();
+    }
+
+
+
     super.didChangeDependencies();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -556,8 +580,8 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 SizedBox(
                   height: 590,
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                      itemCount: _foods.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _paginatedFoods.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
@@ -567,63 +591,54 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Padding(
-                                        padding: const EdgeInsets
-                                            .symmetric(
-                                            horizontal: 2.0,
-                                            vertical: 32.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0, vertical: 128.0),
                                         child: SizedBox(
-                                          height:
-                                          SizeConfig.screenHeight,
+                                          height: SizeConfig.screenHeight,
                                           child: Container(
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius
-                                                      .circular(
-                                                      8.0),
-                                                  color:
-                                                  Colors.white),
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  color: Colors.white),
                                               height: 350,
                                               width: 380,
                                               child: Padding(
                                                 padding:
-                                                const EdgeInsets
-                                                    .all(24.0),
+                                                    const EdgeInsets.all(24.0),
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         DefaultTextStyle(
                                                             style: TextStyle(
-                                                                fontSize:
-                                                                18.0,
+                                                                fontSize: 18.0,
                                                                 color: Colors
                                                                     .black,
                                                                 fontFamily:
-                                                                'Inter',
-                                                                fontWeight: FontWeight
-                                                                    .w900),
-                                                            child: Text(
-                                                                _foods[i].name.toString())),
+                                                                    'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900),
+                                                            child: Text(_paginatedFoods[
+                                                                    i]
+                                                                .name
+                                                                .toString())),
                                                         GestureDetector(
-                                                            onTap:
-                                                                () {
+                                                            onTap: () {
                                                               Navigator.pop(
                                                                   context);
                                                             },
-                                                            child:
-                                                            Icon(
-                                                              Icons
-                                                                  .close,
-                                                              color: Colors
-                                                                  .red,
+                                                            child: Icon(
+                                                              Icons.close,
+                                                              color: Colors.red,
                                                             )),
                                                       ],
                                                       mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                     ),
                                                     SizedBox(
                                                       height: 20.0,
@@ -632,16 +647,18 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                       children: [
                                                         DefaultTextStyle(
                                                             style: TextStyle(
-                                                                fontSize:
-                                                                15.0,
+                                                                fontSize: 15.0,
                                                                 color: Colors
                                                                     .black,
                                                                 fontFamily:
-                                                                'Inter',
-                                                                fontWeight: FontWeight
-                                                                    .w400),
-                                                            child: Text(
-                                                                _foods[i].description.toString())),
+                                                                    'Inter',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                            child: Text(_paginatedFoods[
+                                                                    i]
+                                                                .description
+                                                                .toString())),
                                                       ],
                                                     ),
                                                   ],
@@ -663,19 +680,21 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(14),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
                                           child:
                                               Image.asset(AssetsLoader.banana)),
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _foods[i].name.toString(),
+                                              _paginatedFoods[i].name.toString(),
                                               style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontSize: 20,
@@ -685,7 +704,9 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                               padding: const EdgeInsets.only(
                                                   right: 8.0),
                                               child: Text(
-                                               _foods[i].description.toString(),
+                                                _paginatedFoods[i]
+                                                    .description
+                                                    .toString(),
                                                 style: TextStyle(
                                                     fontFamily: 'Inter',
                                                     fontSize: 8,
@@ -708,8 +729,47 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: NumberPaginator(
-                    numberPages: 15,
-                    onPageChange: (index) {},
+                    numberPages: _foods.length ~/ 5+(_foods.length%5<5?1:0),
+                    onPageChange: (index) {
+                      if (index > _initialFoodIndex) {
+                        setState(() {
+                          _initialFoodIndex = index;
+                          _foodStartRange += 5;
+                          _foodEndRange += 5;
+                          try{
+                            _paginatedFoods = _foods.getRange(_foodStartRange, _foodEndRange).toList();
+                          }catch(e){
+                            _paginatedFoods = _foods.getRange(_foodStartRange, _foodStartRange+(_foods.length%5)).toList();
+                          }
+
+                        });
+                      } else {
+                        if (index > 0) {
+                          setState(() {
+                            _initialFoodIndex = index;
+                            _foodStartRange -= 5;
+                            _foodEndRange -= 5;
+                            try{
+                              _paginatedFoods = _foods.getRange(_foodStartRange, _foodEndRange).toList();
+                            }catch(e){
+                              _paginatedFoods = _foods.getRange(_foodStartRange, _foodStartRange+(_foods.length%5)).toList();
+                            }
+                          });
+                        }
+                        if(index==0){
+                          setState(() {
+                            _initialFoodIndex = 0;
+                            _foodStartRange = 0;
+                            _foodEndRange = 5;
+                            try{
+                              _paginatedFoods = _foods.getRange(_foodStartRange, _foodEndRange).toList();
+                            }catch(e){
+                              _paginatedFoods = _foods.getRange(_foodStartRange, _foodStartRange+(_foods.length%5)).toList();
+                            }
+                          });
+                        }
+                      }
+                    },
                     config: NumberPaginatorUIConfig(
                       buttonSelectedBackgroundColor: AppColors.primaryColor,
                     ),
@@ -747,8 +807,8 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                 SizedBox(
                   height: 590,
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                      itemCount: _plans.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _paginatedPlans.length,
                       itemBuilder: (context, i) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 4),
@@ -782,7 +842,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _plans[i].name.toString(),
+                                              _paginatedPlans[i].name.toString(),
                                               style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w700,
@@ -791,7 +851,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                             RichText(
                                                 text: TextSpan(
                                                     text:
-                                                        'Duration: ${_plans[i].duration.toString()} days | ',
+                                                        'Duration: ${_paginatedPlans[i].duration.toString()} days | ',
                                                     style: TextStyle(
                                                         fontFamily: 'Inter',
                                                         fontWeight:
@@ -801,7 +861,8 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                             .loginHintColor),
                                                     children: [
                                                   TextSpan(
-                                                      text: 'Frequency: ${_plans[i].frequency.toString()}',
+                                                      text:
+                                                          'Frequency: ${_paginatedPlans[i].frequency.toString()}',
                                                       style: TextStyle(
                                                           fontFamily: 'Inter',
                                                           fontWeight:
@@ -822,145 +883,89 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                     showCupertinoModalPopup(
                                                         context: context,
                                                         builder: (BuildContext
-                                                            context) {
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        2.0,
-                                                                    vertical:
-                                                                        32.0),
-                                                            child: SizedBox(
-                                                              height: SizeConfig
-                                                                  .screenHeight,
-                                                              child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
-                                                                      color: Colors
-                                                                          .white),
-                                                                  height: 350,
-                                                                  width: 380,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
+                                                        context) {
+                                                          return Column(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                      8,
+                                                                      vertical:
+                                                                      128.0),
+                                                                  child: Container(
+                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: Colors.white),
+                                                                      height: 350,
+                                                                      width: 380,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets
                                                                             .all(
                                                                             24.0),
-                                                                    child:
+                                                                        child:
                                                                         Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Row(
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 20.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('LOW CARBS FOOD PLAN \nDETAILS')),
-                                                                            TextButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: Icon(
-                                                                                  Icons.close,
-                                                                                  color: Colors.red,
-                                                                                )),
-                                                                          ],
+                                                                          crossAxisAlignment:
+                                                                          CrossAxisAlignment.start,
                                                                           mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
+                                                                          MainAxisAlignment.start,
                                                                           children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('Overview')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('What you will do')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('Guidelines')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              SizeConfig.screenWidth * .55,
-                                                                          height:
-                                                                              50,
-                                                                          child:
-                                                                              FilledButton(
-                                                                            onPressed:
-                                                                                () {},
-                                                                            child:
-                                                                                Row(
+                                                                            Row(
                                                                               children: [
-                                                                                Icon(
-                                                                                  Icons.event_note_outlined,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 10.0,
-                                                                                ),
-                                                                                Center(
-                                                                                  child: Text(
-                                                                                    'Add to my plan',
-                                                                                    style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
-                                                                                  ),
-                                                                                ),
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 20.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w900), child: Text(_paginatedPlans[i].name.toString())),
+                                                                                GestureDetector(
+                                                                                    onTap: () {
+                                                                                      Navigator.pop(context);
+                                                                                    },
+                                                                                    child: Icon(
+                                                                                      Icons.close,
+                                                                                      color: Colors.red,
+                                                                                    )),
+                                                                              ],
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900), child: Text('Description')),
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400), child: Text(_paginatedPlans[i].description.toString())),
                                                                               ],
                                                                             ),
-                                                                            style:
-                                                                                FilledButton.styleFrom(backgroundColor: AppColors.primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                                                                          ),
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: SizeConfig.screenWidth * .55,
+                                                                              height: 50,
+                                                                              child: FilledButton(
+                                                                                onPressed: () {
+                                                                                  _plansProvider.addEnrollment(user_id: _storageProvider.user!.id.toString(), plan_id: _paginatedPlans[i].id.toString());
+                                                                                },
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Icon(
+                                                                                      Icons.event_note_outlined,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 10.0,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      'Add to my plan',
+                                                                                      style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                style: FilledButton.styleFrom(backgroundColor: AppColors.primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                      ],
-                                                                    ),
-                                                                  )),
-                                                            ),
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           );
                                                         });
                                                   },
@@ -1021,15 +1026,51 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                   padding: EdgeInsets.symmetric(horizontal: 32),
                   child: NumberPaginator(
                     initialPage: 0,
-                    numberPages: 4,
-                    onPageChange: (index){
+                    numberPages: _plans.length ~/ 5+(_plans.length%5<5?1:0),
+                    onPageChange: (index) {
+                      if (index > _initialPlanIndex) {
+                        setState(() {
+                          _initialPlanIndex = index;
+                          _planStartRange += 5;
+                          _planEndRange += 5;
 
+                          try{
+                            _paginatedPlans = _plans.getRange(_planStartRange, _planEndRange).toList();
+                          }catch(e){
+                            _paginatedPlans = _plans.getRange(_planStartRange, _planStartRange+(_plans.length%5)).toList();
+                          }
+                        });
+                      } else {
+                        if (index > 0) {
+                          setState(() {
+                            _initialPlanIndex = index;
+                            _planStartRange -= 5;
+                            _planEndRange -= 5;
+                            try{
+                              _paginatedPlans = _plans.getRange(_planStartRange, _planEndRange).toList();
+                            }catch(e){
+                              _paginatedPlans = _plans.getRange(_planStartRange, _planStartRange+(_plans.length%5)).toList();
+                            }
+                          });
+                        }
+                        if(index==0){
+                          setState(() {
+                            _initialPlanIndex = 0;
+                            _planStartRange = 0;
+                            _planEndRange = 5;
+                            try{
+                              _paginatedPlans = _plans.getRange(_planStartRange, _planEndRange).toList();
+                            }catch(e){
+                              _paginatedPlans = _plans.getRange(_planStartRange, _planStartRange+(_plans.length%5)).toList();
+                            }
+                          });
+                        }
+                      }
                     },
                     config: NumberPaginatorUIConfig(
                       buttonSelectedBackgroundColor: AppColors.primaryColor,
                     ),
                   ),
-
                 ),
               ],
             )

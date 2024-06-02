@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:nutriapp/Models/user.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
@@ -240,6 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_phone.text.isNotEmpty && _password.text.isNotEmpty) {
         showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) => Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -258,7 +260,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ));
-        await authProvider.login(user: User(phone_number: _phone.text, password: _password.text));
+        Map number = await parse(_phone.text.toString(), region: "TZ");
+        await authProvider.login(
+            user: User(
+                phone_number:
+                    number['e164'].toString().split("+")[1].toString(),
+                password: _password.text));
 
         if (authProvider.isLoggedIn) {
           Provider.of<LocalStorageProvider>(context, listen: false)
@@ -269,45 +276,44 @@ class _LoginScreenState extends State<LoginScreen> {
               context,
               MaterialPageRoute(builder: (context) => const Home()),
               (route) => false);
-        } else{
-            if(authProvider.responseTime >= 5000){
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text("Network Issues"),
-                  content: SelectableText(
-                      "Please check your network connection and try to login again"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("OK"))
-                  ],
-                ),
-              );
-            }else{
-              Navigator.pop(context);
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text("Invalid Credentials"),
-                  content: SelectableText(
-                      "Please check your credentials and try to login again"),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text("OK"))
-                  ],
-                ),
-              );
-            }
-            }
+        } else {
+          if (authProvider.responseTime >= 5000) {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Network Issues"),
+                content: SelectableText(
+                    "Please check your network connection and try to login again"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("OK"))
+                ],
+              ),
+            );
+          } else {
+            Navigator.pop(context);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Invalid Credentials"),
+                content: SelectableText(
+                    "Please check your credentials and try to login again"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("OK"))
+                ],
+              ),
+            );
           }
+        }
       }
     }
   }
-
+}

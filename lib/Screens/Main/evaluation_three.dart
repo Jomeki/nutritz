@@ -4,6 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Main/evaluation_four.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
+import '../../Providers/evaluationProvider.dart';
+import '../../Providers/storageProvider.dart';
 
 class EvaluationQuestionThree extends StatefulWidget {
   const EvaluationQuestionThree({super.key});
@@ -18,6 +23,21 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
   bool isChanged = true;
   String selectedOption = "";
   int _selectedValue = 0;
+
+  final _allergyDescription = TextEditingController();
+
+  late User _user;
+  late LocalStorageProvider _storageProvider;
+  late EvaluationProvider _evaluationProvider;
+
+  @override
+  void didChangeDependencies() {
+    _evaluationProvider = Provider.of<EvaluationProvider>(context);
+    _storageProvider = Provider.of<LocalStorageProvider>(context);
+    _user = _storageProvider.user!;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -83,25 +103,30 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16),
                         child: TextFormField(
+                          controller: _allergyDescription,
                           maxLines: 4,
                           decoration: InputDecoration(
                             hintText: 'Allergies',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                                    width: 1,
+                                    color: AppColors.loginBorderColor)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                                    width: 1,
+                                    color: AppColors.loginBorderColor)),
                             disabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                                    width: 1,
+                                    color: AppColors.loginBorderColor)),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
-                                    width: 1, color: AppColors.loginBorderColor)),
+                                    width: 1,
+                                    color: AppColors.loginBorderColor)),
                           ),
                         ),
                       ),
@@ -122,8 +147,6 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                               borderRadius: BorderRadius.circular(8)),
                           selectedTileColor: AppColors.primaryColor,
                         )),
-
-
                   ],
                 ),
               ),
@@ -136,13 +159,7 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
                   width: SizeConfig.screenWidth * .5,
                   height: 50,
                   child: FilledButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  EvaluationQuestionFour()));
-                    },
+                    onPressed: _saveEvaluation,
                     child: Text(
                       'Next',
                       style: TextStyle(
@@ -162,5 +179,16 @@ class _EvaluationQuestionThreeState extends State<EvaluationQuestionThree> {
         ),
       ),
     );
+  }
+
+  Future _saveEvaluation() async {
+    if (_selectedValue != 0) {
+      _evaluationProvider.evaluation!.allergies =
+          _selectedValue == 1 ? "YES" : "NO";
+      _evaluationProvider.evaluation!.allergy_description =
+          _allergyDescription.text.toString();
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => EvaluationQuestionFour()));
+    }
   }
 }

@@ -66,7 +66,7 @@ class _EvaluationWelcomeScreenState extends State<EvaluationWelcomeScreen> {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>EvaluationQuestionOne()));
                       },
                       child: Text(
-                        'Submit',
+                        'Continue',
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontSize: 16,

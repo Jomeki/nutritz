@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
+import 'package:nutriapp/Providers/evaluationProvider.dart';
 import 'package:nutriapp/Providers/foodsProvider.dart';
 import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
@@ -12,46 +13,48 @@ import 'package:provider/provider.dart';
 import 'Providers/appState.dart';
 import 'Providers/goalsProvider.dart';
 
-final _goalsProvider  = GoalsProvider();
-final _plansProvider  = PlansProvider();
-final _foodsProvider  = FoodsProvider();
-final _storageProvider  = LocalStorageProvider();
+final _goalsProvider = GoalsProvider();
+final _plansProvider = PlansProvider();
+final _foodsProvider = FoodsProvider();
+final _evaluationProvider = EvaluationProvider();
+final _storageProvider = LocalStorageProvider();
 
 Widget? _landingPage;
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
   await Future.wait([
     _plansProvider.getPlans(),
-  _goalsProvider.getGoals(),
+    _goalsProvider.getGoals(),
     _foodsProvider.getFoods(),
     _storageProvider.initialize()
   ]);
 
-
-
-  if(!await LocalStorage.getOnboarding()){
-    _landingPage= const OnboardingScreen();
-  }else{
-    if(await LocalStorage.checkSession()){
-      _landingPage=const Home();
-    }else{
-      _landingPage =  const LoginScreen();
+  if (!await LocalStorage.getOnboarding()) {
+    _landingPage = const OnboardingScreen();
+  } else {
+    if (await LocalStorage.checkSession()) {
+      _landingPage = const Home();
+    } else {
+      _landingPage = const LoginScreen();
     }
   }
 
-  runApp( MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context)=>AppState()),
-    ChangeNotifierProvider(create: (context)=>AuthProvider()),
-    ChangeNotifierProvider.value(value: _goalsProvider),
-    ChangeNotifierProvider.value(value: _plansProvider),
-    ChangeNotifierProvider.value(value: _foodsProvider),
-    ChangeNotifierProvider.value(value: _storageProvider),
-  ],child: const NutriTZ(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => AppState()),
+      ChangeNotifierProvider(create: (context) => AuthProvider()),
+      ChangeNotifierProvider.value(value: _goalsProvider),
+      ChangeNotifierProvider.value(value: _plansProvider),
+      ChangeNotifierProvider.value(value: _foodsProvider),
+      ChangeNotifierProvider.value(value: _evaluationProvider),
+      ChangeNotifierProvider.value(value: _storageProvider),
+    ],
+    child: const NutriTZ(),
+  ));
 }
-
 
 class NutriTZ extends StatelessWidget {
   const NutriTZ({super.key});
@@ -73,4 +76,3 @@ class NutriTZ extends StatelessWidget {
     );
   }
 }
-

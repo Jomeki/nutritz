@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Providers/planProvider.dart';
+import 'package:provider/provider.dart';
+import '../../../Models/plans.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 import '../../../Widgets/graphs/line_chart_card.dart';
@@ -18,12 +21,23 @@ class _ProgressPageState extends State<ProgressPage> {
 
   bool progress = true;
 
+  late PlansProvider _plansProvider;
+  List<Plans> _plans=[];
+
+  @override
+  void didChangeDependencies() {
+_plansProvider = Provider.of<PlansProvider>(context);
+_plans = _plansProvider.plans;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
       body: SizedBox(
         width: SizeConfig.screenWidth,
+        height: double.maxFinite,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -690,20 +704,25 @@ class _ProgressPageState extends State<ProgressPage> {
                     )),
               ),
               //TODO A table showing subscribed plans and completion status goes here
-              SizedBox(
-                height: 32.0,
+            if(_plans.isEmpty)  Align(
+              alignment: Alignment.center,
+              child: Text(
+                'You have no plans currently',
+                style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.loginHintColor),
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'You have no plans currently',
-                  style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.loginHintColor),
-                ),
-              )
+            ),
+              if(_plans.isNotEmpty)  ListView.builder(
+                shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: _plans.length,
+              itemBuilder: (context,i)=>ListTile(
+                              title: Text(_plans[i].name.toString().toUpperCase()),
+                              subtitle: Text(_plans[i].description.toString()),
+                            ))
             ],
           ),
         ),

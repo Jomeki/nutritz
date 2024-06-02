@@ -4,6 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/health_info.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../Providers/authProvider.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -14,10 +17,24 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _one = TextEditingController();
+  final _two = TextEditingController();
+  final _three = TextEditingController();
+  final _four = TextEditingController();
+
+  late AuthProvider authProvider;
+
+  @override
+  void didChangeDependencies() {
+    authProvider = Provider.of<AuthProvider>(context);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -60,6 +77,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              controller: _one,
                               strutStyle: StrutStyle(
                                 height: 2.5,
                               ),
@@ -96,6 +114,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              controller: _two,
                               strutStyle: StrutStyle(
                                 height: 2.5,
                               ),
@@ -132,6 +151,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              controller: _three,
                               strutStyle: StrutStyle(
                                 height: 2.5,
                               ),
@@ -168,6 +188,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 8),
                             child: TextFormField(
+                              controller: _four,
                               strutStyle: StrutStyle(
                                 height: 2.5,
                               ),
@@ -222,13 +243,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       width: SizeConfig.screenWidth * .5,
                       height: 50,
                       child: FilledButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HealthInfoScreen(),
-                              ));
-                        },
+                        onPressed: _saveRegistrationData,
                         child: Text(
                           'Submit',
                           style: TextStyle(
@@ -250,5 +265,23 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
       ),
     );
+  }
+
+  Future _saveRegistrationData() async {
+    if (_formKey.currentState!.validate()) {
+      if (_one.text.isNotEmpty &&
+          _two.text.isNotEmpty &&
+          _three.text.isNotEmpty &&
+          _four.text.isNotEmpty) {
+        String otp =
+            "${_one.text.toString()}${_two.text.toString()}${_three.text.toString()}${_four.text.toString()}";
+        if (authProvider.otp.toString() == otp) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HealthInfoScreen()));
+        }
+      }
+    }
   }
 }

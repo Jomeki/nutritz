@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nutriapp/Models/category.dart';
 import 'package:nutriapp/Models/plans.dart';
 
 import '../Helpers/api_helper.dart';
+import 'package:http/http.dart' as http;
 
 class PlansProvider extends ChangeNotifier{
 
@@ -15,6 +19,7 @@ class PlansProvider extends ChangeNotifier{
   List<PlanCategory> _categories = [];
 
   List<PlanCategory> get categories => _categories;
+  final _baseUrl = dotenv.env['API_URL'];
 
   Future getPlans() async {
    await ApiClient(url: "/plans", token: "").fetch(
@@ -49,6 +54,39 @@ class PlansProvider extends ChangeNotifier{
           }
         },
         onError: (error) {});
+  }
+
+
+  Future addEnrollment({required String user_id,required String plan_id}) async {
+
+
+    try {
+      http.Response response = await http.post(
+          Uri.parse("$_baseUrl/enrollment"),
+          headers: {"Accept": "application/json"},
+          body: {
+            "user_id":user_id,
+            "plan_id":plan_id,
+          });
+
+      print(response.body);
+      if ((response.statusCode == 200 || response.statusCode == 201)) {
+        var output = json.decode(response.body);
+        print(output);
+
+
+        notifyListeners();
+      } else {
+
+        notifyListeners();
+      }
+    } catch (e) {
+
+      notifyListeners();
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
   }
 
 

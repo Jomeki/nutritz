@@ -4,6 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Main/evaluation_three.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user.dart';
+import '../../Providers/evaluationProvider.dart';
+import '../../Providers/storageProvider.dart';
 
 class EvaluationQuestionTwo extends StatefulWidget {
   const EvaluationQuestionTwo({super.key});
@@ -17,6 +22,18 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
   bool isChanged = true;
   int selectedIndex = -1;
   List<String> options = ['Greater than 8 Hours', '7-8 Hours', '5-6 Hours', '4-3 Hours', 'Less than 3 Hours'];
+
+  late User _user;
+  late LocalStorageProvider _storageProvider;
+  late EvaluationProvider _evaluationProvider;
+
+  @override
+  void didChangeDependencies() {
+    _evaluationProvider = Provider.of<EvaluationProvider>(context);
+    _storageProvider = Provider.of<LocalStorageProvider>(context);
+    _user = _storageProvider.user!;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +107,7 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
                     width: SizeConfig.screenWidth * .5,
                     height: 50,
                     child: FilledButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>EvaluationQuestionThree()));
-                      },
+                      onPressed:_saveEvaluation,
                       child: Text(
                         'Next',
                         style: TextStyle(
@@ -114,4 +129,19 @@ class _EvaluationQuestionTwoState extends State<EvaluationQuestionTwo> {
       ),
     );
   }
+
+
+  Future _saveEvaluation() async {
+    if (selectedIndex != -1) {
+      _evaluationProvider.evaluation!.sleep_hours=options[selectedIndex];
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => EvaluationQuestionThree()));
+
+
+    }
+  }
+
+
 }

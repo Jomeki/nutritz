@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Providers/appState.dart';
+import 'package:nutriapp/Providers/evaluationProvider.dart';
 import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Resources/assets.dart';
@@ -21,12 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late LocalStorageProvider storageProvider;
   late PlansProvider plansProvider;
+  late EvaluationProvider _evaluations;
   List<Plans> _plans = [];
 
   @override
   void didChangeDependencies() {
     storageProvider = Provider.of<LocalStorageProvider>(context);
     plansProvider = Provider.of<PlansProvider>(context);
+    _evaluations = Provider.of<EvaluationProvider>(context);
     _plans = plansProvider.plans;
     super.didChangeDependencies();
   }
@@ -40,7 +43,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Visibility(
-              visible: evalcomplete,
+              visible: !_evaluations.isEvaluated,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Container(
@@ -339,142 +342,88 @@ class _HomePageState extends State<HomePage> {
                                                         context: context,
                                                         builder: (BuildContext
                                                             context) {
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        2.0,
-                                                                    vertical:
-                                                                        32.0),
-                                                            child: SizedBox(
-                                                              height: SizeConfig
-                                                                  .screenHeight,
-                                                              child: Container(
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              8.0),
-                                                                      color: Colors
-                                                                          .white),
-                                                                  height: 350,
-                                                                  width: 380,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
+                                                          return Column(
+                                                            children: [
+                                                              Expanded(
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          8,
+                                                                      vertical:
+                                                                          128.0),
+                                                                  child: Container(
+                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0), color: Colors.white),
+                                                                      height: 350,
+                                                                      width: 380,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets
                                                                             .all(
                                                                             24.0),
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Row(
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 20.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('LOW CARBS FOOD PLAN \nDETAILS')),
-                                                                            GestureDetector(
-                                                                                onTap: () {
-                                                                                  Navigator.pop(context);
-                                                                                },
-                                                                                child: Icon(
-                                                                                  Icons.close,
-                                                                                  color: Colors.red,
-                                                                                )),
-                                                                          ],
+                                                                        child:
+                                                                            Column(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
                                                                           mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
+                                                                              MainAxisAlignment.start,
                                                                           children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('Overview')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('What you will do')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        Column(
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900),
-                                                                                child: Text('Guidelines')),
-                                                                            DefaultTextStyle(
-                                                                                style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400),
-                                                                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially')),
-                                                                          ],
-                                                                        ),
-                                                                        SizedBox(
-                                                                          height:
-                                                                              20.0,
-                                                                        ),
-                                                                        SizedBox(
-                                                                          width:
-                                                                              SizeConfig.screenWidth * .55,
-                                                                          height:
-                                                                              50,
-                                                                          child:
-                                                                              FilledButton(
-                                                                            onPressed:
-                                                                                () {},
-                                                                            child:
-                                                                                Row(
+                                                                            Row(
                                                                               children: [
-                                                                                Icon(
-                                                                                  Icons.event_note_outlined,
-                                                                                ),
-                                                                                SizedBox(
-                                                                                  width: 10.0,
-                                                                                ),
-                                                                                Text(
-                                                                                  'Add to my plan',
-                                                                                  style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
-                                                                                ),
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 20.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w900), child: Text(_plans[i].name.toString())),
+                                                                                GestureDetector(
+                                                                                    onTap: () {
+                                                                                      Navigator.pop(context);
+                                                                                    },
+                                                                                    child: Icon(
+                                                                                      Icons.close,
+                                                                                      color: Colors.red,
+                                                                                    )),
+                                                                              ],
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 18.0, color: AppColors.loginHintColor, fontFamily: 'Inter', fontWeight: FontWeight.w900), child: Text('Description')),
+                                                                                DefaultTextStyle(style: TextStyle(fontSize: 15.0, color: Colors.black, fontFamily: 'Inter', fontWeight: FontWeight.w400), child: Text(_plans[i].description.toString())),
                                                                               ],
                                                                             ),
-                                                                            style:
-                                                                                FilledButton.styleFrom(backgroundColor: AppColors.primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-                                                                          ),
+                                                                            SizedBox(
+                                                                              height: 20.0,
+                                                                            ),
+                                                                            SizedBox(
+                                                                              width: SizeConfig.screenWidth * .55,
+                                                                              height: 50,
+                                                                              child: FilledButton(
+                                                                                onPressed: () {
+                                                                                  plansProvider.addEnrollment(user_id: storageProvider.user!.id.toString(), plan_id: _plans[i].id.toString());
+                                                                                },
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Icon(
+                                                                                      Icons.event_note_outlined,
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      width: 10.0,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      'Add to my plan',
+                                                                                      style: TextStyle(fontFamily: 'Inter', fontSize: 16, color: Colors.white),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                style: FilledButton.styleFrom(backgroundColor: AppColors.primaryColor, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                      ],
-                                                                    ),
-                                                                  )),
-                                                            ),
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           );
                                                         });
                                                   },
@@ -502,28 +451,38 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.event_note_outlined,
-                                          color: AppColors.primaryColor,
-                                          size: 28,
-                                        ),
-                                        Text(
-                                          'Add to my plan',
-                                          style: TextStyle(
-                                              fontFamily: 'Inter',
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black),
-                                        )
-                                      ],
+                                  GestureDetector(
+                                    onTap: () {
+                                      plansProvider.addEnrollment(
+                                          user_id: storageProvider.user!.id
+                                              .toString(),
+                                          plan_id: _plans[i].id.toString());
+                                      //TODO: NOTIFY THE USER IF THEY HAVE SUBSCRIBED TO THE PLAN
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.event_note_outlined,
+                                            color: AppColors.primaryColor,
+                                            size: 28,
+                                          ),
+                                          Text(
+                                            'Add to my plan',
+                                            style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   )
                                 ],
