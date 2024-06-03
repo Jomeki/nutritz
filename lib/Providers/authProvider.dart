@@ -82,7 +82,10 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future login({required User user}) async {
+    //Stopwatch
     Stopwatch watch = Stopwatch()..start();
+
+    //Contacting API for response
     var response = await http.post(Uri.parse("$_baseUrl/login"),
         headers: {"Accept": "application/json"}, body: user.toLogin());
 
@@ -90,16 +93,16 @@ class AuthProvider extends ChangeNotifier {
       var output = jsonDecode(response.body);
       try {
         Map<String, dynamic> data = output;
-        await LocalStorage.storeUserData(user: User.fromJson(data['user']));
-        await LocalStorage.storeToken(token: data['token']);
+          await LocalStorage.storeUserData(user: User.fromJson(data['user']));
+          await LocalStorage.storeToken(token: data['token']);
         isLoggedIn = true;
         notifyListeners();
       } catch (e) {
         responseTime = watch.elapsedMilliseconds;
-        watch.stop();
-        print(e.toString());
+          watch.stop();
+          print(e.toString());
         isLoggedIn = false;
-        notifyListeners();
+          notifyListeners();
       }
     } else {
       responseTime = watch.elapsedMilliseconds;
@@ -133,8 +136,8 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future requestOTP(
-      {required String phoneNumber, required bool registration}) async {
+  Future requestOTP({required String phoneNumber, required bool registration}) async {
+
     var response = await http.post(Uri.parse("$_baseUrl/otp"),
         headers: {
           "Accept": "application/json",
@@ -142,7 +145,9 @@ class AuthProvider extends ChangeNotifier {
         },
         body: json.encode(
             {"phone_number": phoneNumber, "otp_type": registration ? 2 : 1}));
+
     log(response.body);
+
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {

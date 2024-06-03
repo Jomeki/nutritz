@@ -34,14 +34,14 @@ class InputValidators {
 
   ///Function to validate phone numbers
   static String? validNumber(String input) {
-    RegExp regex = RegExp(r'^(07|06)\d{8}$');
+    RegExp regex = RegExp(r'^(2557|2556)\d{8}$');
     // RegExp numbers = RegExp('^[0-9]+\$');
 
     if(input.isNotEmpty){
       if(regex.hasMatch(input)){
         return null;
       }else{
-        return 'Please Enter a valid Phone Number (i.e Starting with 07/6)';
+        return 'Please Enter a valid Phone Number (i.e Starting with 2557/6)';
       }
     }else{
       return 'Field cannot be empty, Please enter valid Phone number';

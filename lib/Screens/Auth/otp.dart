@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Screens/Auth/health_info.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
+import 'package:otp_text_field_v2/otp_field_style_v2.dart';
+import 'package:otp_text_field_v2/otp_field_v2.dart';
 import 'package:provider/provider.dart';
 
 import '../../Providers/authProvider.dart';
@@ -17,12 +19,11 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _one = TextEditingController();
-  final _two = TextEditingController();
-  final _three = TextEditingController();
-  final _four = TextEditingController();
+  final _otp = OtpFieldControllerV2();
 
   late AuthProvider authProvider;
+
+  String? _enteredOTP;
 
   @override
   void didChangeDependencies() {
@@ -69,158 +70,31 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8),
-                            child: TextFormField(
-                              controller: _one,
-                              strutStyle: StrutStyle(
-                                height: 2.5,
-                              ),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: AppColors.loginBorderColor,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                              ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: OTPTextFieldV2(
+                              controller: _otp,
+                              length: 4,
+                              autoFocus: true,
+                              width: MediaQuery.of(context).size.width,
+                              textFieldAlignment: MainAxisAlignment.spaceAround,
+                              fieldWidth: 55,
+                              fieldStyle: FieldStyle.box,
+                              outlineBorderRadius: 15,
+                              style: TextStyle(fontSize: 17),
+                              onCompleted: (value){
+                                setState(() {
+                                  _enteredOTP=value;
+                                });
+                              },
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8),
-                            child: TextFormField(
-                              controller: _two,
-                              strutStyle: StrutStyle(
-                                height: 2.5,
-                              ),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: AppColors.loginBorderColor,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8),
-                            child: TextFormField(
-                              controller: _three,
-                              strutStyle: StrutStyle(
-                                height: 2.5,
-                              ),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: AppColors.loginBorderColor,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 8),
-                            child: TextFormField(
-                              controller: _four,
-                              strutStyle: StrutStyle(
-                                height: 2.5,
-                              ),
-                              textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: AppColors.loginBorderColor,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    borderSide: BorderSide(
-                                        width: 1,
-                                        color: AppColors.loginBorderColor)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                     Text(
                       'We have sent an OTP to the phone number you provided,',
@@ -229,15 +103,15 @@ class _OtpScreenState extends State<OtpScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('If you have not received OTP'),
-                        Text(
-                          ' Resend in 3s',
-                          style: TextStyle(color: AppColors.primaryColor),
-                        )
+                        Expanded(
+                            child: Text(
+                          'If you have not received OTP, Check your phone number and try again',
+                          textAlign: TextAlign.center,
+                        )),
                       ],
                     ),
                     SizedBox(
-                      height: 300,
+                      height: 270,
                     ),
                     SizedBox(
                       width: SizeConfig.screenWidth * .5,
@@ -268,13 +142,10 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   Future _saveRegistrationData() async {
+
     if (_formKey.currentState!.validate()) {
-      if (_one.text.isNotEmpty &&
-          _two.text.isNotEmpty &&
-          _three.text.isNotEmpty &&
-          _four.text.isNotEmpty) {
-        String otp =
-            "${_one.text.toString()}${_two.text.toString()}${_three.text.toString()}${_four.text.toString()}";
+      if (_enteredOTP != null) {
+        String otp = _enteredOTP.toString();
         if (authProvider.otp.toString() == otp) {
           Navigator.push(
               context,

@@ -396,7 +396,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               dropdownvalue.toString() == "Male" ||
           dropdownvalue.toString() == "Female") {
         Map number = await parse(phoneController.text.toString(), region: "TZ");
-
         authProvider.registrationUser = User(
           fname: fnameController.text,
           sname: snameController.text,
