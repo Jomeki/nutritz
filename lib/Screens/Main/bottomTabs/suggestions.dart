@@ -941,7 +941,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                                               height: 50,
                                                                               child: FilledButton(
                                                                                 onPressed: () {
-                                                                                  _plansProvider.addEnrollment(user_id: _storageProvider.user!.id.toString(), plan_id: _paginatedPlans[i].id.toString());
+                                                                                  _plansProvider.addEnrollment( plan_id: _paginatedPlans[i].id.toString());
                                                                                 },
                                                                                 child: Row(
                                                                                   children: [
