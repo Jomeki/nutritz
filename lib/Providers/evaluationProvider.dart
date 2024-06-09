@@ -44,10 +44,12 @@ class EvaluationProvider extends ChangeNotifier {
 
   Future addEvaluation() async {
     _isEvaluated = false;
+    String? token = await LocalStorage.getToken();
     try {
       http.Response response = await http.post(
           Uri.parse("$_baseUrl/evaluation"),
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json",
+          "Authorization":"Bearer $token"},
           body: _evaluation!.toJson());
       if ((response.statusCode == 200 || response.statusCode == 201)) {
         var output = json.decode(response.body);

@@ -399,7 +399,7 @@ class _HomePageState extends State<HomePage> {
                                                                               height: 50,
                                                                               child: FilledButton(
                                                                                 onPressed: () {
-                                                                                  plansProvider.addEnrollment(user_id: storageProvider.user!.id.toString(), plan_id: _plans[i].id.toString());
+                                                                                  plansProvider.addEnrollment( plan_id: _plans[i].id.toString());
                                                                                 },
                                                                                 child: Row(
                                                                                   children: [
@@ -454,8 +454,6 @@ class _HomePageState extends State<HomePage> {
                                   GestureDetector(
                                     onTap: () {
                                       plansProvider.addEnrollment(
-                                          user_id: storageProvider.user!.id
-                                              .toString(),
                                           plan_id: _plans[i].id.toString());
                                       //TODO: NOTIFY THE USER IF THEY HAVE SUBSCRIBED TO THE PLAN
                                     },

@@ -10,6 +10,8 @@ import 'package:nutriapp/Models/plans.dart';
 import '../Helpers/api_helper.dart';
 import 'package:http/http.dart' as http;
 
+import '../Services/storage.dart';
+
 class PlansProvider extends ChangeNotifier{
 
   List<Plans> _plans = [];
@@ -57,15 +59,15 @@ class PlansProvider extends ChangeNotifier{
   }
 
 
-  Future addEnrollment({required String user_id,required String plan_id}) async {
+  Future addEnrollment({required String plan_id}) async {
 
-
+    String? token = await LocalStorage.getToken();
     try {
       http.Response response = await http.post(
           Uri.parse("$_baseUrl/enrollment"),
-          headers: {"Accept": "application/json"},
+          headers: {"Accept": "application/json",
+          "Authorization": "Bearer $token"},
           body: {
-            "user_id":user_id,
             "plan_id":plan_id,
           });
 
