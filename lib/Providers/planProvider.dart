@@ -29,7 +29,6 @@ class PlansProvider extends ChangeNotifier{
           try {
             List temp = response;
             _plans = temp.map((e) => Plans.fromJson(e)).toList();
-            log(response.toString());
 
             notifyListeners();
           } catch (e) {
@@ -47,7 +46,6 @@ class PlansProvider extends ChangeNotifier{
           try {
             List temp = response;
             _categories = temp.map((e) => PlanCategory.fromJson(e)).toList();
-            log(response.toString());
 
             notifyListeners();
           } catch (e) {
@@ -70,10 +68,10 @@ class PlansProvider extends ChangeNotifier{
             "plan_id":plan_id,
           });
 
-      print(response.body);
+
       if ((response.statusCode == 200 || response.statusCode == 201)) {
         var output = json.decode(response.body);
-        print(output);
+
 
 
         notifyListeners();

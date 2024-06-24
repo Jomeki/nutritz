@@ -18,5 +18,5 @@ class Enrollement {
       user_id: json['user_id'].toString(),
       plan_id: json['plan_id'].toString(),
       completion_status: json['completion_status'].toString(),
-      plan: Plans.fromJson(json['plandata']));
+      plan: Plans.fromJson(json['plans']));
 }

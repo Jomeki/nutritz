@@ -38,13 +38,14 @@ class GoalsPlanProvider extends ChangeNotifier {
         beforeSend: () {},
         onSuccess: (response) {
           try {
-            log(response.toString());
             List temp = response;
             _enrollement = temp.map((e) => Enrollement.fromJSON(e)).toList();
-            print(_enrollement.length);
+
             notifyListeners();
-          } catch (e) {
-            print(e.toString());
+          }catch (e,stackTrace) {
+            if (kDebugMode) {
+              log(e.toString(),stackTrace: stackTrace,name: "EnrollmentInit");
+            }
           }
         },
         onError: (error) {
@@ -73,10 +74,12 @@ class GoalsPlanProvider extends ChangeNotifier {
     } catch (e) {
       try {
         await getPlans();
-      } catch (e) {}
-      if (kDebugMode) {
-        log(e.toString());
+      } catch (e,stackTrace) {
+        if (kDebugMode) {
+          log(e.toString(),stackTrace: stackTrace,name: "PlansInit");
+        }
       }
+
     }
   }
 
@@ -90,9 +93,9 @@ class GoalsPlanProvider extends ChangeNotifier {
             List temp = response;
             _goalsplan = temp.map((e) => GoalsPlan.fromJSON(e)).toList();
             notifyListeners();
-          } catch (e) {
+          } catch (e,stackTrace) {
             if (kDebugMode) {
-              print(e.toString());
+              log(e.toString(),stackTrace: stackTrace,name: "PlansGetter");
             }
           }
         },

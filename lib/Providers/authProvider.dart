@@ -128,7 +128,6 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future updateUser({required User user}) async {
-
     var response = await http.post(Uri.parse("$_baseUrl/user/update"),
         headers: {"Accept": "application/json"}, body: user.toUpdateProfile());
     if (response.statusCode == 200) {
@@ -148,9 +147,8 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future updateEvaluation({required Evaluations evaluation}) async {
-
     var response = await http.post(Uri.parse("$_baseUrl/user/update"),
-        headers: {"Accept": "application/json"}, body:evaluation.toJson());
+        headers: {"Accept": "application/json"}, body: evaluation.toJson());
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
