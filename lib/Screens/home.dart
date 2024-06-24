@@ -106,13 +106,7 @@ class _HomeState extends State<Home> {
                 appState.setBottomNavIndex(3);
               },
             ),
-            ListTile(
-              iconColor: Colors.white,
-              textColor: Colors.white,
-              leading: Icon(Icons.radio_button_on),
-              title: Text("Switch to swahili"),
-              onTap: () {},
-            ),
+          
             ListTile(
               iconColor: Colors.white,
               textColor: Colors.white,

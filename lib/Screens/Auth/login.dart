@@ -4,6 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:nutriapp/Models/user.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
+import 'package:nutriapp/Providers/enrollementProvider.dart';
+import 'package:nutriapp/Providers/goalsfoodProvider.dart';
+import 'package:nutriapp/Providers/goalsplanProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Auth/forget.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
@@ -268,8 +271,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 password: _password.text));
 
         if (authProvider.isLoggedIn) {
+          await Future.wait([
           Provider.of<LocalStorageProvider>(context, listen: false)
-              .initialize();
+              .initialize(),
+            Provider.of<GoalsFoodProvider>(context, listen: false)
+              .getGoalsFood(),
+            Provider.of<GoalsPlanProvider>(context, listen: false)
+                .initialize()
+          ]);
+
           Navigator.pop(context);
 
           Navigator.pushAndRemoveUntil(context,

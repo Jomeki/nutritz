@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Services/ScreenSizes.dart';
+import 'package:provider/provider.dart';
 import '../../../Themes/colors.dart';
+import '../Models/goals.dart';
+import '../Models/user.dart';
+import '../Providers/goalsProvider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -16,13 +21,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   List<String> Gender = ['Male', 'Female'];
   String dropval = "Choose Gender";
 
+  TextEditingController heightcon = TextEditingController();
+  TextEditingController weightcon = TextEditingController();
+  late GoalsProvider _goalsProvider;
+  List<Goals> _goals = [];
+
+  late LocalStorageProvider _storageProvider ;
+
   var blood = ['O', 'A', 'B', 'AB'];
-  String dropdownvalue = "Choose Blood Group";
-  String dropdownvaluehealth = "Current health goal";
-  String dropdownvalueactivity = "Current activity level";
-  String dropdownvaluesleephours = "Current sleep hours";
-  String dropdownvaluealchoholintake = "Current alchohol intake status";
-  String dropdownvalueallergies = "Current allergy status";
+  String? dropdownvalue;
+  Goals? _selectedGoal ;
+  String? dropdownvalueactivity;
+  String? dropdownvaluesleephours;
+  String? dropdownvaluealchoholintake;
+  String? dropdownvalueallergies;
 
   var healthgoal = [
     'Loose weight',
@@ -38,14 +50,61 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     '4-3 Hours',
     'Less than 3 Hours'
   ];
-  var alchoholintake = ['Yes', 'No'];
-  var allergies = ['Yes', 'No'];
+  var alchoholintake = ['YES', 'NO'];
+  var allergies = ['YES', 'NO'];
 
   String selectedMeasurement = 'cm';
   String selectedWeight = 'kg';
 
+  User? _user;
+
   List<String> measurement = ['cm', 'ft'];
   List<String> weight = ['kg', 'pnd'];
+
+  @override
+  void initState() {
+    _storageProvider = Provider.of<LocalStorageProvider>(context,listen: false);
+    _user=_storageProvider.user;
+    try{
+      _user=_storageProvider.user;
+        if(_user!.height != null){
+          heightcon = TextEditingController(text: _user!.height.toString());
+        }
+
+        if(_user!.weight != null){
+          weightcon = TextEditingController(text: _user!.weight.toString());
+        }
+
+        if(_user!.blood_group != null){
+          dropdownvalue = _user!.blood_group.toString();
+        }
+
+        if(_user!.ngoal_id != null){
+          _selectedGoal = Provider.of<GoalsProvider>(context,listen: false).goals.firstWhere((element) => element.id.toString() == _user!.ngoal_id.toString());
+        }
+
+        if(_user!.evaluation !=  null){
+          dropdownvalueactivity = _user!.evaluation!.activity_level.toString();
+           dropdownvaluesleephours = _user!.evaluation!.sleep_hours.toString();
+          dropdownvaluealchoholintake = _user!.evaluation!.alcohol_intake.toString();
+          dropdownvalueallergies = _user!.evaluation!.allergies.toString();
+        }
+
+
+
+    }catch(e){}
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _storageProvider = Provider.of<LocalStorageProvider>(context);
+    _goalsProvider = Provider.of<GoalsProvider>(context);
+    _goals = _goalsProvider.goals;
+
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0,),
                     child: TextFormField(
+                      controller: heightcon,
                       decoration: InputDecoration(
                         hintText: 'Height',
                         suffixIcon: SizedBox(
@@ -133,6 +193,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 8.0,),
                     child: TextFormField(
+                      controller: weightcon,
                       decoration: InputDecoration(
                         hintText: 'Weight',
                         suffixIcon: SizedBox(
@@ -195,6 +256,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: DropdownButtonFormField(
+                      value: dropdownvalue,
                       decoration: InputDecoration(
                         hintText: 'Blood Group',
                         prefixIconColor: AppColors.primaryColor,
@@ -231,7 +293,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: DropdownButtonFormField(
+                    child: DropdownButtonFormField<Goals>(
+                      value: _selectedGoal,
                       decoration: InputDecoration(
                         hintText: 'Health Goal',
                         prefixIconColor: AppColors.primaryColor,
@@ -253,15 +316,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             borderSide: BorderSide(
                                 width: 1, color: AppColors.loginBorderColor)),
                       ),
-                      items: healthgoal.map((e) {
+                      items: _goals.map((e) {
                         return DropdownMenuItem(
                           value: e,
-                          child: Text(e),
+                          child: Text(e.toString()),
                         );
                       }).toList(),
-                      onChanged: (String? newvalue) {
+                      onChanged: (Goals? newvalue) {
                         setState(() {
-                          dropdownvaluehealth = newvalue!;
+                          _selectedGoal = newvalue!;
                         });
                       },
                     ),
@@ -269,6 +332,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: DropdownButtonFormField(
+                      value: dropdownvalueactivity,
                       decoration: InputDecoration(
                         hintText: 'Activity level',
                         prefixIconColor: AppColors.primaryColor,
@@ -306,6 +370,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: DropdownButtonFormField(
+                      value: dropdownvaluesleephours,
                       decoration: InputDecoration(
                         hintText: 'Sleep Hours',
                         prefixIconColor: AppColors.primaryColor,
@@ -343,6 +408,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: DropdownButtonFormField(
+                      value: dropdownvaluealchoholintake,
                       decoration: InputDecoration(
                         hintText: 'Alchohol intake',
                         prefixIconColor: AppColors.primaryColor,
@@ -380,6 +446,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: DropdownButtonFormField(
+                      value: dropdownvalueallergies,
                       decoration: InputDecoration(
                         hintText: 'Allergies',
                         prefixIconColor: AppColors.primaryColor,

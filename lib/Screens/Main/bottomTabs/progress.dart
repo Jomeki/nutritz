@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:nutriapp/Models/goalsplan.dart';
+import 'package:nutriapp/Providers/enrollementProvider.dart';
+import 'package:nutriapp/Providers/goalsplanProvider.dart';
 import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:provider/provider.dart';
+import '../../../Models/enrollement.dart';
 import '../../../Models/plans.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
@@ -21,13 +25,17 @@ class _ProgressPageState extends State<ProgressPage> {
 
   bool progress = true;
 
-  late PlansProvider _plansProvider;
-  List<Plans> _plans=[];
+  late GoalsPlanProvider _plansProvider;
+  List<GoalsPlan> _plans = [];
+
+  List<Enrollement> _enrollement = [];
 
   @override
   void didChangeDependencies() {
-_plansProvider = Provider.of<PlansProvider>(context);
-_plans = _plansProvider.plans;
+    _plansProvider = Provider.of<GoalsPlanProvider>(context);
+    _plans = _plansProvider.goalsplan;
+    _enrollement = _plansProvider.enrollement;
+
     super.didChangeDependencies();
   }
 
@@ -193,32 +201,39 @@ _plans = _plansProvider.plans;
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Stack(
-                                        children: [
-                                          SizedBox(
-                                            child: CircularProgressIndicator(
-                                              value: 0.6,
-                                              strokeWidth: 8,
-                                              backgroundColor: Colors.white,
-                                              valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Colors.blueGrey),
-                                              semanticsLabel: 'Complete',
-                                              semanticsValue: '60',
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Stack(
+                                          children: [
+                                            SizedBox(
+                                              child: CircularProgressIndicator(
+                                                value: 0.6,
+                                                strokeWidth: 8,
+                                                backgroundColor: Colors.white,
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(Colors.blueGrey),
+                                                semanticsLabel: 'Progress',
+                                                semanticsValue: '60',
+                                              ),
+                                              width: 50,
+                                              height: 50,
                                             ),
-                                            width: 50,
-                                            height: 50,
-                                          ),
-                                          Positioned(child: Text("60%",style: TextStyle(fontSize: 18),),top: 13,left: 9,)
-                                        ],
-                                      )
-                                    ),
+                                            Positioned(
+                                              child: Text(
+                                                "60%",
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                              top: 13,
+                                              left: 9,
+                                            )
+                                          ],
+                                        )),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 8.0, top: 8),
                                       child: Text(
-                                        'COMPLETE',
+                                        'PROGRESS',
                                         style: TextStyle(
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w400,
@@ -388,15 +403,22 @@ _plans = _plansProvider.plans;
                                               strokeWidth: 8,
                                               backgroundColor: Colors.white,
                                               valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Colors.blueGrey),
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.blueGrey),
                                               semanticsLabel: 'Complete',
                                               semanticsValue: '60',
                                             ),
                                             height: 50,
                                             width: 50,
                                           ),
-                                          Positioned(child: Text("60%",style: TextStyle(fontSize: 18),),top: 13,left: 9,)
+                                          Positioned(
+                                            child: Text(
+                                              "60%",
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                            top: 13,
+                                            left: 9,
+                                          )
                                         ],
                                       ),
                                     ),
@@ -404,7 +426,7 @@ _plans = _plansProvider.plans;
                                       padding: const EdgeInsets.only(
                                           left: 8.0, top: 8),
                                       child: Text(
-                                        'COMPLETE',
+                                        'PROGRESS',
                                         style: TextStyle(
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w400,
@@ -561,32 +583,39 @@ _plans = _plansProvider.plans;
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 90,
-                                width: 90,
-                                child: Stack(
-                                  alignment:Alignment.center,
-                                  children: [
-                                    SizedBox(
-                                      child: CircularProgressIndicator(
-                                        value: 0.6,
-                                        strokeWidth: 10,
-                                        backgroundColor: Colors.white,
-                                        valueColor: AlwaysStoppedAnimation<Color>(
-                                            Colors.blueGrey),
-                                        semanticsLabel: 'Complete',
-                                        semanticsValue: '60',
+                                  height: 90,
+                                  width: 90,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
+                                        child: CircularProgressIndicator(
+                                          value: 0.6,
+                                          strokeWidth: 10,
+                                          backgroundColor: Colors.white,
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.blueGrey),
+                                          semanticsLabel: 'Complete',
+                                          semanticsValue: '60',
+                                        ),
+                                        width: 300,
+                                        height: 300,
                                       ),
-                                      width: 300,
-                                      height: 300,
-                                    ),
-                                    Positioned(child: Text("60%",style: TextStyle(fontSize: 30),),top: 25,left: 20,)
-                                  ],
-                                )
-                              ),
+                                      Positioned(
+                                        child: Text(
+                                          "60%",
+                                          style: TextStyle(fontSize: 30),
+                                        ),
+                                        top: 25,
+                                        left: 20,
+                                      )
+                                    ],
+                                  )),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8),
                                 child: Text(
-                                  'COMPLETE',
+                                  'PROGRESS',
                                   style: TextStyle(
                                       fontFamily: 'Inter',
                                       fontWeight: FontWeight.w400,
@@ -607,8 +636,8 @@ _plans = _plansProvider.plans;
                   width: SizeConfig.screenWidth,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                          color: AppColors.primaryColor, width: 1)),
+                      border:
+                          Border.all(color: AppColors.primaryColor, width: 1)),
                   child: Column(
                     children: [
                       Row(
@@ -704,25 +733,79 @@ _plans = _plansProvider.plans;
                     )),
               ),
               //TODO A table showing subscribed plans and completion status goes here
-            if(_plans.isEmpty)  Align(
-              alignment: Alignment.center,
-              child: Text(
-                'You have no plans currently',
-                style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.loginHintColor),
-              ),
-            ),
-              if(_plans.isNotEmpty)  ListView.builder(
-                shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: _plans.length,
-              itemBuilder: (context,i)=>ListTile(
-                              title: Text(_plans[i].name.toString().toUpperCase()),
-                              subtitle: Text(_plans[i].description.toString()),
-                            ))
+              if (_enrollement.isEmpty)
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      'You have no plans currently',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.loginHintColor),
+                    ),
+                  ),
+                ),
+              if (_enrollement.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _enrollement.length,
+                      itemBuilder: (context, i) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: ListTile(
+                              tileColor: AppColors.suggestionsCard,
+                              trailing: IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
+                                  showDialog(context: context, builder: (context)=>AlertDialog(title: Text("Are you sure you want to unenroll from this nutritional plan?"),content: Text("You are about to unenroll from the ${_enrollement[i].plan!.name}"),actions: [
+                                    TextButton(
+                                          onPressed: (){Navigator.of(context).pop();},
+                                        child: const Text("Cancel")),
+                                    TextButton(
+                                        onPressed: () async {
+                                          await _plansProvider.unenrollPlan(
+                                              enrollment_id:
+                                              _enrollement[i].id.toString());
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("Confirm"))
+                                  ],));
+
+                                },
+                              ),
+                              title: Text(_enrollement[i]
+                                  .plan!
+                                  .name
+                                  .toString()
+                                  .toUpperCase()),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                    child: Text(_enrollement[i]
+                                        .plan!
+                                        .description
+                                        .toString()),
+                                  ),
+                                  Text((_enrollement[i].completion_status)
+                                              .toString() ==
+                                          '1'
+                                      ? "Status: Completed"
+                                      : "Status: Not Completed")
+                                ],
+                              ),
+                            ),
+                          )),
+                )
             ],
           ),
         ),

@@ -38,7 +38,6 @@ class ApiClient {
       beforeSend();
       final response =
       await http.get(Uri.parse(baseUrl! + url), headers: _getHeaders());
-
       if (response.statusCode == 200||response.statusCode==201) {
         final responseData = json.decode(response.body);
         // print("DATA_AGET:_$responseData");
