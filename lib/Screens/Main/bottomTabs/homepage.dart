@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.symmetric(vertical: 96),
                         child: Text("You do not have suggestions currently"))
                     : SizedBox(
-                        height: (_plans.length>5?_plans.length*90:_plans.length * 125),
+                        height: (_plans.length>5?_plans.length*100:_plans.length * 125),
                         child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: _plans.length > 5 ? 5 : _plans.length,

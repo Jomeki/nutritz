@@ -10,13 +10,13 @@ class Enrollement {
   Enrollement(
       {this.id, this.user_id, this.plan_id, this.completion_status, this.plan});
 
-  Map<String, dynamic> toJSON() =>
-      {'user_id': user_id, 'plan_id': plan_id, 'status': completion_status};
+  Map<String, dynamic> toJSON() => {'user_id': user_id, 'plan_id': plan_id, 'status': completion_status};
 
   factory Enrollement.fromJSON(Map<String, dynamic> json) => Enrollement(
       id: json['id'].toString(),
       user_id: json['user_id'].toString(),
       plan_id: json['plan_id'].toString(),
       completion_status: json['completion_status'].toString(),
-      plan: Plans.fromJson(json['plans']));
+      plan: Plans.fromJson(json['plan'])
+  );
 }
