@@ -85,7 +85,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         if(_user!.evaluation !=  null){
           dropdownvalueactivity = _user!.evaluation!.activity_level.toString();
-           dropdownvaluesleephours = _user!.evaluation!.sleep_hours.toString();
+          dropdownvaluesleephours = _user!.evaluation!.sleep_hours.toString();
           dropdownvaluealchoholintake = _user!.evaluation!.alcohol_intake.toString();
           dropdownvalueallergies = _user!.evaluation!.allergies.toString();
         }

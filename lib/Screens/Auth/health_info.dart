@@ -285,6 +285,15 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
       ),
     );
   }
+  double calculteBMI(){
+    var height = heightController.value;
+    var weight = weightController.value;
+
+    var bmi = int.parse(height.text.toString())/int.parse(weight.text.toString());
+
+    return bmi;
+  }
+
 
   Future _saveRegistrationData() async {
     if (_formKey.currentState!.validate()) {
@@ -297,6 +306,7 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
         authProvider.registrationUser!.height = heightController.text;
         authProvider.registrationUser!.weight = weightController.text;
         authProvider.registrationUser!.blood_group = dropdownvalue;
+        authProvider.registrationUser!.bmi =calculteBMI().toStringAsFixed(3);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const HealthGoalScreen()));
       }

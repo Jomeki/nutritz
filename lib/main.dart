@@ -52,6 +52,7 @@ void main() async {
       await Future.wait([
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
+        _evaluationProvider.initialize(),
         _storageProvider.initialize()
       ]);
       _landingPage = const LoginScreen();

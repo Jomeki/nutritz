@@ -54,13 +54,14 @@ class EvaluationProvider extends ChangeNotifier {
       if ((response.statusCode == 200 || response.statusCode == 201)) {
         var output = json.decode(response.body);
         _isEvaluated = true;
-        await LocalStorage.storeUserData(user: User.fromJson(output['user']));
+        await LocalStorage.storeUserData(user: User.fromJson(output));
         notifyListeners();
       } else {
         _isEvaluated = false;
         notifyListeners();
       }
     } catch (e) {
+      log(e.toString());
       _isEvaluated = false;
       notifyListeners();
       if (kDebugMode) {

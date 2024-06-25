@@ -157,9 +157,9 @@ class _EvaluationQuestionFourState extends State<EvaluationQuestionFour> {
   }
 
   Future _completeEvaluation() async {
+
     if (selectedIndex != -1) {
-      _evaluationProvider.evaluation!.activity_level =
-          options[selectedIndex]['title'];
+      _evaluationProvider.evaluation!.activity_level = options[selectedIndex]['title'];
       _evaluationProvider.evaluation!.user_id = _user.id;
       _evaluationProvider.evaluation!.ngoal_id = _user.ngoal_id;
 

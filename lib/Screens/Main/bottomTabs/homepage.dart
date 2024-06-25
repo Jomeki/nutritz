@@ -36,7 +36,10 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
-  bool evalcomplete = true;
+  calculateBmi(){
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
