@@ -8,6 +8,7 @@ import 'package:nutriapp/Providers/evaluationProvider.dart';
 import 'package:nutriapp/Providers/foodsProvider.dart';
 import 'package:nutriapp/Providers/goalsplanProvider.dart';
 import 'package:nutriapp/Providers/planProvider.dart';
+import 'package:nutriapp/Providers/progressProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Intro/onboarding.dart';
@@ -22,6 +23,7 @@ final _goalsProvider = GoalsProvider();
 final _plansProvider = GoalsPlanProvider();
 final _foodsProvider = GoalsFoodProvider();
 final _evaluationProvider = EvaluationProvider();
+final _progressProvider = ProgressProvider();
 // final _enrolProvider = EnrollementProvider();
 final _storageProvider = LocalStorageProvider();
 
@@ -45,7 +47,8 @@ void main() async {
       _plansProvider.initialize(),
       _goalsProvider.getGoals(),
       _foodsProvider.getGoalsFood(),
-      _storageProvider.initialize()
+      _storageProvider.initialize(),
+      _progressProvider.getProgress()
     ]);
       _landingPage = const Home();
     } else {
@@ -53,7 +56,7 @@ void main() async {
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
         _evaluationProvider.initialize(),
-        _storageProvider.initialize()
+        _storageProvider.initialize(),
       ]);
       _landingPage = const LoginScreen();
     }
@@ -68,7 +71,7 @@ void main() async {
       ChangeNotifierProvider.value(value: _foodsProvider),
       ChangeNotifierProvider.value(value: _evaluationProvider),
       ChangeNotifierProvider.value(value: _storageProvider),
-      // ChangeNotifierProvider.value(value: _enrolProvider),
+      ChangeNotifierProvider.value(value: _progressProvider),
     ],
     child: const NutriTZ(),
   ));

@@ -68,12 +68,8 @@ class PlansProvider extends ChangeNotifier{
             "plan_id":plan_id,
           });
 
-
       if ((response.statusCode == 200 || response.statusCode == 201)) {
         var output = json.decode(response.body);
-
-
-
         notifyListeners();
       } else {
 

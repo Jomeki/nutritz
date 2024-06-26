@@ -13,8 +13,11 @@ import '../Services/storage.dart';
 
 class GoalsPlanProvider extends ChangeNotifier {
   List<GoalsPlan> _goalsplan = [];
+
   List<GoalsPlan> get goalsplan => _goalsplan;
+
   List<Enrollement> _enrollement = [];
+
   List<Enrollement> get enrollement => _enrollement;
 
   final _baseUrl = dotenv.env['API_URL'];
@@ -42,9 +45,9 @@ class GoalsPlanProvider extends ChangeNotifier {
             _enrollement = temp.map((e) => Enrollement.fromJSON(e)).toList();
 
             notifyListeners();
-          }catch (e,stackTrace) {
+          } catch (e, stackTrace) {
             if (kDebugMode) {
-              log(e.toString(),stackTrace: stackTrace,name: "EnrollmentInit");
+              log(e.toString(), stackTrace: stackTrace, name: "EnrollmentInit");
             }
           }
         },
@@ -66,20 +69,32 @@ class GoalsPlanProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future _filterCompletedPlans() async {
+    // Create a set of ids from the first list for faster lookup
+    Set<String> list1Ids =
+        _enrollement.map((item) => item.plan_id.toString()).toSet();
+
+    // Filter the second list to remove items with ids present in the first list
+    List<GoalsPlan> filteredList2 = _goalsplan.where((item) {
+      return !list1Ids.contains(item.plan_id.toString());
+    }).toList();
+    _goalsplan = filteredList2;
+    notifyListeners();
+  }
+
   Future initialize() async {
     try {
-      await Future.wait([getEnrollements(), getPlans()]);
+      await Future.wait([getEnrollements(), getPlans(), getCompletedPlans()]);
 
       await _filterPlans();
     } catch (e) {
       try {
         await getPlans();
-      } catch (e,stackTrace) {
+      } catch (e, stackTrace) {
         if (kDebugMode) {
-          log(e.toString(),stackTrace: stackTrace,name: "PlansInit");
+          log(e.toString(), stackTrace: stackTrace, name: "PlansInit");
         }
       }
-
     }
   }
 
@@ -93,9 +108,9 @@ class GoalsPlanProvider extends ChangeNotifier {
             List temp = response;
             _goalsplan = temp.map((e) => GoalsPlan.fromJSON(e)).toList();
             notifyListeners();
-          } catch (e,stackTrace) {
+          } catch (e, stackTrace) {
             if (kDebugMode) {
-              log(e.toString(),stackTrace: stackTrace,name: "PlansGetter");
+              log(e.toString(), stackTrace: stackTrace, name: "PlansGetter");
             }
           }
         },
@@ -120,6 +135,65 @@ class GoalsPlanProvider extends ChangeNotifier {
         print(output);
         await initialize();
 
+        notifyListeners();
+      } else {
+        notifyListeners();
+      }
+    } catch (e) {
+      notifyListeners();
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+  Future completePlan(
+      {required String plan_id, required String progress_category}) async {
+    String? token = await LocalStorage.getToken();
+
+    try {
+      http.Response response = await http
+          .post(Uri.parse("$_baseUrl/completeplan"), headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+      }, body: {
+        "plan_id": plan_id,
+        "progress_category": progress_category
+      });
+
+      log(response.body);
+      log(response.statusCode.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await initialize();
+        notifyListeners();
+      } else {
+        notifyListeners();
+      }
+    } catch (e) {
+      notifyListeners();
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+  Future getCompletedPlans() async {
+    String? token = await LocalStorage.getToken();
+
+    try {
+      http.Response response = await http.get(
+        Uri.parse("$_baseUrl/completeplan"),
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer $token"
+        },
+      );
+
+      log(response.body.toString());
+      log(response.statusCode.toString());
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
         notifyListeners();
       } else {
         notifyListeners();

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nutriapp/Models/goalsplan.dart';
-import 'package:nutriapp/Providers/enrollementProvider.dart';
 import 'package:nutriapp/Providers/goalsplanProvider.dart';
-import 'package:nutriapp/Providers/planProvider.dart';
+import 'package:nutriapp/Providers/progressProvider.dart';
 import 'package:provider/provider.dart';
 import '../../../Models/enrollement.dart';
-import '../../../Models/plans.dart';
+import '../../../Models/progress.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 import '../../../Widgets/graphs/line_chart_card.dart';
@@ -28,11 +27,17 @@ class _ProgressPageState extends State<ProgressPage> {
   late GoalsPlanProvider _plansProvider;
   List<GoalsPlan> _plans = [];
 
+  late ProgressProvider _progressProvider;
+  Progress? _progress;
+
   List<Enrollement> _enrollement = [];
 
   @override
   void didChangeDependencies() {
     _plansProvider = Provider.of<GoalsPlanProvider>(context);
+    _progressProvider = Provider.of<ProgressProvider>(context);
+
+    _progress = _progressProvider.progress;
     _plans = _plansProvider.goalsplan;
     _enrollement = _plansProvider.enrollement;
 
@@ -207,25 +212,26 @@ class _ProgressPageState extends State<ProgressPage> {
                                           children: [
                                             SizedBox(
                                               child: CircularProgressIndicator(
-                                                value: 0.6,
+                                                value:_progress!=null? (int.parse(_progress!.userdailydata.toString())/100):0,
                                                 strokeWidth: 8,
                                                 backgroundColor: Colors.white,
                                                 valueColor:
                                                     AlwaysStoppedAnimation<
                                                         Color>(Colors.blueGrey),
                                                 semanticsLabel: 'Progress',
-                                                semanticsValue: '60',
+                                                semanticsValue: "${_progress?.userdailydata.toString()}",
                                               ),
                                               width: 50,
                                               height: 50,
                                             ),
                                             Positioned(
                                               child: Text(
-                                                "60%",
+                                                "${_progress?.userdailydata.toString()}",
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(fontSize: 18),
                                               ),
                                               top: 13,
-                                              left: 9,
+                                              left: 20,
                                             )
                                           ],
                                         )),
@@ -399,25 +405,25 @@ class _ProgressPageState extends State<ProgressPage> {
                                         children: [
                                           SizedBox(
                                             child: CircularProgressIndicator(
-                                              value: 0.6,
+                                              value:_progress!=null? (int.parse(_progress!.userweeklydata.toString())/100):0,
                                               strokeWidth: 8,
                                               backgroundColor: Colors.white,
                                               valueColor:
                                                   AlwaysStoppedAnimation<Color>(
                                                       Colors.blueGrey),
                                               semanticsLabel: 'Complete',
-                                              semanticsValue: '60',
+                                              semanticsValue: "${_progress?.userweeklydata.toString()}",
                                             ),
                                             height: 50,
                                             width: 50,
                                           ),
                                           Positioned(
                                             child: Text(
-                                              "60%",
+                                              "${_progress?.userweeklydata.toString()}",
                                               style: TextStyle(fontSize: 18),
                                             ),
                                             top: 13,
-                                            left: 9,
+                                            left: 20,
                                           )
                                         ],
                                       ),
@@ -590,25 +596,25 @@ class _ProgressPageState extends State<ProgressPage> {
                                     children: [
                                       SizedBox(
                                         child: CircularProgressIndicator(
-                                          value: 0.6,
+                                          value: _progress!=null?(int.parse(_progress!.userdailymonthly.toString())/100):null,
                                           strokeWidth: 10,
                                           backgroundColor: Colors.white,
                                           valueColor:
                                               AlwaysStoppedAnimation<Color>(
                                                   Colors.blueGrey),
                                           semanticsLabel: 'Complete',
-                                          semanticsValue: '60',
+                                          semanticsValue: "${_progress?.userdailymonthly.toString()}",
                                         ),
                                         width: 300,
                                         height: 300,
                                       ),
                                       Positioned(
                                         child: Text(
-                                          "60%",
+                                          "${_progress?.userdailymonthly.toString()}",
                                           style: TextStyle(fontSize: 30),
                                         ),
                                         top: 25,
-                                        left: 20,
+                                        left: 36,
                                       )
                                     ],
                                   )),
@@ -765,20 +771,32 @@ class _ProgressPageState extends State<ProgressPage> {
                                   color: Colors.red,
                                 ),
                                 onPressed: () async {
-                                  showDialog(context: context, builder: (context)=>AlertDialog(title: Text("Are you sure you want to unenroll from this nutritional plan?"),content: Text("You are about to unenroll from the ${_enrollement[i].plan!.name}"),actions: [
-                                    TextButton(
-                                          onPressed: (){Navigator.of(context).pop();},
-                                        child: const Text("Cancel")),
-                                    TextButton(
-                                        onPressed: () async {
-                                          await _plansProvider.unenrollPlan(
-                                              enrollment_id:
-                                              _enrollement[i].id.toString());
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("Confirm"))
-                                  ],));
-
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                            title: Text(
+                                                "Are you sure you want to unenroll from this nutritional plan?"),
+                                            content: Text(
+                                                "You are about to unenroll from the ${_enrollement[i].plan!.name}"),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text("Cancel")),
+                                              TextButton(
+                                                  onPressed: () async {
+                                                    await _plansProvider
+                                                        .unenrollPlan(
+                                                            enrollment_id:
+                                                                _enrollement[i]
+                                                                    .id
+                                                                    .toString());
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text("Confirm"))
+                                            ],
+                                          ));
                                 },
                               ),
                               title: Text(_enrollement[i]
@@ -790,7 +808,8 @@ class _ProgressPageState extends State<ProgressPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
                                     child: Text(_enrollement[i]
                                         .plan!
                                         .description
@@ -800,7 +819,50 @@ class _ProgressPageState extends State<ProgressPage> {
                                               .toString() ==
                                           '1'
                                       ? "Status: Completed"
-                                      : "Status: Not Completed")
+                                      : "Status: Not Completed"),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: SizedBox(
+                                      width: SizeConfig.screenWidth * .55,
+                                      height: 45,
+                                      child: FilledButton(
+                                        onPressed: () async {
+                                          await _plansProvider.completePlan(
+                                              plan_id: _enrollement[i]
+                                                  .plan_id
+                                                  .toString(),
+                                              progress_category: _enrollement[i]
+                                                  .plan!
+                                                  .frequency
+                                                  .toString());
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.check,
+                                            ),
+                                            SizedBox(
+                                              width: 10.0,
+                                            ),
+                                            Text(
+                                              'Complete Plan',
+                                              style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontSize: 16,
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                        style: FilledButton.styleFrom(
+                                            backgroundColor:
+                                                AppColors.primaryColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(28))),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
