@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:nutriapp/Helpers/api_helper.dart';
+import 'package:nutriapp/Models/evaluations.dart';
 import 'package:nutriapp/Services/storage.dart';
 import '../Models/user.dart';
 
@@ -34,70 +35,26 @@ class AuthProvider extends ChangeNotifier {
 
   final _baseUrl = dotenv.env['API_URL'];
 
-  Future registrationHelper() async {
-    await ApiClient(url: "/register", data: _registrationUser!.toRegistration())
-        .edit(
-            beforeSend: () {},
-            onSuccess: (response) async {
-              try {
-                Map<String, dynamic> data = response;
-                await LocalStorage.storeUserData(
-                    user: User.fromJson(data['user']));
-                await LocalStorage.storeToken(token: data['token']);
-                _isLoggedIn = true;
-                notifyListeners();
-              } catch (e) {
-                print(e.toString());
-                _isLoggedIn = false;
-                notifyListeners();
-              }
-            },
-            onError: (error) {
-              _isLoggedIn = false;
-              notifyListeners();
-            });
-  }
-
-  Future loginHelper({required User user}) async {
-    await ApiClient(url: "/login", data: user.toLogin()).edit(
-        beforeSend: () {},
-        onSuccess: (response) async {
-          try {
-            Map<String, dynamic> data = response;
-            await LocalStorage.storeUserData(user: User.fromJson(data['user']));
-            await LocalStorage.storeToken(token: data['token']);
-            isLoggedIn = true;
-            notifyListeners();
-          } catch (e) {
-            print(e.toString());
-            isLoggedIn = false;
-            notifyListeners();
-          }
-        },
-        onError: (error) {
-          isLoggedIn = false;
-          notifyListeners();
-        });
-    print(_isLoggedIn);
-  }
-
   Future login({required User user}) async {
+    //Stopwatch
     Stopwatch watch = Stopwatch()..start();
+
+    //Contacting API for response
     var response = await http.post(Uri.parse("$_baseUrl/login"),
         headers: {"Accept": "application/json"}, body: user.toLogin());
-
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
         Map<String, dynamic> data = output;
-        await LocalStorage.storeUserData(user: User.fromJson(data['user']));
+        await LocalStorage.storeUserData(user: User.fromJson(data));
         await LocalStorage.storeToken(token: data['token']);
         isLoggedIn = true;
         notifyListeners();
-      } catch (e) {
+      } catch (e, stackTrace) {
         responseTime = watch.elapsedMilliseconds;
         watch.stop();
         print(e.toString());
+        log(stackTrace.toString());
         isLoggedIn = false;
         notifyListeners();
       }
@@ -116,12 +73,13 @@ class AuthProvider extends ChangeNotifier {
       var output = jsonDecode(response.body);
       try {
         Map<String, dynamic> data = output;
-        await LocalStorage.storeUserData(user: User.fromJson(data['user']));
+        await LocalStorage.storeUserData(user: User.fromJson(data));
         await LocalStorage.storeToken(token: data['token']);
         _isLoggedIn = true;
         notifyListeners();
-      } catch (e) {
+      } catch (e, stackTrace) {
         print(e.toString());
+        log(stackTrace.toString());
         _isLoggedIn = false;
         notifyListeners();
       }
@@ -142,7 +100,9 @@ class AuthProvider extends ChangeNotifier {
         },
         body: json.encode(
             {"phone_number": phoneNumber, "otp_type": registration ? 2 : 1}));
+
     log(response.body);
+
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
@@ -165,5 +125,43 @@ class AuthProvider extends ChangeNotifier {
       _otpSent = false;
       notifyListeners();
     }
+  }
+
+  Future updateUser({required User user}) async {
+    var response = await http.post(Uri.parse("$_baseUrl/user/update"),
+        headers: {"Accept": "application/json"}, body: user.toUpdateProfile());
+    if (response.statusCode == 200) {
+      var output = jsonDecode(response.body);
+      try {
+        Map<String, dynamic> data = output;
+
+        isLoggedIn = true;
+        notifyListeners();
+      } catch (e, stackTrace) {
+        print(e.toString());
+        log(stackTrace.toString());
+        isLoggedIn = false;
+        notifyListeners();
+      }
+    } else {}
+  }
+
+  Future updateEvaluation({required Evaluations evaluation}) async {
+    var response = await http.post(Uri.parse("$_baseUrl/user/update"),
+        headers: {"Accept": "application/json"}, body: evaluation.toJson());
+    if (response.statusCode == 200) {
+      var output = jsonDecode(response.body);
+      try {
+        Map<String, dynamic> data = output;
+        await LocalStorage.storeUserData(user: User.fromJson(data));
+        isLoggedIn = true;
+        notifyListeners();
+      } catch (e, stackTrace) {
+        print(e.toString());
+        log(stackTrace.toString());
+        isLoggedIn = false;
+        notifyListeners();
+      }
+    } else {}
   }
 }

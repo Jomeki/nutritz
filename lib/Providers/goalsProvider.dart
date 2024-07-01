@@ -17,7 +17,6 @@ class GoalsProvider extends ChangeNotifier {
           try {
             List temp = response;
             _goals = temp.map((e) => Goals.fromJson(e)).toList();
-            log(response.toString());
 
             notifyListeners();
           } catch (e) {

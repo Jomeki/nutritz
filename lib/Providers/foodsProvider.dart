@@ -17,7 +17,6 @@ class FoodsProvider extends ChangeNotifier {
           try {
             List temp = response;
             _food = temp.map((e) => Foods.fromJson(e)).toList();
-            log(response.toString());
 
             notifyListeners();
           } catch (e) {

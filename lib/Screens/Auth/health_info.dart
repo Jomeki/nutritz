@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -285,6 +287,15 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
       ),
     );
   }
+  double calculteBMI(){
+    var height = heightController.value;
+    var weight = weightController.value;
+
+    var bmi = ((int.parse(weight.text.toString())/pow(int.parse(height.text.toString())/100,2)));
+
+    return bmi;
+  }
+
 
   Future _saveRegistrationData() async {
     if (_formKey.currentState!.validate()) {
@@ -297,6 +308,7 @@ class _HealthInfoScreenState extends State<HealthInfoScreen> {
         authProvider.registrationUser!.height = heightController.text;
         authProvider.registrationUser!.weight = weightController.text;
         authProvider.registrationUser!.blood_group = dropdownvalue;
+        authProvider.registrationUser!.bmi =calculteBMI().toStringAsFixed(3);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const HealthGoalScreen()));
       }

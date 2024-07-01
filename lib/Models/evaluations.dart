@@ -29,13 +29,13 @@ class Evaluations {
       };
 
   factory Evaluations.fromJson(Map<String, dynamic> json) => Evaluations(
-        id: json['id'],
+        id: json['id'].toString(),
         alcohol_intake: json['alcohol_intake'],
         sleep_hours: json['sleep_hours'],
         allergies: json['allergies'],
         allergy_description: json['allergy_description'],
         activity_level: json['activity_level'],
-        user_id: json['user_id'],
-        ngoal_id: json['ngoal_id'],
+        user_id: json['user_id'].toString(),
+        ngoal_id: json['ngoal_id'].toString(),
       );
 }

@@ -10,6 +10,8 @@ import 'package:nutriapp/Services/ScreenSizes.dart';
 import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../Providers/goalsfoodProvider.dart';
+import '../../Providers/goalsplanProvider.dart';
 import '../../Providers/storageProvider.dart';
 
 class HealthGoalScreen extends StatefulWidget {
@@ -218,7 +220,14 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
           _goals[selectedIndex].id.toString();
       await authProvider.registration();
       if (authProvider.isLoggedIn) {
-        Provider.of<LocalStorageProvider>(context, listen: false).initialize();
+        await Future.wait([
+          Provider.of<LocalStorageProvider>(context, listen: false)
+              .initialize(),
+          Provider.of<GoalsFoodProvider>(context, listen: false)
+              .getGoalsFood(),
+          Provider.of<GoalsPlanProvider>(context, listen: false)
+              .initialize()
+        ]);
         Navigator.pop(context);
         print("registering");
         Navigator.pushAndRemoveUntil(

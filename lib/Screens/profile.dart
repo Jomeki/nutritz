@@ -66,13 +66,13 @@ goalsProvider = Provider.of<GoalsProvider>(context);
     List<Map<String, String>> healthinfo = [
       {'label': 'Weight', 'data': user.weight.toString()},
       {'label': 'Height', 'data': user.height.toString()},
-      {'label': 'BMI', 'data': '30Kg/Cm'},
+      {'label': 'BMI', 'data': user.bmi.toString()},
       {'label': 'Blood Group', 'data': user.blood_group.toString()},
       {'label': 'Gender', 'data': user.gender.toString()},
-      {'label': 'Sleep Hours', 'data': '<8 Hrs'},
-      {'label': 'Allergies', 'data': 'No'},
-      {'label': 'Alcohol', 'data': 'No'},
-      {'label': 'Activity', 'data': 'Not Active'},
+      {'label': 'Sleep Hours', 'data': (user.evaluation == null)?"No Value":user.evaluation!.sleep_hours.toString()},
+      {'label': 'Allergies', 'data': (user.evaluation == null)?"No Value":user.evaluation!.allergies.toString()},
+      {'label': 'Alcohol', 'data': (user.evaluation == null)?"No Value":user.evaluation!.alcohol_intake.toString()},
+      {'label': 'Activity', 'data': (user.evaluation == null)?"No Value":user.evaluation!.activity_level.toString()},
     ];
     return Scaffold(
       appBar: AppBar(

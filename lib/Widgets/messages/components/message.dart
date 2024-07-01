@@ -46,7 +46,8 @@ class Message extends StatelessWidget {
             const SizedBox(width: 20.0 / 2),
             const CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage("assets/images/profile.png"),
+              backgroundImage: NetworkImage(
+                  'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
             ),
 
           ],

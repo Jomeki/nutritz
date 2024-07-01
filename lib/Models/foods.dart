@@ -4,6 +4,7 @@ class Foods {
   String? description;
   String? plan_id;
 
+
   Foods({this.id, this.name, this.description, this.plan_id});
 
   Map<String, dynamic> toJson() =>

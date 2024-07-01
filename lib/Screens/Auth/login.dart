@@ -4,6 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 import 'package:nutriapp/Models/user.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
+import 'package:nutriapp/Providers/enrollementProvider.dart';
+import 'package:nutriapp/Providers/goalsProvider.dart';
+import 'package:nutriapp/Providers/goalsfoodProvider.dart';
+import 'package:nutriapp/Providers/goalsplanProvider.dart';
+import 'package:nutriapp/Providers/progressProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Auth/forget.dart';
 import 'package:nutriapp/Screens/Auth/registration.dart';
@@ -177,25 +182,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(8))),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ForgetPasswordScreen()));
-                      },
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: AppColors.loginHintColor,
-                            fontSize: 16),
-                      ),
-                    ),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  //   child: GestureDetector(
+                  //     onTap: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //               builder: (context) =>
+                  //                   const ForgetPasswordScreen()));
+                  //     },
+                  //     child: Text(
+                  //       'Forgot Password?',
+                  //       style: TextStyle(
+                  //           fontFamily: 'Inter',
+                  //           color: AppColors.loginHintColor,
+                  //           fontSize: 16),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -268,12 +273,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 password: _password.text));
 
         if (authProvider.isLoggedIn) {
-          Provider.of<LocalStorageProvider>(context, listen: false)
+         await Provider.of<LocalStorageProvider>(context, listen: false)
               .initialize();
+           Future.wait([
+            Provider.of<GoalsFoodProvider>(context, listen: false)
+              .getGoalsFood(),
+            Provider.of<GoalsPlanProvider>(context, listen: false)
+                .initialize(),
+            Provider.of<GoalsProvider>(context, listen: false)
+                .getGoals(),
+            Provider.of<ProgressProvider>(context, listen: false)
+                .getProgress()
+          ]);
+
           Navigator.pop(context);
 
-          Navigator.pushAndRemoveUntil(
-              context,
+          Navigator.pushAndRemoveUntil(context,
               MaterialPageRoute(builder: (context) => const Home()),
               (route) => false);
         } else {

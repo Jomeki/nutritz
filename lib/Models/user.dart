@@ -1,3 +1,5 @@
+import 'evaluations.dart';
+
 class User {
   String? id;
   String? fname;
@@ -7,12 +9,14 @@ class User {
   String? dob;
   String? height;
   String? weight;
+  String? bmi;
   String? phone_number;
   String? ngoal_id;
   String? is_evaluated;
   String? blood_group;
   String? password;
   String? password_confirmation;
+  Evaluations? evaluation;
 
   User(
       {this.id,
@@ -28,7 +32,9 @@ class User {
       this.is_evaluated,
       this.blood_group,
       this.password,
-      this.password_confirmation});
+      this.password_confirmation,
+      this.bmi,
+      this.evaluation});
 
   Map<String, dynamic> toRegistration() => {
         "fname": fname,
@@ -37,6 +43,7 @@ class User {
         "gender": gender,
         "dob": dob,
         "height": height,
+        "bmi": bmi,
         "ngoal_id": ngoal_id,
         "weight": weight,
         "blood_group": blood_group,
@@ -44,37 +51,51 @@ class User {
         "password": password,
         "password_confirmation": password_confirmation
       };
+
+  Map<String, dynamic> toUpdateProfile() => {
+        "height": height,
+        "ngoal_id": ngoal_id,
+        "weight": weight,
+        "blood_group": blood_group,
+      };
   Map<String, dynamic> toLogin() => {
         "phone_number": phone_number,
         "password": password,
       };
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "fname": fname,
-        "sname": sname,
-        "phone_number": phone_number,
-        "gender": gender,
-        "dob": dob,
-        "height": height,
-        "ngoal_id": ngoal_id,
-        "weight": weight,
-        "blood_group": blood_group,
-        "is_evaluated": is_evaluated
+        'user': {
+          "id": id,
+          "fname": fname,
+          "sname": sname,
+          "phone_number": phone_number,
+          "gender": gender,
+          "dob": dob,
+          "height": height,
+          "ngoal_id": ngoal_id,
+          "weight": weight,
+          "bmi": bmi,
+          "blood_group": blood_group,
+          "is_evaluated": is_evaluated,
+        },
+        "evaluation": evaluation?.toJson()
       };
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json['id'].toString(),
-        fname: json['fname'],
-        sname: json['sname'],
-        full_name: "${json['fname']} ${json['sname']}",
-        phone_number: json['phone_number'].toString(),
-        gender: json['gender'],
-        blood_group: json['blood_group'],
-        dob: json['dob'].toString(),
-        height: json['height'].toString(),
-        weight: json['weight'].toString(),
-        ngoal_id: json['ngoal_id'].toString(),
-        is_evaluated: json['is_evaluated'].toString(),
-      );
+      id: json['user']['id'].toString(),
+      fname: json['user']['fname'],
+      sname: json['user']['sname'],
+      full_name: "${json['user']['fname']} ${json['user']['sname']}",
+      phone_number: json['user']['phone_number'].toString(),
+      gender: json['user']['gender'],
+      bmi: json['user']['bmi'].toString(),
+      blood_group: json['user']['blood_group'],
+      dob: json['user']['dob'].toString(),
+      height: json['user']['height'].toString(),
+      weight: json['user']['weight'].toString(),
+      ngoal_id: json['user']['ngoal_id'].toString(),
+      is_evaluated: json['user']['is_evaluated'].toString(),
+      evaluation: json['evaluation'] != null
+          ? Evaluations.fromJson(json['evaluation'])
+          : null);
 }
