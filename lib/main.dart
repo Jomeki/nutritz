@@ -34,29 +34,26 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
 
-
+  await _storageProvider.initialize();
   if (!await LocalStorage.getOnboarding()) {
-    await Future.wait([
+     Future.wait([
       _goalsProvider.getGoals(),
-      _storageProvider.initialize()
     ]);
     _landingPage = const OnboardingScreen();
   } else {
     if (await LocalStorage.checkSession()) {
-      await Future.wait([
+       Future.wait([
       _plansProvider.initialize(),
       _goalsProvider.getGoals(),
       _foodsProvider.getGoalsFood(),
-      _storageProvider.initialize(),
       _progressProvider.getProgress()
     ]);
       _landingPage = const Home();
     } else {
-      await Future.wait([
+       Future.wait([
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
         _evaluationProvider.initialize(),
-        _storageProvider.initialize(),
       ]);
       _landingPage = const LoginScreen();
     }

@@ -36,11 +36,6 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
-  calculateBmi(){
-
-  }
-
-
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

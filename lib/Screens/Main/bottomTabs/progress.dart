@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -55,6 +57,19 @@ class _ProgressPageState extends State<ProgressPage> {
           child: Column(
             children: [
               Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Your achievements',
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black),
+                    )),
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,137 +86,138 @@ class _ProgressPageState extends State<ProgressPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'DAILY\nGOALS',
+                                      'DAILY\nPLANS',
                                       style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: SizeConfig.screenWidth * .15,
-                                        height: 32,
-                                        child: FilledButton(
-                                          onPressed: () {
-                                            showCupertinoModalPopup(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 32.0),
-                                                    child: SizedBox(
-                                                      height: SizeConfig
-                                                          .screenHeight,
-                                                      child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                              color:
-                                                                  Colors.white),
-                                                          height: 350,
-                                                          width: 380,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(24.0),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    DefaultTextStyle(
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                20.0,
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            fontWeight: FontWeight
-                                                                                .w900),
-                                                                        child: Text(
-                                                                            'DAILY GOALS SUMMARY')),
-                                                                    GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .close,
-                                                                          color:
-                                                                              Colors.red,
-                                                                        )),
-                                                                  ],
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 20.0,
-                                                                ),
-                                                                Column(
-                                                                  children: [
-                                                                    DefaultTextStyle(
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            color: AppColors
-                                                                                .loginHintColor,
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            fontWeight: FontWeight
-                                                                                .w900),
-                                                                        child: Text(
-                                                                            'Details about the daily goals report goes here')),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          )),
-                                                    ),
-                                                  );
-                                                });
-                                          },
-                                          child: Text(
-                                            'More info',
-                                            style: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 8,
-                                                color: Colors.white),
-                                          ),
-                                          style: FilledButton.styleFrom(
-                                              padding: EdgeInsets.zero,
-                                              backgroundColor: Colors.black,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24))),
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(top: 4),
+                                    //   child: SizedBox(
+                                    //     width: SizeConfig.screenWidth * .15,
+                                    //     height: 32,
+                                    //     child: FilledButton(
+                                    //       onPressed: () {
+                                    //         showCupertinoModalPopup(
+                                    //             context: context,
+                                    //             builder:
+                                    //                 (BuildContext context) {
+                                    //               return Padding(
+                                    //                 padding: const EdgeInsets
+                                    //                     .symmetric(
+                                    //                     horizontal: 2.0,
+                                    //                     vertical: 32.0),
+                                    //                 child: SizedBox(
+                                    //                   height: SizeConfig
+                                    //                       .screenHeight,
+                                    //                   child: Container(
+                                    //                       decoration: BoxDecoration(
+                                    //                           borderRadius:
+                                    //                               BorderRadius
+                                    //                                   .circular(
+                                    //                                       8.0),
+                                    //                           color:
+                                    //                               Colors.white),
+                                    //                       height: 350,
+                                    //                       width: 380,
+                                    //                       child: Padding(
+                                    //                         padding:
+                                    //                             const EdgeInsets
+                                    //                                 .all(24.0),
+                                    //                         child: Column(
+                                    //                           crossAxisAlignment:
+                                    //                               CrossAxisAlignment
+                                    //                                   .start,
+                                    //                           children: [
+                                    //                             Row(
+                                    //                               children: [
+                                    //                                 DefaultTextStyle(
+                                    //                                     style: TextStyle(
+                                    //                                         fontSize:
+                                    //                                             20.0,
+                                    //                                         color: Colors
+                                    //                                             .black,
+                                    //                                         fontFamily:
+                                    //                                             'Inter',
+                                    //                                         fontWeight: FontWeight
+                                    //                                             .w900),
+                                    //                                     child: Text(
+                                    //                                         'DAILY GOALS SUMMARY')),
+                                    //                                 GestureDetector(
+                                    //                                     onTap:
+                                    //                                         () {
+                                    //                                       Navigator.pop(
+                                    //                                           context);
+                                    //                                     },
+                                    //                                     child:
+                                    //                                         Icon(
+                                    //                                       Icons
+                                    //                                           .close,
+                                    //                                       color:
+                                    //                                           Colors.red,
+                                    //                                     )),
+                                    //                               ],
+                                    //                               mainAxisAlignment:
+                                    //                                   MainAxisAlignment
+                                    //                                       .spaceBetween,
+                                    //                             ),
+                                    //                             SizedBox(
+                                    //                               height: 20.0,
+                                    //                             ),
+                                    //                             Column(
+                                    //                               children: [
+                                    //                                 DefaultTextStyle(
+                                    //                                     style: TextStyle(
+                                    //                                         fontSize:
+                                    //                                             18.0,
+                                    //                                         color: AppColors
+                                    //                                             .loginHintColor,
+                                    //                                         fontFamily:
+                                    //                                             'Inter',
+                                    //                                         fontWeight: FontWeight
+                                    //                                             .w900),
+                                    //                                     child: Text(
+                                    //                                         'Details about the daily goals report goes here')),
+                                    //                               ],
+                                    //                             ),
+                                    //                           ],
+                                    //                         ),
+                                    //                       )),
+                                    //                 ),
+                                    //               );
+                                    //             });
+                                    //       },
+                                    //       child: Text(
+                                    //         'More info',
+                                    //         style: TextStyle(
+                                    //             fontFamily: 'Inter',
+                                    //             fontWeight: FontWeight.w300,
+                                    //             fontSize: 8,
+                                    //             color: Colors.white),
+                                    //       ),
+                                    //       style: FilledButton.styleFrom(
+                                    //           padding: EdgeInsets.zero,
+                                    //           backgroundColor: Colors.black,
+                                    //           shape: RoundedRectangleBorder(
+                                    //               borderRadius:
+                                    //                   BorderRadius.circular(
+                                    //                       24))),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: const EdgeInsets.only(left: 24.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -239,7 +255,7 @@ class _ProgressPageState extends State<ProgressPage> {
                                       padding: const EdgeInsets.only(
                                           left: 8.0, top: 8),
                                       child: Text(
-                                        'PROGRESS',
+                                        'COMPLETED',
                                         style: TextStyle(
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w400,
@@ -271,131 +287,131 @@ class _ProgressPageState extends State<ProgressPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'WEEKLY\nGOALS',
+                                      'WEEKLY\nPLANS',
                                       style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: SizeConfig.screenWidth * .15,
-                                        height: 32,
-                                        child: FilledButton(
-                                          onPressed: () {
-                                            showCupertinoModalPopup(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 32.0),
-                                                    child: SizedBox(
-                                                      height: SizeConfig
-                                                          .screenHeight,
-                                                      child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                              color:
-                                                                  Colors.white),
-                                                          height: 350,
-                                                          width: 380,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(24.0),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Row(
-                                                                  children: [
-                                                                    DefaultTextStyle(
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            color: Colors
-                                                                                .black,
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            fontWeight: FontWeight
-                                                                                .w900),
-                                                                        child: Text(
-                                                                            'WEEKLY GOALS SUMMARY')),
-                                                                    GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                        },
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .close,
-                                                                          color:
-                                                                              Colors.red,
-                                                                        )),
-                                                                  ],
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 20.0,
-                                                                ),
-                                                                Column(
-                                                                  children: [
-                                                                    DefaultTextStyle(
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            color: AppColors
-                                                                                .loginHintColor,
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            fontWeight: FontWeight
-                                                                                .w900),
-                                                                        child: Text(
-                                                                            'Details about the weekly goals report goes here')),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          )),
-                                                    ),
-                                                  );
-                                                });
-                                          },
-                                          child: Text(
-                                            'More info',
-                                            style: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w300,
-                                                fontSize: 8,
-                                                color: Colors.white),
-                                          ),
-                                          style: FilledButton.styleFrom(
-                                              padding: EdgeInsets.zero,
-                                              backgroundColor: Colors.black,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          24))),
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(top: 4),
+                                    //   child: SizedBox(
+                                    //     width: SizeConfig.screenWidth * .15,
+                                    //     height: 32,
+                                    //     child: FilledButton(
+                                    //       onPressed: () {
+                                    //         showCupertinoModalPopup(
+                                    //             context: context,
+                                    //             builder:
+                                    //                 (BuildContext context) {
+                                    //               return Padding(
+                                    //                 padding: const EdgeInsets
+                                    //                     .symmetric(
+                                    //                     horizontal: 2.0,
+                                    //                     vertical: 32.0),
+                                    //                 child: SizedBox(
+                                    //                   height: SizeConfig
+                                    //                       .screenHeight,
+                                    //                   child: Container(
+                                    //                       decoration: BoxDecoration(
+                                    //                           borderRadius:
+                                    //                               BorderRadius
+                                    //                                   .circular(
+                                    //                                       8.0),
+                                    //                           color:
+                                    //                               Colors.white),
+                                    //                       height: 350,
+                                    //                       width: 380,
+                                    //                       child: Padding(
+                                    //                         padding:
+                                    //                             const EdgeInsets
+                                    //                                 .all(24.0),
+                                    //                         child: Column(
+                                    //                           crossAxisAlignment:
+                                    //                               CrossAxisAlignment
+                                    //                                   .start,
+                                    //                           children: [
+                                    //                             Row(
+                                    //                               children: [
+                                    //                                 DefaultTextStyle(
+                                    //                                     style: TextStyle(
+                                    //                                         fontSize:
+                                    //                                             18.0,
+                                    //                                         color: Colors
+                                    //                                             .black,
+                                    //                                         fontFamily:
+                                    //                                             'Inter',
+                                    //                                         fontWeight: FontWeight
+                                    //                                             .w900),
+                                    //                                     child: Text(
+                                    //                                         'WEEKLY GOALS SUMMARY')),
+                                    //                                 GestureDetector(
+                                    //                                     onTap:
+                                    //                                         () {
+                                    //                                       Navigator.pop(
+                                    //                                           context);
+                                    //                                     },
+                                    //                                     child:
+                                    //                                         Icon(
+                                    //                                       Icons
+                                    //                                           .close,
+                                    //                                       color:
+                                    //                                           Colors.red,
+                                    //                                     )),
+                                    //                               ],
+                                    //                               mainAxisAlignment:
+                                    //                                   MainAxisAlignment
+                                    //                                       .spaceBetween,
+                                    //                             ),
+                                    //                             SizedBox(
+                                    //                               height: 20.0,
+                                    //                             ),
+                                    //                             Column(
+                                    //                               children: [
+                                    //                                 DefaultTextStyle(
+                                    //                                     style: TextStyle(
+                                    //                                         fontSize:
+                                    //                                             18.0,
+                                    //                                         color: AppColors
+                                    //                                             .loginHintColor,
+                                    //                                         fontFamily:
+                                    //                                             'Inter',
+                                    //                                         fontWeight: FontWeight
+                                    //                                             .w900),
+                                    //                                     child: Text(
+                                    //                                         'Details about the weekly goals report goes here')),
+                                    //                               ],
+                                    //                             ),
+                                    //                           ],
+                                    //                         ),
+                                    //                       )),
+                                    //                 ),
+                                    //               );
+                                    //             });
+                                    //       },
+                                    //       child: Text(
+                                    //         'More info',
+                                    //         style: TextStyle(
+                                    //             fontFamily: 'Inter',
+                                    //             fontWeight: FontWeight.w300,
+                                    //             fontSize: 8,
+                                    //             color: Colors.white),
+                                    //       ),
+                                    //       style: FilledButton.styleFrom(
+                                    //           padding: EdgeInsets.zero,
+                                    //           backgroundColor: Colors.black,
+                                    //           shape: RoundedRectangleBorder(
+                                    //               borderRadius:
+                                    //                   BorderRadius.circular(
+                                    //                       24))),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
+                                padding: const EdgeInsets.only(left: 16.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -430,9 +446,9 @@ class _ProgressPageState extends State<ProgressPage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 8.0, top: 8),
+                                          left: 8.0, top: 8.0),
                                       child: Text(
-                                        'PROGRESS',
+                                        'COMPLETE',
                                         style: TextStyle(
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w400,
@@ -453,7 +469,7 @@ class _ProgressPageState extends State<ProgressPage> {
                       decoration: BoxDecoration(
                           color: AppColors.cardGreen,
                           borderRadius: BorderRadius.circular(8)),
-                      child: Row(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -463,172 +479,177 @@ class _ProgressPageState extends State<ProgressPage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  'MONTHLY\nGOALS',
-                                  style: TextStyle(
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 4),
-                                  child: SizedBox(
-                                    width: SizeConfig.screenWidth * .15,
-                                    height: 32,
-                                    child: FilledButton(
-                                      onPressed: () {
-                                        showCupertinoModalPopup(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 32.0),
-                                                child: SizedBox(
-                                                  height:
-                                                      SizeConfig.screenHeight,
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          color: Colors.white),
-                                                      height: 350,
-                                                      width: 380,
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(24.0),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                DefaultTextStyle(
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w900),
-                                                                    child: Text(
-                                                                        'MONTHLY GOALS SUMMARY')),
-                                                                GestureDetector(
-                                                                    onTap: () {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .close,
-                                                                      color: Colors
-                                                                          .red,
-                                                                    )),
-                                                              ],
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                            ),
-                                                            SizedBox(
-                                                              height: 20.0,
-                                                            ),
-                                                            Column(
-                                                              children: [
-                                                                DefaultTextStyle(
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        color: AppColors
-                                                                            .loginHintColor,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w900),
-                                                                    child: Text(
-                                                                        'Details about the monthly goals report goes here')),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      child: Text(
-                                        'More info',
-                                        style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w300,
-                                            fontSize: 10,
-                                            color: Colors.white),
-                                      ),
-                                      style: FilledButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                          backgroundColor: Colors.black,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24))),
-                                    ),
+                                Center(
+                                  child: Text(
+                                    'MONTHLY PLANS',
+                                    style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white,
+                                        fontSize: 16),
                                   ),
                                 ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(top: 4),
+                                //   child: SizedBox(
+                                //     width: SizeConfig.screenWidth * .15,
+                                //     height: 32,
+                                //     child: FilledButton(
+                                //       onPressed: () {
+                                //         showCupertinoModalPopup(
+                                //             context: context,
+                                //             builder: (BuildContext context) {
+                                //               return Padding(
+                                //                 padding:
+                                //                     const EdgeInsets.symmetric(
+                                //                         horizontal: 2.0,
+                                //                         vertical: 32.0),
+                                //                 child: SizedBox(
+                                //                   height:
+                                //                       SizeConfig.screenHeight,
+                                //                   child: Container(
+                                //                       decoration: BoxDecoration(
+                                //                           borderRadius:
+                                //                               BorderRadius
+                                //                                   .circular(
+                                //                                       8.0),
+                                //                           color: Colors.white),
+                                //                       height: 350,
+                                //                       width: 380,
+                                //                       child: Padding(
+                                //                         padding:
+                                //                             const EdgeInsets
+                                //                                 .all(24.0),
+                                //                         child: Column(
+                                //                           crossAxisAlignment:
+                                //                               CrossAxisAlignment
+                                //                                   .start,
+                                //                           children: [
+                                //                             Row(
+                                //                               children: [
+                                //                                 DefaultTextStyle(
+                                //                                     style: TextStyle(
+                                //                                         fontSize:
+                                //                                             18.0,
+                                //                                         color: Colors
+                                //                                             .black,
+                                //                                         fontFamily:
+                                //                                             'Inter',
+                                //                                         fontWeight:
+                                //                                             FontWeight
+                                //                                                 .w900),
+                                //                                     child: Text(
+                                //                                         'MONTHLY GOALS SUMMARY')),
+                                //                                 GestureDetector(
+                                //                                     onTap: () {
+                                //                                       Navigator.pop(
+                                //                                           context);
+                                //                                     },
+                                //                                     child: Icon(
+                                //                                       Icons
+                                //                                           .close,
+                                //                                       color: Colors
+                                //                                           .red,
+                                //                                     )),
+                                //                               ],
+                                //                               mainAxisAlignment:
+                                //                                   MainAxisAlignment
+                                //                                       .spaceBetween,
+                                //                             ),
+                                //                             SizedBox(
+                                //                               height: 20.0,
+                                //                             ),
+                                //                             Column(
+                                //                               children: [
+                                //                                 DefaultTextStyle(
+                                //                                     style: TextStyle(
+                                //                                         fontSize:
+                                //                                             18.0,
+                                //                                         color: AppColors
+                                //                                             .loginHintColor,
+                                //                                         fontFamily:
+                                //                                             'Inter',
+                                //                                         fontWeight:
+                                //                                             FontWeight
+                                //                                                 .w900),
+                                //                                     child: Text(
+                                //                                         'Details about the monthly goals report goes here')),
+                                //                               ],
+                                //                             ),
+                                //                           ],
+                                //                         ),
+                                //                       )),
+                                //                 ),
+                                //               );
+                                //             });
+                                //       },
+                                //       child: Text(
+                                //         'More info',
+                                //         style: TextStyle(
+                                //             fontFamily: 'Inter',
+                                //             fontWeight: FontWeight.w300,
+                                //             fontSize: 10,
+                                //             color: Colors.white),
+                                //       ),
+                                //       style: FilledButton.styleFrom(
+                                //           padding: EdgeInsets.zero,
+                                //           backgroundColor: Colors.black,
+                                //           shape: RoundedRectangleBorder(
+                                //               borderRadius:
+                                //                   BorderRadius.circular(24))),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                  height: 90,
-                                  width: 90,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      SizedBox(
-                                        child: CircularProgressIndicator(
-                                          value: _progress!=null?(int.parse(_progress!.userdailymonthly.toString())/100):null,
-                                          strokeWidth: 10,
-                                          backgroundColor: Colors.white,
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  Colors.blueGrey),
-                                          semanticsLabel: 'Complete',
-                                          semanticsValue: "${_progress?.userdailymonthly.toString()}",
+                          Padding(
+                            padding: const EdgeInsets.only(top: 24.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                    height: 90,
+                                    width: 90,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        SizedBox(
+                                          child: CircularProgressIndicator(
+                                            value: _progress!=null?(int.parse(_progress!.userdailymonthly.toString())/100):null,
+                                            strokeWidth: 10,
+                                            backgroundColor: Colors.white,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.blueGrey),
+                                            semanticsLabel: 'Complete',
+                                            semanticsValue: "${_progress?.userdailymonthly.toString()}",
+                                          ),
+                                          width: 300,
+                                          height: 300,
                                         ),
-                                        width: 300,
-                                        height: 300,
-                                      ),
-                                      Positioned(
-                                        child: Text(
-                                          "${_progress?.userdailymonthly.toString()}",
-                                          style: TextStyle(fontSize: 30),
-                                        ),
-                                        top: 25,
-                                        left: 36,
-                                      )
-                                    ],
-                                  )),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Text(
-                                  'PROGRESS',
-                                  style: TextStyle(
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 10),
-                                ),
-                              )
-                            ],
+                                        Positioned(
+                                          child: Text(
+                                            "${_progress?.userdailymonthly.toString()}",
+                                            style: TextStyle(fontSize: 30),
+                                          ),
+                                          top: 25,
+                                          left: 36,
+                                        )
+                                      ],
+                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Text(
+                                    'COMPLETED',
+                                    style: TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 10),
+                                  ),
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -636,95 +657,95 @@ class _ProgressPageState extends State<ProgressPage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: Container(
-                  width: SizeConfig.screenWidth,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border:
-                          Border.all(color: AppColors.primaryColor, width: 1)),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8, top: 8),
-                            child: SizedBox(
-                              width: SizeConfig.screenWidth * .35,
-                              height: 60,
-                              child: DropdownButtonFormField(
-                                iconEnabledColor: Colors.white,
-                                dropdownColor: AppColors.primaryColor,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  hintText: 'Timeframe',
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12.0,
-                                  ),
-                                  filled: true,
-                                  fillColor: AppColors.primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.primaryColor)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.primaryColor)),
-                                  disabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.primaryColor)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(24),
-                                      borderSide: BorderSide(
-                                          width: 1,
-                                          color: AppColors.primaryColor)),
-                                ),
-                                items: Timelines.map((e) {
-                                  return DropdownMenuItem(
-                                    value: e,
-                                    child: Text(e),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newvalue) {
-                                  setState(() {
-                                    dropdownvalue = newvalue!;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // SizedBox(
-                      //   height: 30,
-                      // ),
-                      if (progress) ...[
-                        LineChartCard()
-                      ] else ...[
-                        Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'You have no progress currently',
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.loginHintColor),
-                          ),
-                        )
-                      ]
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              //   child: Container(
+              //     width: SizeConfig.screenWidth,
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(8),
+              //         border:
+              //             Border.all(color: AppColors.primaryColor, width: 1)),
+              //     child: Column(
+              //       children: [
+              //         Row(
+              //           mainAxisAlignment: MainAxisAlignment.end,
+              //           children: [
+              //             Padding(
+              //               padding: const EdgeInsets.only(right: 8, top: 8),
+              //               child: SizedBox(
+              //                 width: SizeConfig.screenWidth * .35,
+              //                 height: 60,
+              //                 child: DropdownButtonFormField(
+              //                   iconEnabledColor: Colors.white,
+              //                   dropdownColor: AppColors.primaryColor,
+              //                   style: TextStyle(color: Colors.white),
+              //                   decoration: InputDecoration(
+              //                     hintText: 'Timeframe',
+              //                     hintStyle: TextStyle(
+              //                       color: Colors.white,
+              //                       fontSize: 12.0,
+              //                     ),
+              //                     filled: true,
+              //                     fillColor: AppColors.primaryColor,
+              //                     border: OutlineInputBorder(
+              //                         borderRadius: BorderRadius.circular(24),
+              //                         borderSide: BorderSide(
+              //                             width: 1,
+              //                             color: AppColors.primaryColor)),
+              //                     enabledBorder: OutlineInputBorder(
+              //                         borderRadius: BorderRadius.circular(24),
+              //                         borderSide: BorderSide(
+              //                             width: 1,
+              //                             color: AppColors.primaryColor)),
+              //                     disabledBorder: OutlineInputBorder(
+              //                         borderRadius: BorderRadius.circular(24),
+              //                         borderSide: BorderSide(
+              //                             width: 1,
+              //                             color: AppColors.primaryColor)),
+              //                     focusedBorder: OutlineInputBorder(
+              //                         borderRadius: BorderRadius.circular(24),
+              //                         borderSide: BorderSide(
+              //                             width: 1,
+              //                             color: AppColors.primaryColor)),
+              //                   ),
+              //                   items: Timelines.map((e) {
+              //                     return DropdownMenuItem(
+              //                       value: e,
+              //                       child: Text(e),
+              //                     );
+              //                   }).toList(),
+              //                   onChanged: (String? newvalue) {
+              //                     setState(() {
+              //                       dropdownvalue = newvalue!;
+              //                     });
+              //                   },
+              //                 ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //         // SizedBox(
+              //         //   height: 30,
+              //         // ),
+              //         if (progress) ...[
+              //           LineChartCard()
+              //         ] else ...[
+              //           Align(
+              //             alignment: Alignment.center,
+              //             child: Text(
+              //               'You have no progress currently',
+              //               style: TextStyle(
+              //                   fontFamily: 'Inter',
+              //                   fontSize: 16,
+              //                   fontWeight: FontWeight.w400,
+              //                   color: AppColors.loginHintColor),
+              //             ),
+              //           )
+              //         ]
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Align(
@@ -738,14 +759,14 @@ class _ProgressPageState extends State<ProgressPage> {
                           color: Colors.black),
                     )),
               ),
-              //TODO A table showing subscribed plans and completion status goes here
+
               if (_enrollement.isEmpty)
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 146),
                     child: Text(
-                      'You have no plans currently',
+                      'You have no active plans currently',
                       style: TextStyle(
                           fontFamily: 'Inter',
                           fontSize: 16,
@@ -836,6 +857,23 @@ class _ProgressPageState extends State<ProgressPage> {
                                                   .plan!
                                                   .frequency
                                                   .toString());
+
+                                          if(_plansProvider.isCompleted){
+                                          showDialog(context: context, builder: (context)=>AlertDialog(
+                                            title: Text("Plan complete"),
+                                            content: Text("You have successfully completed the ${_enrollement[i].plan!.name}. Thank you for using nutritz"),
+                                            actions: [
+                                              TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text("Close"))
+                                            ],
+                                          ));}else {
+                                            showDialog(context: context, builder: (context)=>AlertDialog(
+                                              title: Text("Failed to complete plan"),
+                                              content: Text("Failed to complete the ${_enrollement[i].plan!.name}. Please check you network connection and try again later"),
+                                              actions: [
+                                                TextButton(onPressed: (){Navigator.of(context).pop();}, child: Text("Close"))
+                                              ],
+                                            ));
+                                          }
                                         },
                                         child: Row(
                                           children: [

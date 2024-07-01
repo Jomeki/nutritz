@@ -8,10 +8,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../Helpers/api_helper.dart';
+import '../Models/completedPlans.dart';
 import '../Models/enrollement.dart';
 import '../Services/storage.dart';
 
 class GoalsPlanProvider extends ChangeNotifier {
+
+  List<CompletedPlans> _completed=[];
+
+  List<CompletedPlans> get completed=>_completed;
+
   List<GoalsPlan> _goalsplan = [];
 
   List<GoalsPlan> get goalsplan => _goalsplan;
@@ -20,19 +26,11 @@ class GoalsPlanProvider extends ChangeNotifier {
 
   List<Enrollement> get enrollement => _enrollement;
 
+  bool _isCompleted = false;
+
+  bool get isCompleted => _isCompleted;
+
   final _baseUrl = dotenv.env['API_URL'];
-
-  List<Map<String, dynamic>> list1 = [
-    {'id': 1, 'name': 'Item 1'},
-    {'id': 2, 'name': 'Item 2'},
-    {'id': 3, 'name': 'Item 3'},
-  ];
-
-  List<Map<String, dynamic>> list2 = [
-    {'id': 2, 'name': 'Item A'},
-    {'id': 3, 'name': 'Item B'},
-    {'id': 4, 'name': 'Item C'},
-  ];
 
   Future getEnrollements() async {
     String? token = await LocalStorage.getToken();
@@ -56,37 +54,50 @@ class GoalsPlanProvider extends ChangeNotifier {
         });
   }
 
-  Future _filterPlans() async {
-    // Create a set of ids from the first list for faster lookup
-    Set<String> list1Ids =
-        _enrollement.map((item) => item.plan_id.toString()).toSet();
-
-    // Filter the second list to remove items with ids present in the first list
-    List<GoalsPlan> filteredList2 = _goalsplan.where((item) {
-      return !list1Ids.contains(item.plan_id.toString());
-    }).toList();
-    _goalsplan = filteredList2;
-    notifyListeners();
-  }
+  // Future _filterPlans() async {
+  //   // Create a set of ids from the first list for faster lookup
+  //   Set<String> list1Ids =
+  //       _enrollement.map((item) => item.plan_id.toString()).toSet();
+  //   // Filter the second list to remove items with ids present in the first list
+  //   List<GoalsPlan> filteredList2 = _goalsplan.where((item) {
+  //     return !list1Ids.contains(item.plan_id.toString());
+  //   }).toList();
+  //   _goalsplan = filteredList2;
+  //   notifyListeners();
+  // }
 
   Future _filterCompletedPlans() async {
     // Create a set of ids from the first list for faster lookup
     Set<String> list1Ids =
-        _enrollement.map((item) => item.plan_id.toString()).toSet();
+    _completed.map((item) => item.plan_id.toString()).toSet();
 
     // Filter the second list to remove items with ids present in the first list
-    List<GoalsPlan> filteredList2 = _goalsplan.where((item) {
+    List<Enrollement> filteredList2 = _enrollement.where((item) {
       return !list1Ids.contains(item.plan_id.toString());
     }).toList();
-    _goalsplan = filteredList2;
+    _enrollement = filteredList2;
+    Set<String> list2Ids =
+    _enrollement.map((item) => item.plan_id.toString()).toSet();
+
+    List<GoalsPlan> filteredList3 = _goalsplan.where((item) {
+      return !list2Ids.contains(item.plan_id.toString());
+    }).toList();
+    _goalsplan = filteredList3;
+    Set<String> list3Ids =
+    _completed.map((item) => item.plan_id.toString()).toSet();
+    List<GoalsPlan> filteredList4 = _goalsplan.where((item) {
+      return !list3Ids.contains(item.plan_id.toString());
+    }).toList();
+    _goalsplan = filteredList4;
     notifyListeners();
   }
 
   Future initialize() async {
     try {
       await Future.wait([getEnrollements(), getPlans(), getCompletedPlans()]);
+      await _filterCompletedPlans();
+      // await _filterPlans();
 
-      await _filterPlans();
     } catch (e) {
       try {
         await getPlans();
@@ -166,6 +177,7 @@ class GoalsPlanProvider extends ChangeNotifier {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         await initialize();
+        _isCompleted = true;
         notifyListeners();
       } else {
         notifyListeners();
@@ -194,6 +206,9 @@ class GoalsPlanProvider extends ChangeNotifier {
       log(response.statusCode.toString());
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        var output = json.decode(response.body);
+        List temp = output;
+        _completed = temp.map((plan)=>CompletedPlans.fromJSON(plan)).toList();
         notifyListeners();
       } else {
         notifyListeners();
