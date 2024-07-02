@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../Providers/goalsfoodProvider.dart';
 import '../../Providers/goalsplanProvider.dart';
+import '../../Providers/progressProvider.dart';
 import '../../Providers/storageProvider.dart';
 
 class HealthGoalScreen extends StatefulWidget {
@@ -220,13 +221,17 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
           _goals[selectedIndex].id.toString();
       await authProvider.registration();
       if (authProvider.isLoggedIn) {
-        await Future.wait([
-          Provider.of<LocalStorageProvider>(context, listen: false)
-              .initialize(),
+        await Provider.of<LocalStorageProvider>(context, listen: false)
+            .initialize();
+        Future.wait([
           Provider.of<GoalsFoodProvider>(context, listen: false)
               .getGoalsFood(),
           Provider.of<GoalsPlanProvider>(context, listen: false)
-              .initialize()
+              .initialize(),
+          Provider.of<GoalsProvider>(context, listen: false)
+              .getGoals(),
+          Provider.of<ProgressProvider>(context, listen: false)
+              .getProgress()
         ]);
         Navigator.pop(context);
         print("registering");

@@ -147,6 +147,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future updateEvaluation({required Evaluations evaluation}) async {
+    log(evaluation.toJson().toString());
     var response = await http.post(Uri.parse("$_baseUrl/user/update"),
         headers: {"Accept": "application/json"}, body: evaluation.toJson());
     if (response.statusCode == 200) {

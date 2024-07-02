@@ -4,15 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:nutriapp/Models/goalsfood.dart';
 import 'package:nutriapp/Models/goalsplan.dart';
-import 'package:nutriapp/Models/plans.dart';
-import 'package:nutriapp/Providers/foodsProvider.dart';
 import 'package:nutriapp/Providers/goalsfoodProvider.dart';
 import 'package:nutriapp/Providers/goalsplanProvider.dart';
-import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
-import 'package:nutriapp/Resources/assets.dart';
 import 'package:provider/provider.dart';
-import '../../../Models/foods.dart';
 import '../../../Services/ScreenSizes.dart';
 import '../../../Themes/colors.dart';
 
@@ -733,7 +728,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32.0),
                       child: NumberPaginator(
-                        numberPages: _foods.length ~/ 5+(_foods.length%5<5?1:0),
+                        numberPages: _foods.length~/5 + ((_foods.length%5 <5 && _foods.length%5!=0)?1:0),
                         onPageChange: (index) {
                           if (index > _initialFoodIndex) {
                             setState(() {
@@ -1040,7 +1035,7 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                       padding: EdgeInsets.symmetric(horizontal: 32),
                       child: NumberPaginator(
                         initialPage: 0,
-                        numberPages: _plans.length ~/ 5+(_plans.length%5<5?1:0),
+                        numberPages: _plans.length ~/ 5 + ((_plans.length%5 < 5 && _plans.length%5!=0)?1:0),
                         onPageChange: (index) {
                           if (index > _initialPlanIndex) {
                             setState(() {

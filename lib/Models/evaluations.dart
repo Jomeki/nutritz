@@ -22,7 +22,7 @@ class Evaluations {
         "alcohol_intake": alcohol_intake,
         "sleep_hours": sleep_hours,
         "allergies": allergies,
-        "allergy_description": allergy_description,
+        if(allergies.toString()=='YES')"allergy_description": allergy_description,
         "activity_level": activity_level,
         "user_id": user_id,
         "ngoal_id": ngoal_id

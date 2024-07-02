@@ -207,7 +207,7 @@ goalsProvider = Provider.of<GoalsProvider>(context);
                                     Text(
                                       healthinfo[i]['data'].toString(),
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           color: AppColors.loginHintColor),
                                     )
                                   ],
