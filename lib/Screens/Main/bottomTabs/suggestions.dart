@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:number_paginator/number_paginator.dart';
 import 'package:nutriapp/Models/goalsfood.dart';
 import 'package:nutriapp/Models/goalsplan.dart';
@@ -941,8 +942,35 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                                                                           width: SizeConfig.screenWidth * .55,
                                                                           height: 50,
                                                                           child: FilledButton(
-                                                                            onPressed: () {
-                                                                              _plansProvider.addEnrollment( plan_id: _paginatedPlans[i].plan_id.toString());
+                                                                            onPressed: () async {
+                                                                              BuildContext? dialogContext;
+                                                                              showDialog(
+                                                                                  context: context,
+                                                                                  barrierDismissible: false,
+                                                                                  builder: (context) {
+                                                                                    dialogContext=context;
+                                                                                    return  Column(
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      children: [
+                                                                                        SpinKitCircle(
+                                                                                          color: AppColors.primaryColor,
+                                                                                          size: 100.0,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          "Please wait",
+                                                                                          style: TextStyle(
+                                                                                              fontSize: 15,
+                                                                                              decoration: TextDecoration.none,
+                                                                                              color: Colors.white,
+                                                                                              fontFamily: 'Inter'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    );
+
+                                                                                  });
+                                                                              await _plansProvider.addEnrollment( plan_id: _paginatedPlans[i].plan_id.toString());
+                                                                              Navigator.of(dialogContext!).pop();
                                                                               Navigator.of(context).pop();
                                                                             },
                                                                             child: Row(
@@ -998,8 +1026,35 @@ class _DietSuggestionsState extends State<DietSuggestions> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 8.0),
                                 child: GestureDetector(
-                                  onTap: (){
-                                    _plansProvider.addEnrollment( plan_id: _paginatedPlans[i].plan_id.toString());
+                                  onTap: () async{
+                                    BuildContext? dialogContext;
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context) {
+                                          dialogContext=context;
+                                          return  Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              SpinKitCircle(
+                                                color: AppColors.primaryColor,
+                                                size: 100.0,
+                                              ),
+                                              Text(
+                                                "Please wait",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    decoration: TextDecoration.none,
+                                                    color: Colors.white,
+                                                    fontFamily: 'Inter'),
+                                              ),
+                                            ],
+                                          );
+
+                                        });
+                                    await _plansProvider.addEnrollment( plan_id: _paginatedPlans[i].plan_id.toString());
+                                    Navigator.of(dialogContext!).pop();
                                   },
                                   child: Column(
                                     mainAxisAlignment:

@@ -30,6 +30,7 @@ class EvaluationProvider extends ChangeNotifier {
     try {
       User? user = await LocalStorage.getUserData();
       if (user!.is_evaluated.toString() == '1') {
+
         _isEvaluated = true;
         notifyListeners();
       } else {
@@ -37,6 +38,7 @@ class EvaluationProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
+
       _isEvaluated = false;
       notifyListeners();
     }

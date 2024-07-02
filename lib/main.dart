@@ -72,14 +72,14 @@ void main() async {
         _plansProvider.initialize(),
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
-        _progressProvider.getProgress()
+        _progressProvider.getProgress(),
+        _evaluationProvider.initialize(),
       ]);
       _landingPage = const Home();
     } else {
       Future.wait([
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
-        _evaluationProvider.initialize(),
       ]);
       _landingPage = const LoginScreen();
     }

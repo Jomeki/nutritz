@@ -186,6 +186,8 @@ class _EvaluationQuestionFourState extends State<EvaluationQuestionFour> {
               ));
 
       await _evaluationProvider.addEvaluation();
+      await Provider.of<LocalStorageProvider>(context, listen: false)
+          .initialize();
       Navigator.pop(context);
       if (_evaluationProvider.isEvaluated) {
         showDialog(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nutriapp/Models/goalsplan.dart';
 import 'package:nutriapp/Providers/appState.dart';
 import 'package:nutriapp/Providers/evaluationProvider.dart';
@@ -399,7 +400,34 @@ class _HomePageState extends State<HomePage> {
                                                                                     height: 50,
                                                                                     child: FilledButton(
                                                                                       onPressed: () async {
+                                                                                        BuildContext? dialogContext;
+                                                                                        showDialog(
+                                                                                            context: context,
+                                                                                            barrierDismissible: false,
+                                                                                            builder: (context) {
+                                                                                              dialogContext=context;
+                                                                                              return  Column(
+                                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                                              children: [
+                                                                                                SpinKitCircle(
+                                                                                                  color: AppColors.primaryColor,
+                                                                                                  size: 100.0,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  "Please wait",
+                                                                                                  style: TextStyle(
+                                                                                                      fontSize: 15,
+                                                                                                      decoration: TextDecoration.none,
+                                                                                                      color: Colors.white,
+                                                                                                      fontFamily: 'Inter'),
+                                                                                                ),
+                                                                                              ],
+                                                                                            );
+
+    });
                                                                                         await plansProvider.addEnrollment(plan_id: _plans[i].plan_id.toString());
+                                                                                        Navigator.of(dialogContext!).pop();
                                                                                         Navigator.of(context).pop();
                                                                                       },
                                                                                       child: Row(
@@ -456,11 +484,34 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         GestureDetector(
                                           onTap: () async {
-                                            await plansProvider.addEnrollment(
-                                                plan_id: _plans[i]
-                                                    .plan!
-                                                    .id
-                                                    .toString());
+                                            BuildContext? dialogContext;
+                                            showDialog(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (context) {
+                                                  dialogContext=context;
+                                                  return  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      SpinKitCircle(
+                                                        color: AppColors.primaryColor,
+                                                        size: 100.0,
+                                                      ),
+                                                      Text(
+                                                        "Please wait",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            decoration: TextDecoration.none,
+                                                            color: Colors.white,
+                                                            fontFamily: 'Inter'),
+                                                      ),
+                                                    ],
+                                                  );
+
+                                                });
+                                            await plansProvider.addEnrollment(plan_id: _plans[i].plan!.id.toString());
+                                            Navigator.of(dialogContext!).pop();
                                             //TODO: NOTIFY THE USER IF THEY HAVE SUBSCRIBED TO THE PLAN
                                           },
                                           child: Padding(

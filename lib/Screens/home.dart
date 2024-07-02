@@ -237,18 +237,6 @@ class _HomeState extends State<Home> {
                         ),
                         Row(
                           children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const NotificationScreen()));
-                                },
-                                icon: Icon(
-                                  CupertinoIcons.bell,
-                                  color: AppColors.primaryColor,
-                                )),
                             Builder(builder: (context) {
                               return IconButton(
                                   onPressed: () {

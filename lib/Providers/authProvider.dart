@@ -128,6 +128,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future updateUser({required User user}) async {
+    log(user.toUpdateProfile().toString());
     var response = await http.post(Uri.parse("$_baseUrl/user/update"),
         headers: {"Accept": "application/json"}, body: user.toUpdateProfile());
     if (response.statusCode == 200) {

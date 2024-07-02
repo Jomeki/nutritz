@@ -19,6 +19,8 @@ import 'package:nutriapp/Themes/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../Providers/evaluationProvider.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -280,6 +282,8 @@ class _LoginScreenState extends State<LoginScreen> {
               .getGoalsFood(),
             Provider.of<GoalsPlanProvider>(context, listen: false)
                 .initialize(),
+             Provider.of<EvaluationProvider>(context, listen: false)
+                 .initialize(),
             Provider.of<GoalsProvider>(context, listen: false)
                 .getGoals(),
             Provider.of<ProgressProvider>(context, listen: false)

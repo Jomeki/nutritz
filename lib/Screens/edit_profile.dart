@@ -96,8 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       if (_user!.evaluation != null) {
         selectedActivityLevel = _user!.evaluation!.activity_level.toString();
         selectedSleepHours = _user!.evaluation!.sleep_hours.toString();
-        selectedAlcoholIntake =
-            _user!.evaluation!.alcohol_intake.toString();
+        selectedAlcoholIntake = _user!.evaluation!.alcohol_intake.toString();
         selectedAlergies = _user!.evaluation!.allergies.toString();
       }
     } catch (e) {}
@@ -530,7 +529,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   _updateProfile() async {
     showDialog(
         context: context,
-        // barrierDismissible: false,
+        barrierDismissible: false,
         builder: (context) => Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -550,22 +549,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ],
             ));
     if (_formKey.currentState!.validate()) {
-      await Future.wait([
-        _authProvider.updateEvaluation(evaluation: Evaluations(
-          alcohol_intake: selectedAlcoholIntake,
-          sleep_hours: selectedSleepHours,
-          activity_level: selectedActivityLevel,
-          allergies: selectedAlergies,
-          allergy_description: null,
-          user_id: _user?.id,
-          ngoal_id: _user?.ngoal_id
-        )),
-        _authProvider.updateUser(user: User(
-          weight: weightcon.text.toString(),
-          height: heightcon.text.toString(),
-          blood_group: selectedBloodGroup
-        ))
-      ]);
+     try{
+       await Future.wait([
+         _authProvider.updateEvaluation(evaluation: Evaluations(
+             alcohol_intake: selectedAlcoholIntake,
+             sleep_hours: selectedSleepHours,
+             activity_level: selectedActivityLevel,
+             allergies: selectedAlergies,
+             allergy_description: null,
+             user_id: _user?.id,
+             ngoal_id: _selectedGoal?.id
+         )),
+         _authProvider.updateUser(user: User(
+             weight: weightcon.text.toString(),
+             height: heightcon.text.toString(),
+             blood_group: selectedBloodGroup,
+             ngoal_id: _selectedGoal?.id
+         ))
+       ]);
+       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+           behavior: SnackBarBehavior.floating,
+           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+           shape: RoundedRectangleBorder(
+               borderRadius: BorderRadius.circular(8)),
+           content: Text("Update Successfull",style: TextStyle(color: Colors.white),),
+           backgroundColor: AppColors.primaryColor,));
+     }catch(e){
+     }
+      Navigator.pop(context);
       Navigator.pop(context);
     }
   }

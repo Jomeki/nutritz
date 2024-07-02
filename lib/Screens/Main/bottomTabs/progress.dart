@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:nutriapp/Models/goalsplan.dart';
 import 'package:nutriapp/Providers/goalsplanProvider.dart';
 import 'package:nutriapp/Providers/progressProvider.dart';
@@ -807,12 +808,34 @@ class _ProgressPageState extends State<ProgressPage> {
                                                   child: const Text("Cancel")),
                                               TextButton(
                                                   onPressed: () async {
-                                                    await _plansProvider
-                                                        .unenrollPlan(
-                                                            enrollment_id:
-                                                                _enrollement[i]
-                                                                    .id
-                                                                    .toString());
+                                                    BuildContext? dialogContext;
+                                                    showDialog(
+                                                        context: context,
+                                                        barrierDismissible: false,
+                                                        builder: (context) {
+                                                          dialogContext=context;
+                                                          return  Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              SpinKitCircle(
+                                                                color: AppColors.primaryColor,
+                                                                size: 100.0,
+                                                              ),
+                                                              Text(
+                                                                "Please wait",
+                                                                style: TextStyle(
+                                                                    fontSize: 15,
+                                                                    decoration: TextDecoration.none,
+                                                                    color: Colors.white,
+                                                                    fontFamily: 'Inter'),
+                                                              ),
+                                                            ],
+                                                          );
+
+                                                        });
+                                                    await _plansProvider.unenrollPlan(enrollment_id: _enrollement[i].id.toString());
+                                                    Navigator.of(dialogContext!).pop();
                                                     Navigator.of(context).pop();
                                                   },
                                                   child: const Text("Confirm"))
@@ -849,6 +872,32 @@ class _ProgressPageState extends State<ProgressPage> {
                                       height: 45,
                                       child: FilledButton(
                                         onPressed: () async {
+                                          BuildContext? dialogContext;
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (context) {
+                                                dialogContext=context;
+                                                return  Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    SpinKitCircle(
+                                                      color: AppColors.primaryColor,
+                                                      size: 100.0,
+                                                    ),
+                                                    Text(
+                                                      "Please wait",
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          decoration: TextDecoration.none,
+                                                          color: Colors.white,
+                                                          fontFamily: 'Inter'),
+                                                    ),
+                                                  ],
+                                                );
+
+                                              });
                                           await _plansProvider.completePlan(
                                               plan_id: _enrollement[i]
                                                   .plan_id
@@ -857,6 +906,8 @@ class _ProgressPageState extends State<ProgressPage> {
                                                   .plan!
                                                   .frequency
                                                   .toString());
+
+                                          Navigator.of(dialogContext!).pop();
 
                                           if(_plansProvider.isCompleted){
                                           showDialog(context: context, builder: (context)=>AlertDialog(
