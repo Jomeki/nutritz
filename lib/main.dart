@@ -1,23 +1,32 @@
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:nutriapp/Models/goalsfood.dart';
-import 'package:nutriapp/Models/goalsplan.dart';
 import 'package:nutriapp/Providers/authProvider.dart';
-import 'package:nutriapp/Providers/enrollementProvider.dart';
 import 'package:nutriapp/Providers/evaluationProvider.dart';
-import 'package:nutriapp/Providers/foodsProvider.dart';
 import 'package:nutriapp/Providers/goalsplanProvider.dart';
-import 'package:nutriapp/Providers/planProvider.dart';
 import 'package:nutriapp/Providers/progressProvider.dart';
 import 'package:nutriapp/Providers/storageProvider.dart';
 import 'package:nutriapp/Screens/Auth/login.dart';
 import 'package:nutriapp/Screens/Intro/onboarding.dart';
 import 'package:nutriapp/Screens/home.dart';
+import 'package:nutriapp/Services/Firebase/firebase_api.dart';
 import 'package:nutriapp/Services/storage.dart';
 import 'package:provider/provider.dart';
 import 'Providers/appState.dart';
 import 'Providers/goalsProvider.dart';
 import 'Providers/goalsfoodProvider.dart';
+import 'Services/Firebase/firebase_options.dart';
+
+// Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   if (kDebugMode) {
+//     print("Handling a background message: ${message.messageId}");
+//     print("Handling a background Title: ${message.notification?.title}");
+//     print("Handling a background Title: ${message.notification?.body}");
+//   }
+// }
 
 final _goalsProvider = GoalsProvider();
 final _plansProvider = GoalsPlanProvider();
@@ -26,31 +35,48 @@ final _evaluationProvider = EvaluationProvider();
 final _progressProvider = ProgressProvider();
 // final _enrolProvider = EnrollementProvider();
 final _storageProvider = LocalStorageProvider();
+final _firebase = FirebaseApi();
 
 Widget? _landingPage;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
 
+  await Future.wait([
+    dotenv.load(fileName: ".env"),
+    if (Platform.isAndroid)
+      Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      )
+  ]);
 
-  await _storageProvider.initialize();
+  try {
+    await Future.wait(
+        [_storageProvider.initialize(), _firebase.initNotifications()]);
+  } catch (e) {
+    await _storageProvider.initialize();
+  }
+
+  // try {
+  //   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // } catch (e) {}
+
   if (!await LocalStorage.getOnboarding()) {
-     Future.wait([
+    Future.wait([
       _goalsProvider.getGoals(),
     ]);
     _landingPage = const OnboardingScreen();
   } else {
     if (await LocalStorage.checkSession()) {
-       Future.wait([
-      _plansProvider.initialize(),
-      _goalsProvider.getGoals(),
-      _foodsProvider.getGoalsFood(),
-      _progressProvider.getProgress()
-    ]);
+      Future.wait([
+        _plansProvider.initialize(),
+        _goalsProvider.getGoals(),
+        _foodsProvider.getGoalsFood(),
+        _progressProvider.getProgress()
+      ]);
       _landingPage = const Home();
     } else {
-       Future.wait([
+      Future.wait([
         _goalsProvider.getGoals(),
         _foodsProvider.getGoalsFood(),
         _evaluationProvider.initialize(),
@@ -69,6 +95,7 @@ void main() async {
       ChangeNotifierProvider.value(value: _evaluationProvider),
       ChangeNotifierProvider.value(value: _storageProvider),
       ChangeNotifierProvider.value(value: _progressProvider),
+      ChangeNotifierProvider.value(value: _firebase),
     ],
     child: const NutriTZ(),
   ));

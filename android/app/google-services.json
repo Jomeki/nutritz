@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "18392306462",
+    "project_id": "nutritz",
+    "storage_bucket": "nutritz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18392306462:android:978bffc2fd9cb181d8af0f",
+        "android_client_info": {
+          "package_name": "com.example.nutriapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtjQKuM8VrDv9rKvps2U7UqeEjq7XVUN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
