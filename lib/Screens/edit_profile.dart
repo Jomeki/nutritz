@@ -552,6 +552,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
      try{
        await Future.wait([
          _authProvider.updateEvaluation(evaluation: Evaluations(
+           id: _user?.evaluation?.id,
              alcohol_intake: selectedAlcoholIntake,
              sleep_hours: selectedSleepHours,
              activity_level: selectedActivityLevel,

@@ -129,8 +129,15 @@ class AuthProvider extends ChangeNotifier {
 
   Future updateUser({required User user}) async {
     log(user.toUpdateProfile().toString());
-    var response = await http.post(Uri.parse("$_baseUrl/user/update"),
-        headers: {"Accept": "application/json"}, body: user.toUpdateProfile());
+
+    String? token = await LocalStorage.getToken();
+    var response = await http.patch(Uri.parse("$_baseUrl/user/update"),
+        headers: {"Accept": "application/json",
+        'Authorization':"Bearer $token"}, body: user.toUpdateProfile());
+
+    log(response.body);
+
+
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {
@@ -149,8 +156,15 @@ class AuthProvider extends ChangeNotifier {
 
   Future updateEvaluation({required Evaluations evaluation}) async {
     log(evaluation.toJson().toString());
-    var response = await http.post(Uri.parse("$_baseUrl/user/update"),
-        headers: {"Accept": "application/json"}, body: evaluation.toJson());
+    String? token = await LocalStorage.getToken();
+
+    var response = await http.patch(Uri.parse("$_baseUrl/evaluation/${evaluation.id}"),
+        headers: {"Accept": "application/json",
+          'Authorization':"Bearer $token"
+        }, body: evaluation.toJson());
+
+    log(response.body);
+
     if (response.statusCode == 200) {
       var output = jsonDecode(response.body);
       try {

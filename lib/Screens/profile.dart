@@ -185,7 +185,7 @@ goalsProvider = Provider.of<GoalsProvider>(context);
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
+                                  horizontal: 8.0, vertical: 2.0),
                               child: Container(
                                 width: 110,
                                 height: 110,
@@ -204,11 +204,14 @@ goalsProvider = Provider.of<GoalsProvider>(context);
                                         fontSize: 15,
                                       ),
                                     ),
-                                    Text(
-                                      healthinfo[i]['data'].toString(),
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.loginHintColor),
+                                    Flexible(
+                                      child: Text(healthinfo[i]['data'].toString(),
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: AppColors.loginHintColor,
+                                            ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     )
                                   ],
                                 ),
